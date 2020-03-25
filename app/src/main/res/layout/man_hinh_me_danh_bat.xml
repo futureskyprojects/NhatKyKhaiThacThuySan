@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.me_danh_bat.ManHinhMeDanhBat">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/mhmdbBottomContainer">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/item_me_danh_bat" />
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/mhmdbBottomContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/mhmdbBtnThemMeMoi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="@dimen/default_margin"
+            android:background="@drawable/btn_info"
+            android:padding="@dimen/default_padding"
+            android:text="Thêm mẻ mới"
+            android:textColor="#FFF"
+            android:textSize="@dimen/default_font_size" />
+
+        <Button
+            android:id="@+id/mhmdbBtnKetThucChuyenDiBien"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/default_margin"
+            android:background="@drawable/btn_error"
+            android:padding="@dimen/default_padding"
+            android:text="Kết thúc chuyến đi biển"
+            android:textColor="#FFF"
+            android:textSize="@dimen/default_font_size" />
+    </LinearLayout>
+</RelativeLayout>

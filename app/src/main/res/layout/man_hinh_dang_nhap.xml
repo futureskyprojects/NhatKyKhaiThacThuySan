@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.man_hinh_dang_nhap.ManHinhDangNhap">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_gravity="center"
+                android:scaleType="fitXY"
+                android:src="@drawable/your_logo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginBottom="5dp"
+                android:text="Mã tài khoản"
+                android:textColor="#FFF"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/mhdnEdtUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:background="@drawable/default_edt_bg_opacty"
+                android:drawableStart="@drawable/ic_boat"
+                android:drawableLeft="@drawable/ic_boat"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="Mã tài khoản"
+                android:lines="1"
+                android:padding="15dp"
+                android:textSize="@dimen/default_font_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginBottom="5dp"
+                android:text="Mật khẩu"
+                android:textColor="#FFF"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/mhdnEdtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:background="@drawable/default_edt_bg_opacty"
+                android:drawableStart="@drawable/ic_vpn_key"
+                android:drawableLeft="@drawable/ic_vpn_key"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="Mật khẩu"
+                android:inputType="textPassword"
+                android:lines="1"
+                android:padding="15dp"
+                android:textSize="@dimen/default_font_size" />
+
+            <TextView
+                android:id="@+id/mhdnTvForgetPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="3dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="3dp"
+                android:text="Quên mật khẩu?"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/mhdnLoginBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin"
+                android:background="@drawable/btn_info"
+                android:padding="@dimen/default_padding"
+                android:text="Đăng nhập"
+                android:textColor="#FFF"
+                android:textSize="@dimen/default_font_size" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Hoặc"
+                android:textColor="#FFF"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/mhdnRegisterBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin"
+                android:background="@drawable/btn_error"
+                android:padding="@dimen/default_padding"
+                android:text="Đăng ký"
+                android:textColor="#FFF"
+                android:textSize="@dimen/default_font_size" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

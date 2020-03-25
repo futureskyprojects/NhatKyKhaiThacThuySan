@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".ui.danh_sach_nghe.ManHinhDanhSachNghe">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="@dimen/default_corners_radius"
+                    app:cardElevation="@dimen/default_card_shadow">
+
+                    <LinearLayout
+                        android:id="@+id/dsnLnBtnNgheCau"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/default_press_effect"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:orientation="vertical"
+                        android:padding="@dimen/default_padding">
+
+                        <ImageView
+                            android:id="@+id/dsnIvNgheCau"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_nghe_cau_ca" />
+
+                        <TextView
+                            android:id="@+id/dsnTvNgheCau"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:maxLines="2"
+                            android:minLines="2"
+                            android:text="NGHỀ CÂU"
+                            android:textSize="@dimen/default_font_size"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="@dimen/default_corners_radius"
+                    app:cardElevation="@dimen/default_card_shadow">
+
+                    <LinearLayout
+                        android:id="@+id/dsnLnBtnNgheLuoiVay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/default_press_effect"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:orientation="vertical"
+                        android:padding="@dimen/default_padding">
+
+                        <ImageView
+                            android:id="@+id/dsnIvNgheLuoiVay"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_vay_luoi_1" />
+
+                        <TextView
+                            android:id="@+id/dsnTvNgheLuoiVay"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:maxLines="2"
+                            android:minLines="2"
+                            android:text="NGHỀ LƯỚI VÂY, RÊ"
+                            android:textSize="@dimen/default_font_size"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="@dimen/default_corners_radius"
+                    app:cardElevation="@dimen/default_card_shadow">
+
+                    <LinearLayout
+                        android:id="@+id/dsnLnBtnNgheLuoiChup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/default_press_effect"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:orientation="vertical"
+                        android:padding="@dimen/default_padding">
+
+                        <ImageView
+                            android:id="@+id/dsnIvNgheLuoiChup"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_vay_luoi_2" />
+
+                        <TextView
+                            android:id="@+id/dsnTvNgheLuoiChup"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:maxLines="2"
+                            android:minLines="2"
+                            android:text="NGHỀ LƯỚI CHỤP"
+                            android:textSize="@dimen/default_font_size"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="@dimen/default_corners_radius"
+                    app:cardElevation="@dimen/default_card_shadow">
+
+                    <LinearLayout
+                        android:id="@+id/dsnLnBtnNgheLuoiKeo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/default_press_effect"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:orientation="vertical"
+                        android:padding="@dimen/default_padding">
+
+                        <ImageView
+                            android:id="@+id/dsnIvNgheLuoiKeo"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_vay_luoi_3" />
+
+                        <TextView
+                            android:id="@+id/dsnTvNgheLuoiKeo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:maxLines="2"
+                            android:minLines="2"
+                            android:text="NGHỀ LƯỚI KÉO"
+                            android:textSize="@dimen/default_font_size"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="@dimen/default_corners_radius"
+                app:cardElevation="@dimen/default_card_shadow">
+
+                <LinearLayout
+                    android:id="@+id/dsnLnBtnNgheKhac"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/default_press_effect"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="vertical"
+                    android:padding="@dimen/default_padding">
+
+                    <ImageView
+                        android:id="@+id/dsnIvNgheKhac"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_problem" />
+
+                    <TextView
+                        android:id="@+id/dsnTvNgheKhac"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:minLines="2"
+                        android:text="NGHỀ KHÁC"
+                        android:textSize="@dimen/default_font_size"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

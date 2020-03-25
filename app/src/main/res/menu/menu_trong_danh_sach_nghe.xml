@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/mnLichSuChuyenDi"
+        android:icon="@drawable/ic_history"
+        android:title="Lịch sử chuyến đi"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/mnCaiDat"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="Cài đặt"
+        app:showAsAction="always" />
+</menu>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.cung_cap_thong_so_nghe.ManHinhCungCapThongSoNghe">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/mhcctsnTvTitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:layout_marginBottom="5dp"
+            android:text="Chiều dài văng câu"
+            android:textColor="@color/sub_color"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/mhcctsnEdtParam1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:background="@drawable/default_edt_bg"
+            android:drawableStart="@drawable/ic_length"
+            android:drawableLeft="@drawable/ic_length"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="Chiều dài văng câu"
+            android:inputType="numberDecimal"
+            android:padding="15dp"
+            android:textSize="@dimen/default_font_size" />
+
+        <TextView
+            android:id="@+id/mhcctsnTvTitle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:layout_marginBottom="5dp"
+            android:text="Số lưỡi câu"
+            android:textColor="@color/sub_color"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/mhcctsnEdtParam2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:background="@drawable/default_edt_bg"
+            android:drawableStart="@drawable/ic_all_inclusive"
+            android:drawableLeft="@drawable/ic_all_inclusive"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="Số lưỡi câu"
+            android:inputType="numberSigned"
+            android:padding="15dp"
+            android:textSize="@dimen/default_font_size" />
+
+        <Button
+            android:id="@+id/mhcctsnBtnHoanThanh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:background="@drawable/btn_info"
+            android:padding="@dimen/default_padding"
+            android:text="Hoàn thành"
+            android:textColor="#FFF"
+            android:textSize="@dimen/default_font_size" />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.danh_sach_loai.ManHinhDanhSachLoai">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/mhdslBtnThemLoaiKhac"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mhdslRvDsLoai"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/mhdslBtnThemLoaiKhac"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/mhdslBtnKetThucMe"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:background="@drawable/btn_info"
+        android:padding="@dimen/default_padding"
+        android:text="Thêm loài khác"
+        android:textColor="#FFF"
+        android:textSize="@dimen/default_font_size"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/mhdslBtnKetThucMe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/default_margin"
+        android:background="@drawable/btn_error"
+        android:padding="@dimen/default_padding"
+        android:text="Kết thúc mẻ"
+        android:textColor="#FFF"
+        android:textSize="@dimen/default_font_size" />
+
+    <include
+        android:id="@+id/mhdslLayoutNhapSanLuong"
+        layout="@layout/layout_item_san_luong_mac_dinh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+</RelativeLayout>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.thong_tin_me_danh_bat.ManHinhThongTinMeDanhBat">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|start"
+                android:text="Thời gian thả"
+                android:textColor="@color/sub_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/mhttmdbTvThoiGianTha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:background="@drawable/default_edt_bg"
+                android:drawableStart="@drawable/ic_calendar_tw"
+                android:drawableLeft="@drawable/ic_calendar_tw"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:gravity="center|start"
+                android:hint="Thời gian thả"
+                android:inputType="textPersonName|textAutoComplete|textAutoCorrect"
+                android:padding="15dp"
+                android:textSize="@dimen/default_font_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|start"
+                android:text="Vị trí thả"
+                android:textColor="@color/sub_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/mhttmdbTvViTha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+
+                android:background="@drawable/default_edt_bg"
+                android:drawableStart="@drawable/ic_pin"
+                android:drawableLeft="@drawable/ic_pin"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:gravity="center|start"
+                android:hint="Vị trí thả"
+                android:inputType="textPersonName|textAutoComplete|textAutoCorrect"
+                android:padding="15dp"
+                android:textSize="@dimen/default_font_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|start"
+                android:text="Thời gian thu"
+                android:textColor="@color/sub_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/mhttmdbTvThoiGianThu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+
+                android:background="@drawable/default_edt_bg"
+                android:drawableStart="@drawable/ic_calendar_tw"
+                android:drawableLeft="@drawable/ic_calendar_tw"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:gravity="center|start"
+                android:hint="Thời gian thu"
+                android:padding="15dp"
+                android:textSize="@dimen/default_font_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|start"
+                android:text="Vị trí thu"
+                android:textColor="@color/sub_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/mhttmdbTvViTriThu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+
+                android:background="@drawable/default_edt_bg"
+                android:drawableStart="@drawable/ic_pin"
+                android:drawableLeft="@drawable/ic_pin"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:gravity="center|start"
+                android:hint="Vị trí thu"
+                android:inputType="numberDecimal"
+                android:padding="15dp"
+                android:textSize="@dimen/default_font_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginBottom="5dp"
+                android:gravity="center|start"
+                android:text="Tổng sản lượng (tấn)"
+                android:textColor="@color/sub_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/mhttmdbTvTongSanLuong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+
+                android:background="@drawable/default_edt_bg"
+                android:drawableStart="@drawable/ic_weight"
+                android:drawableLeft="@drawable/ic_weight"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:gravity="center|start"
+                android:hint="Tổng sản lượng (tấn)"
+                android:inputType="numberDecimal|textAutoComplete"
+                android:padding="15dp"
+                android:textSize="@dimen/default_font_size" />
+
+            <Button
+                android:id="@+id/mhttmdbBtnLuu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin"
+                android:background="@drawable/btn_info"
+                android:padding="@dimen/default_padding"
+                android:text="Lưu"
+                android:textColor="#FFF"
+                android:textSize="@dimen/default_font_size" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

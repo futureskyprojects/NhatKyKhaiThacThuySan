@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="vn.vistark.nkktts">
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        tools:replace="android:icon">
+        <activity
+            android:name=".ui.man_hinh_dang_nhap.ManHinhDangNhap"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
+            android:name=".ui.thiet_lap.ManHinhThietLap"
+            android:label="Thiết lập" />
+        <activity
+            android:name=".ui.ket_thuc_chuyen_di_bien.ManHinhKetThucChuyenDiBien"
+            android:label="Kết thúc chuyến đi biển" />
+        <activity
+            android:name=".ui.thong_tin_me_danh_bat.ManHinhThongTinMeDanhBat"
+            android:label="Thông tin mẻ" />
+        <activity
+            android:name="vn.vistark.nkktts.ui.danh_sach_loai.ManHinhDanhSachLoai"
+            android:label="Sản lượng mẻ" />
+        <activity
+            android:name=".ui.me_danh_bat.ManHinhMeDanhBat"
+            android:label="Mẻ đánh bắt" />
+        <activity
+            android:name=".ui.chon_cang.ManHinhChonCang"
+            android:label="Chọn cảng" />
+        <activity
+            android:name=".ui.khoi_tao_chuyen_di_bien.ManHinhKhoiTaoChuyenDiBien"
+            android:label="Khởi tạo chuyến đi biển" />
+        <activity
+            android:name=".ui.khai_bao_so_dang_ky.ManHinhKhaiBaoSoDangKy"
+            android:label="Sổ đăng ký" />
+        <activity
+            android:name="vn.vistark.nkktts.ui.cung_cap_thong_so_nghe.ManHinhCungCapThongSoNghe"
+            android:label="Kích thước ngư cụ" />
+        <activity
+            android:name=".ui.danh_sach_nghe.ManHinhDanhSachNghe"
+            android:label="Danh sách nghề"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.khai_bao_thong_tin_ho_so.ManHinhKhaiBaoThongTinHoSo"
+            android:label="Thông tin hồ sơ" />
+        <activity
+            android:name=".ui.man_hinh_khoi_dong.ManHinhKhoiDong"
+            android:theme="@style/WhiteScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
