@@ -13,6 +13,6 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 
 data class Token(
-    @SerializedName("original") val original: Original,
-    @SerializedName("exception") val exception: String
+    @SerializedName("original") val original: Original?,
+    @SerializedName("exception") val exception: String?
 )

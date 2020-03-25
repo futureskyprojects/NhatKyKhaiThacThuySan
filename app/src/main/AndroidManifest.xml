@@ -5,6 +5,9 @@
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -15,9 +18,10 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:icon">
+        <activity android:name=".ui.thong_tin_san_luong.ManHinhThongTinSanLuong"></activity>
         <activity
             android:name=".ui.man_hinh_dang_nhap.ManHinhDangNhap"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".ui.thiet_lap.ManHinhThietLap"
             android:label="Thiết lập" />
@@ -28,7 +32,7 @@
             android:name=".ui.thong_tin_me_danh_bat.ManHinhThongTinMeDanhBat"
             android:label="Thông tin mẻ" />
         <activity
-            android:name="vn.vistark.nkktts.ui.danh_sach_loai.ManHinhDanhSachLoai"
+            android:name=".ui.danh_sach_loai.ManHinhDanhSachLoai"
             android:label="Sản lượng mẻ" />
         <activity
             android:name=".ui.me_danh_bat.ManHinhMeDanhBat"
@@ -43,7 +47,7 @@
             android:name=".ui.khai_bao_so_dang_ky.ManHinhKhaiBaoSoDangKy"
             android:label="Sổ đăng ký" />
         <activity
-            android:name="vn.vistark.nkktts.ui.cung_cap_thong_so_nghe.ManHinhCungCapThongSoNghe"
+            android:name=".ui.cung_cap_thong_so_nghe.ManHinhCungCapThongSoNghe"
             android:label="Kích thước ngư cụ" />
         <activity
             android:name=".ui.danh_sach_nghe.ManHinhDanhSachNghe"

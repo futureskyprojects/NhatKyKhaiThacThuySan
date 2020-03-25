@@ -14,6 +14,6 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 data class GetJobsResponse(
 
-    @SerializedName("message") val message: String,
-    @SerializedName("data") val jobs: List<Jobs>
+    @SerializedName("message") val message: String?,
+    @SerializedName("data") val jobs: List<Jobs>?
 )

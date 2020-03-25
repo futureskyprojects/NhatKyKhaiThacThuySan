@@ -116,10 +116,14 @@ class ManHinhDangNhap : AppCompatActivity() {
                                 val loginResponse = response.body()
                                 if (loginResponse != null) {
                                     // Đăng nhập thành công, thiết lập lại API
-                                    Constants.tokenType = loginResponse.tokenType
-                                    Constants.updateTokenType()
-                                    Constants.userToken = loginResponse.accessToken
-                                    Constants.updateUserToken()
+                                    if (loginResponse.tokenType != null) {
+                                        Constants.tokenType = loginResponse.tokenType
+                                        Constants.updateTokenType()
+                                    }
+                                    if (loginResponse.accessToken != null) {
+                                        Constants.userToken = loginResponse.accessToken
+                                        Constants.updateUserToken()
+                                    }
                                     APIUtils.replaceAPIServices()
                                     // Tiến hành lấy thông tin hồ sơ
                                     getUserProfile()
@@ -135,7 +139,7 @@ class ManHinhDangNhap : AppCompatActivity() {
                                         SimpleNotify.error(
                                             this@ManHinhDangNhap,
                                             "KHÔNG ĐƯỢC",
-                                            if (loginFailResponse.error.isNotEmpty()) loginFailResponse.error else "Sai tài khoản hoặc mật khẩu"
+                                            "Sai tài khoản hoặc mật khẩu"
                                         )
                                         processed()
                                         return

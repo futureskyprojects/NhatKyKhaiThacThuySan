@@ -1,7 +1,9 @@
 package vn.vistark.nkktts.core.constants
 
+import TheTripStorage
 import UserInfo
 import android.content.SharedPreferences
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import vn.vistark.nkktts.core.models.selected_job.SelectedJob
@@ -24,6 +26,7 @@ class Constants {
         var tokenType: String = ""
         var userInfo: UserInfo = UserInfo()
         var selectedJob: SelectedJob = SelectedJob()
+        var currentTrip: TheTripStorage = TheTripStorage()
 
         fun logOut(): Boolean {
             userId = ""
@@ -47,6 +50,8 @@ class Constants {
                     selectedJob =
                         GsonBuilder().create().fromJson(tempSelectedJob, SelectedJob::class.java)
                 }
+                currentTrip = OfflineDataStorage.get<TheTripStorage>(OfflineDataStorage.trip)
+                    ?: TheTripStorage()
                 return true
             } else {
                 return false
@@ -60,9 +65,15 @@ class Constants {
                         && updateTokenType()
                         && updateUserInfo()
                         && updateSelectedJob()
+                        && updateCurrentTrip()
             } else {
                 return false
             }
+        }
+
+        fun updateCurrentTrip(): Boolean {
+            Log.w("TRIP", GsonBuilder().create().toJson(currentTrip))
+            return OfflineDataStorage.saveData(OfflineDataStorage.trip, currentTrip)
         }
 
         fun updateUserId(): Boolean {
@@ -110,6 +121,26 @@ class Constants {
 
         fun isLoggedIn(): Boolean {
             return (tokenType.isNotEmpty() && userToken.isNotEmpty())
+        }
+
+        fun isCreatingNewHaul(): Boolean {
+            if (currentTrip.trip.hauls.isNotEmpty()) {
+                currentTrip.trip.hauls.forEach { haul ->
+                    Log.w("HAUL-CHECK", GsonBuilder().create().toJson(haul))
+                    if (haul.timeCollectingNets.isEmpty() || haul.latCollecting.isEmpty() || haul.lngCollecting.isEmpty()) {
+                        Hauls.currentHault = haul
+                        Log.w("HAUL-CHECK", "TRUEEEEEEEEEEEEE")
+                        return true
+                    }
+                }
+                return false
+            } else {
+                return false
+            }
+        }
+
+        fun isSelectedDeparturePortAndStarted(): Boolean {
+            return (currentTrip.trip.departurePort >= 0 && currentTrip.trip.departureTime.isNotEmpty())
         }
 
         fun isSelectedJob(): Boolean {

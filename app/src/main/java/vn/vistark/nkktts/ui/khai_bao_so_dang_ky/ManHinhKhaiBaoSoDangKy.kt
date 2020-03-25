@@ -136,15 +136,20 @@ class ManHinhKhaiBaoSoDangKy : AppCompatActivity(), DatePickerDialog.OnDateSetLi
                             if (response.code() == 200) {
                                 val registerSuccess = response.body()
                                 if (registerSuccess != null) {
-                                    if (registerSuccess.status == 200) {
+                                    if (registerSuccess.status == 200 && registerSuccess.data != null) {
                                         Constants.userId = registerSuccess.data.id.toString()
                                         Constants.updateUserId()
-                                        Constants.userToken =
-                                            registerSuccess.data.token.original.access_token
-                                        Constants.updateUserToken()
-                                        Constants.tokenType =
-                                            registerSuccess.data.token.original.token_type
-                                        Constants.updateTokenType()
+                                        if (registerSuccess.data.token?.original?.access_token != null) {
+                                            Constants.userToken =
+                                                registerSuccess.data.token.original.access_token
+                                            Constants.updateUserToken()
+                                        }
+
+                                        if (registerSuccess.data.token?.original?.token_type != null) {
+                                            Constants.tokenType =
+                                                registerSuccess.data.token.original.token_type
+                                            Constants.updateTokenType()
+                                        }
                                         processed()
                                         //========== ĐĂNG KÝ THÀNH CÔNG ========//
                                         if (!isEditingProfile) {
@@ -162,11 +167,11 @@ class ManHinhKhaiBaoSoDangKy : AppCompatActivity(), DatePickerDialog.OnDateSetLi
                                     if (errorRes != null) {
                                         val registerFail =
                                             Gson().fromJson(errorRes, RegisterFail::class.java)
-                                        if (registerFail != null) {
+                                        if (registerFail?.message != null && registerFail.errors != null) {
                                             SimpleNotify.warning(
                                                 this@ManHinhKhaiBaoSoDangKy,
                                                 registerFail.message.toUpperCase(),
-                                                if (registerFail.errors.username.isNotEmpty()) registerFail.errors.username[0] else "Số đăng ký tàu đã được đăng ký"
+                                                if (!registerFail.errors.username.isNullOrEmpty()) registerFail.errors.username[0] else "Số đăng ký tàu đã được đăng ký"
                                             )
                                             processed()
                                             return

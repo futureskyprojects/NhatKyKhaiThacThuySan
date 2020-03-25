@@ -3,6 +3,7 @@ package vn.vistark.nkktts.core.api
 import CheckUser
 import GetJobsResponse
 import LoginResponse
+import PreviousTripNumberReponse
 import ProfileResponse
 import RegisterSuccess
 import SeaPortsReponse
@@ -47,4 +48,8 @@ public interface APIServices {
     //=============== Get Spices API =================================//
     @GET("/api/requests/species")
     fun getSpices(): Call<SpicesResponse>
+
+    //============== GET previous trip number ==========================//
+    @GET("/api/requests/trip_number")
+    fun getPreviousTripNumber(): Call<PreviousTripNumberReponse>
 }

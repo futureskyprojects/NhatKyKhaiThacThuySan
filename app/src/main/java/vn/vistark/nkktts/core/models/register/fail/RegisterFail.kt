@@ -14,7 +14,7 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 data class RegisterFail(
 
-    @SerializedName("status") val status: Int,
-    @SerializedName("message") val message: String,
-    @SerializedName("errors") val errors: Errors
+    @SerializedName("status") val status: Int?,
+    @SerializedName("message") val message: String?,
+    @SerializedName("errors") val errors: Errors?
 )

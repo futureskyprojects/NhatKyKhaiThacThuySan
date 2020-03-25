@@ -14,7 +14,7 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 data class SeaPortsReponse(
 
-    @SerializedName("status") val status: Int,
-    @SerializedName("message") val message: String,
-    @SerializedName("data") val seaPorts: List<SeaPorts>
+    @SerializedName("status") val status: Int?,
+    @SerializedName("message") val message: String?,
+    @SerializedName("data") val seaPorts: List<SeaPorts>?
 )

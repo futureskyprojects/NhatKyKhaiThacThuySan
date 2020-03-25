@@ -2,6 +2,9 @@ package vn.vistark.nkktts.ui.chon_cang
 
 import SeaPorts
 import SeaPortsReponse
+import TheTripStorage
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,6 +18,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import vn.vistark.nkktts.R
 import vn.vistark.nkktts.core.api.APIUtils
+import vn.vistark.nkktts.core.constants.Constants
 import vn.vistark.nkktts.core.constants.OfflineDataStorage
 import vn.vistark.nkktts.utils.SimpleNotify
 import vn.vistark.nkktts.utils.ToolbarBackButton
@@ -58,7 +62,18 @@ class ManHinhChonCang : AppCompatActivity() {
         mhccRvDanhSachCangBien.layoutManager = LinearLayoutManager(this)
         cangAdapter = CangAdapter(seaPorts)
         cangAdapter.onPortClick = {
-
+            if (loaiCang == cangDi) {
+                Constants.currentTrip = TheTripStorage()
+                Constants.currentTrip.trip.departurePort = it.id
+            } else {
+                Constants.currentTrip.trip.destinationPort = it.id
+            }
+            if (Constants.updateCurrentTrip()) {
+                setResult(Activity.RESULT_OK, Intent())
+                finish()
+            } else {
+                SimpleNotify.error(this, "CHỌN CẢNG KHÔNG ĐƯỢC", "")
+            }
         }
         mhccRvDanhSachCangBien.adapter = cangAdapter
     }
@@ -79,7 +94,7 @@ class ManHinhChonCang : AppCompatActivity() {
         processing()
         val seaPortsReponse =
             OfflineDataStorage.get<SeaPortsReponse>(OfflineDataStorage.seaPorts)
-        if (seaPortsReponse != null) {
+        if (seaPortsReponse?.seaPorts != null) {
             initDsCangBien(seaPortsReponse.seaPorts)
         } else {
             SimpleNotify.error(

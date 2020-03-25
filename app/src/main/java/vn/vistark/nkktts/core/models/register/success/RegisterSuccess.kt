@@ -14,7 +14,7 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 data class RegisterSuccess(
 
-    @SerializedName("status") val status: Int,
-    @SerializedName("message") val message: String,
-    @SerializedName("data") val data: Data
+    @SerializedName("status") val status: Int?,
+    @SerializedName("message") val message: String?,
+    @SerializedName("data") val data: Data?
 )

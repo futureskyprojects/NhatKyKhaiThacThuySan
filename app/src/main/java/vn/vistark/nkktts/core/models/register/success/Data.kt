@@ -12,10 +12,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar */
 
 
-data class Data (
+data class Data(
 
-	@SerializedName("id") val id : Int,
-	@SerializedName("captain") val captain : String,
-	@SerializedName("created_at") val created_at : String,
-	@SerializedName("token") val token : Token
+    @SerializedName("id") val id: Int?,
+    @SerializedName("captain") val captain: String?,
+    @SerializedName("created_at") val created_at: String?,
+    @SerializedName("token") val token: Token?
 )

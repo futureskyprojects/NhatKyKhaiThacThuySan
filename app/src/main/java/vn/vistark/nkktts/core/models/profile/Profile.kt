@@ -14,18 +14,18 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 data class Profile(
 
-    @SerializedName("id") val id: Int,
-    @SerializedName("shipowner") val shipOwner: String,
-    @SerializedName("captain") val captain: String,
-    @SerializedName("ship_number") val shipNumber: String,
-    @SerializedName("length_ship") val lengthShip: Int,
-    @SerializedName("power") val power: Int,
-    @SerializedName("fishing_license") val fishingLicense: String,
-    @SerializedName("duration") val duration: String,
-    @SerializedName("second_job") val secondJob: String,
-    @SerializedName("phone") val phone: String,
-    @SerializedName("image") val image: String,
-    @SerializedName("status") val status: Int,
-    @SerializedName("created_at") val createdAt: String,
-    @SerializedName("updated_at") val updatedAt: String
+    @SerializedName("id") val id: Int?,
+    @SerializedName("shipowner") val shipOwner: String?,
+    @SerializedName("captain") val captain: String?,
+    @SerializedName("ship_number") val shipNumber: String?,
+    @SerializedName("length_ship") val lengthShip: Int?,
+    @SerializedName("power") val power: Int?,
+    @SerializedName("fishing_license") val fishingLicense: String?,
+    @SerializedName("duration") val duration: String?,
+    @SerializedName("second_job") val secondJob: String?,
+    @SerializedName("phone") val phone: String?,
+    @SerializedName("image") val image: String?,
+    @SerializedName("status") val status: Int?,
+    @SerializedName("created_at") val createdAt: String?,
+    @SerializedName("updated_at") val updatedAt: String?
 )

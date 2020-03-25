@@ -17,10 +17,18 @@ class SpiceViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
     fun bind(spices: Spices) {
         ilTvTenLoai.text = spices.name
-        if (spices.image.isNotEmpty()) {
+        if (spices.image != null && spices.image.isNotEmpty()) {
             val bm = Base64ToBitmap.process(spices.image)
             if (bm != null) {
                 ilIvLoai.setImageBitmap(bm)
+            }
+        }
+
+        if (Hauls.currentHault.spices.isNotEmpty()) {
+            for (spice in Hauls.currentHault.spices) {
+                if (spice.id == spices.id) {
+                    ilTvSanLuong.text = spice.weight.toString()
+                }
             }
         }
     }

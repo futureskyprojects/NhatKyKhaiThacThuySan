@@ -14,6 +14,6 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 data class LoginFailResponse(
 
-    @SerializedName("status") val status: Int,
-    @SerializedName("error") val error: String
+    @SerializedName("status") val status: Int?,
+    @SerializedName("error") val error: String?
 )

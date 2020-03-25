@@ -15,7 +15,7 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 data class Jobs(
 
     @SerializedName("id") val id: Int,
-    @SerializedName("job_name") val jobName: String,
-    @SerializedName("image") val image: String,
-    @SerializedName("status") val status: Int
+    @SerializedName("job_name") val jobName: String?,
+    @SerializedName("image") val image: String?,
+    @SerializedName("status") val status: Int?
 )

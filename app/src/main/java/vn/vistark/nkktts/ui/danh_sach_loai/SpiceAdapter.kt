@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import vn.vistark.nkktts.R
 
 class SpiceAdapter(val spices: List<Spices>) : RecyclerView.Adapter<SpiceViewHolder>() {
+
+    var onSpiceClick: ((Spices) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpiceViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.item_loai, parent, false)
         return SpiceViewHolder(v)
@@ -19,6 +22,9 @@ class SpiceAdapter(val spices: List<Spices>) : RecyclerView.Adapter<SpiceViewHol
     override fun onBindViewHolder(holder: SpiceViewHolder, position: Int) {
         val spice = spices[position]
         holder.bind(spice)
+        holder.ilLnLoai.setOnClickListener {
+            onSpiceClick?.invoke(spice)
+        }
     }
 
 }

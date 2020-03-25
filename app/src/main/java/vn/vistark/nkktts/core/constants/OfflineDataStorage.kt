@@ -8,6 +8,7 @@ class OfflineDataStorage {
         val jobs = "JOB_OFFLINE_DATA_STORAGE"
         val seaPorts = "SEA_PORTS_OFFLINE_DATA_STORAGE"
         val spices = "SPICES_OFFLINE_DATA_STORAGE"
+        val trip = "TRIP_OFFLINCE_DATA_STORAGE"
 
         fun <T> saveData(dataKey: String, `object`: T): Boolean {
             if (Constants.sharedPreferences != null) {

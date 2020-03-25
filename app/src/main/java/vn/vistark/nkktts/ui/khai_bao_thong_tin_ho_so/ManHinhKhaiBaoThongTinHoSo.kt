@@ -146,7 +146,7 @@ class ManHinhKhaiBaoThongTinHoSo : AppCompatActivity() {
                                 SimpleNotify.warning(
                                     this@ManHinhKhaiBaoThongTinHoSo,
                                     "BỊ TRÙNG",
-                                    if (checkUser.errors.username.isNotEmpty()) checkUser.errors.username[0] else "Số đăng ký tàu đã tồn tại"
+                                    "Số đăng ký tàu đã tồn tại"
                                 )
                             }
                             return

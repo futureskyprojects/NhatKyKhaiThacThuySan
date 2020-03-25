@@ -12,9 +12,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar */
 
 
-data class Original(
+data class PreviousTripNumberReponse(
 
-    @SerializedName("access_token") val access_token: String?,
-    @SerializedName("token_type") val token_type: String?,
-    @SerializedName("expires_in") val expires_in: Int?
+    @SerializedName("status") val status: Int,
+    @SerializedName("message") val message: String,
+    @SerializedName("data") val previousTripNumber: PreviousTripNumber
 )

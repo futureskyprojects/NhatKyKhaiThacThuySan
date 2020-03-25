@@ -12,9 +12,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar */
 
 
-data class Original(
-
-    @SerializedName("access_token") val access_token: String?,
-    @SerializedName("token_type") val token_type: String?,
-    @SerializedName("expires_in") val expires_in: Int?
+data class CatchedSpices(
+    @SerializedName("id") var id: Int = -1,
+    @SerializedName("name") var name: String = "",
+    @SerializedName("weight") var weight: Float = -1F
 )

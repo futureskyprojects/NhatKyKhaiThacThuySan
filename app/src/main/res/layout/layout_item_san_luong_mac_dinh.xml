@@ -27,13 +27,16 @@
                 android:src="@drawable/ic_de_mo_fish" />
 
             <TextView
+                android:id="@+id/islmdTenLoai"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_toStartOf="@id/islmdIvBtnNutDong"
                 android:layout_toLeftOf="@id/islmdIvBtnNutDong"
                 android:layout_toEndOf="@id/islmdHinhAnhLoai"
                 android:layout_toRightOf="@id/islmdHinhAnhLoai"
+                android:ellipsize="marquee"
                 android:gravity="center"
+                android:singleLine="true"
                 android:text="CÁ THU"
                 android:textColor="#000000"
                 android:textSize="@dimen/default_font_size"

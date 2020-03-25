@@ -56,7 +56,7 @@ class ManHinhDanhSachNghe : AppCompatActivity() {
     fun job1(jobs: Jobs) {
         initJobSelectionEvent(dsnLnBtnNgheCau, jobs.id)
         dsnLnBtnNgheCau.isEnabled = (jobs.status == 1)
-        if (jobs.image.isNotEmpty()) {
+        if (jobs.image != null && jobs.image.isNotEmpty()) {
             val bm = Base64ToBitmap.process(jobs.image)
             dsnIvNgheCau.setImageBitmap(bm)
         }
@@ -66,7 +66,7 @@ class ManHinhDanhSachNghe : AppCompatActivity() {
     fun job2(jobs: Jobs) {
         initJobSelectionEvent(dsnLnBtnNgheLuoiVay, jobs.id)
         dsnLnBtnNgheLuoiVay.isEnabled = (jobs.status == 1)
-        if (jobs.image.isNotEmpty()) {
+        if (jobs.image != null && jobs.image.isNotEmpty()) {
             val bm = Base64ToBitmap.process(jobs.image)
             dsnIvNgheLuoiVay.setImageBitmap(bm)
         }
@@ -76,7 +76,7 @@ class ManHinhDanhSachNghe : AppCompatActivity() {
     fun job3(jobs: Jobs) {
         initJobSelectionEvent(dsnLnBtnNgheLuoiChup, jobs.id)
         dsnLnBtnNgheLuoiChup.isEnabled = (jobs.status == 1)
-        if (jobs.image.isNotEmpty()) {
+        if (jobs.image != null && jobs.image.isNotEmpty()) {
             val bm = Base64ToBitmap.process(jobs.image)
             dsnIvNgheLuoiChup.setImageBitmap(bm)
         }
@@ -86,7 +86,7 @@ class ManHinhDanhSachNghe : AppCompatActivity() {
     fun job4(jobs: Jobs) {
         initJobSelectionEvent(dsnLnBtnNgheLuoiKeo, jobs.id)
         dsnLnBtnNgheLuoiKeo.isEnabled = (jobs.status == 1)
-        if (jobs.image.isNotEmpty()) {
+        if (jobs.image != null && jobs.image.isNotEmpty()) {
             val bm = Base64ToBitmap.process(jobs.image)
             dsnIvNgheLuoiKeo.setImageBitmap(bm)
         }
@@ -95,7 +95,7 @@ class ManHinhDanhSachNghe : AppCompatActivity() {
 
     fun job5(jobs: Jobs) {
         dsnLnBtnNgheKhac.isEnabled = (jobs.status == 1)
-        if (jobs.image.isNotEmpty()) {
+        if (jobs.image != null && jobs.image.isNotEmpty()) {
             val bm = Base64ToBitmap.process(jobs.image)
             dsnIvNgheKhac.setImageBitmap(bm)
         }
@@ -103,15 +103,16 @@ class ManHinhDanhSachNghe : AppCompatActivity() {
     }
 
     fun jobsProcessing(getJobsResponse: GetJobsResponse) {
-        for (job in getJobsResponse.jobs) {
-            when (job.id) {
-                1 -> job1(job)
-                2 -> job2(job)
-                3 -> job3(job)
-                4 -> job4(job)
-                else -> job5(job)
+        if (getJobsResponse.jobs != null)
+            for (job in getJobsResponse.jobs) {
+                when (job.id) {
+                    1 -> job1(job)
+                    2 -> job2(job)
+                    3 -> job3(job)
+                    4 -> job4(job)
+                    else -> job5(job)
+                }
             }
-        }
     }
 
     private fun initJobsDataFromAPI() {

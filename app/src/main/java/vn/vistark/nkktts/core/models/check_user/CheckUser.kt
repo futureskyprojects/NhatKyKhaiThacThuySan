@@ -13,7 +13,7 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 
 data class CheckUser(
-    @SerializedName("status") val status: Int,
-    @SerializedName("message") val message: String,
-    @SerializedName("errors") val errors: ErrorsInCheckUser
+    @SerializedName("status") val status: Int?,
+    @SerializedName("message") val message: String?,
+    @SerializedName("errors") val errors: ErrorsInCheckUser?
 )

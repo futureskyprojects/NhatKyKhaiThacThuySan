@@ -12,9 +12,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar */
 
 
-data class Original(
+data class Trip(
 
-    @SerializedName("access_token") val access_token: String?,
-    @SerializedName("token_type") val token_type: String?,
-    @SerializedName("expires_in") val expires_in: Int?
+    @SerializedName("trip_number") var tripNumber: Int = -1,
+    @SerializedName("captain_id") var captainId: Int = -1,
+    @SerializedName("departure_port") var departurePort: Int = -1,
+    @SerializedName("departure_time") var departureTime: String = "",
+    @SerializedName("destination_port") var destinationPort: Int = -1,
+    @SerializedName("destination_time") var destinationTime: String = "",
+    @SerializedName("submit_time") var submitTime: String = "",
+    @SerializedName("hauls") var hauls: List<Hauls> = emptyList()
 )
