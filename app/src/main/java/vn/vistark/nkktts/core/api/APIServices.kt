@@ -8,6 +8,8 @@ import ProfileResponse
 import RegisterSuccess
 import SeaPortsReponse
 import SpicesResponse
+import SyncSuccess
+import TheTripStorage
 import UpdateSelectedJobResponse
 import UserInfo
 import retrofit2.Call
@@ -52,4 +54,7 @@ public interface APIServices {
     //============== GET previous trip number ==========================//
     @GET("/api/requests/trip_number")
     fun getPreviousTripNumber(): Call<PreviousTripNumberReponse>
+
+    @POST("/api/requests/add")
+    fun syncTrip(@Body theTripStorage: TheTripStorage): Call<SyncSuccess>
 }

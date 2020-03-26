@@ -29,6 +29,7 @@ import kotlinx.android.synthetic.main.man_hinh_danh_sach_loai.*
 import vn.vistark.nkktts.R
 import vn.vistark.nkktts.core.constants.Constants
 import vn.vistark.nkktts.core.constants.OfflineDataStorage
+import vn.vistark.nkktts.ui.me_danh_bat.ManHinhMeDanhBat
 import vn.vistark.nkktts.ui.thong_tin_me_danh_bat.ManHinhThongTinMeDanhBat
 import vn.vistark.nkktts.utils.*
 import java.util.*
@@ -50,6 +51,20 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
 //        ToolbarBackButton(this).show()
         initDanhSachLoai()
         initEvents()
+        initIfNowIsReview()
+    }
+
+    private fun initIfNowIsReview() {
+        if (Hauls.currentHault.timeCollectingNets.isNotEmpty()) {
+            mhdslBtnKetThucMe.setBackgroundResource(R.drawable.btn_info)
+            mhdslBtnKetThucMe.text = "Quay về"
+            mhdslBtnKetThucMe.setOnClickListener {
+                val manHinhMeDanhBatIntent =
+                    Intent(this@ManHinhDanhSachLoai, ManHinhMeDanhBat::class.java)
+                startActivity(manHinhMeDanhBatIntent)
+                ToolbarBackButton(this@ManHinhDanhSachLoai).overrideAnimationOnEnterAndExitActivityReveret()
+            }
+        }
     }
 
     private fun initLocationServices() {
@@ -132,7 +147,7 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
                             orderNumber = Constants.currentTrip.trip.hauls.last().orderNumber + 1
                         }
                         Hauls.currentHault.orderNumber = orderNumber
-                        Hauls.currentHault.timeDropNets = DateTimeUtils.getStringCurrentYMD()
+                        Hauls.currentHault.timeDropNets = DateTimeUtils.getStringCurrentYMDHMS()
                         Hauls.currentHault.latDrop =
                             SimpfyLocationUtils.mLastLocation!!.latitude.toString()
                         Hauls.currentHault.lngDrop =
@@ -265,7 +280,9 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
         }
         adapter = SpiceAdapter(spicesInJobs)
         adapter.onSpiceClick = {
-            showBottomSheetCapNhatSanLuong(it)
+            // Nếu không phải xem lại
+            if (Hauls.currentHault.timeCollectingNets.isEmpty())
+                showBottomSheetCapNhatSanLuong(it)
         }
         mhdslRvDsLoai.adapter = adapter
     }

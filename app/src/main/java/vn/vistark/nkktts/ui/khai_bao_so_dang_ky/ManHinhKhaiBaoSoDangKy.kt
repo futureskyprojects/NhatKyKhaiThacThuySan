@@ -93,8 +93,6 @@ class ManHinhKhaiBaoSoDangKy : AppCompatActivity(), DatePickerDialog.OnDateSetLi
                 isFully = false
             } else if (duration.isBlank() || duration.isEmpty()) {
                 isFully = false
-            } else if (secondJob.isBlank() || secondJob.isEmpty()) {
-                isFully = false
             }
             if (!isFully) {
                 SimpleNotify.warning(

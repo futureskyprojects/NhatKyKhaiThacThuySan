@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import cn.pedant.SweetAlert.SweetAlertDialog
 import vn.vistark.nkktts.R
 import vn.vistark.nkktts.core.constants.Constants
+import vn.vistark.nkktts.core.models.trip_history.TripHistory
 import vn.vistark.nkktts.ui.danh_sach_loai.ManHinhDanhSachLoai
 import vn.vistark.nkktts.ui.danh_sach_nghe.ManHinhDanhSachNghe
 import vn.vistark.nkktts.ui.khoi_tao_chuyen_di_bien.ManHinhKhoiTaoChuyenDiBien
@@ -99,6 +100,7 @@ class ManHinhKhoiDong : AppCompatActivity() {
                 }
             }, 500)
         } else {
+            TripHistory.getHistory()
             Constants.readAllSavedData()
             // Kiểm tra xem đã đăng nhập chưa
             if (Constants.isLoggedIn()) {

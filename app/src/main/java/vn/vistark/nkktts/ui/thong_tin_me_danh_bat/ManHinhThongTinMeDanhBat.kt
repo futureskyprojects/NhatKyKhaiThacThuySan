@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.man_hinh_thong_tin_me_danh_bat.*
 import vn.vistark.nkktts.R
+import vn.vistark.nkktts.core.constants.Constants
 import vn.vistark.nkktts.ui.me_danh_bat.ManHinhMeDanhBat
 import vn.vistark.nkktts.ui.danh_sach_loai.ManHinhDanhSachLoai
 import vn.vistark.nkktts.utils.DateTimeUtils
@@ -37,7 +38,7 @@ class ManHinhThongTinMeDanhBat : AppCompatActivity() {
             }
             mhttmdbTvThoiGianTha.text = Hauls.currentHault.timeDropNets
             mhttmdbTvViTha.text = "${Hauls.currentHault.latDrop},${Hauls.currentHault.lngDrop}"
-            mhttmdbTvThoiGianThu.text = DateTimeUtils.getStringCurrentYMD()
+            mhttmdbTvThoiGianThu.text = DateTimeUtils.getStringCurrentYMDHMS()
             mhttmdbTvViTriThu.text =
                 "${Hauls.currentHault.latCollecting},${Hauls.currentHault.lngCollecting}"
             mhttmdbTvTongSanLuong.text = (calSum / 1000).toString()
@@ -51,10 +52,11 @@ class ManHinhThongTinMeDanhBat : AppCompatActivity() {
                 for (i in Hauls.currentHault.spices.indices) {
                     Hauls.currentHault.timeCollectingNets =
                         mhttmdbTvThoiGianThu.text.toString()
+                    Hauls.updateHault()
                     isUpdated = true
                 }
             }
-            if (isUpdated) {
+            if (isUpdated && Constants.updateCurrentTrip()) {
                 val manHinhMeDanhBatIntent = Intent(this, ManHinhMeDanhBat::class.java)
                 startActivity(manHinhMeDanhBatIntent)
                 finish()

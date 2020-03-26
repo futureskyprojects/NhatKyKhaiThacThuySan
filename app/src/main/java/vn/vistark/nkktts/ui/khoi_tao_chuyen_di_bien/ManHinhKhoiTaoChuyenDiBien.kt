@@ -16,7 +16,7 @@ import vn.vistark.nkktts.utils.SimpleNotify
 
 class ManHinhKhoiTaoChuyenDiBien : AppCompatActivity() {
     companion object {
-        const val requestDeparturePortCode = 1002
+        const val requestSeaPortCode = 1002
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +48,7 @@ class ManHinhKhoiTaoChuyenDiBien : AppCompatActivity() {
         mhktcdbLnChonCang.setOnClickListener {
             val intent = Intent(this, ManHinhChonCang::class.java)
             intent.putExtra(ManHinhChonCang.chonLoaiCang, ManHinhChonCang.cangDi)
-            startActivityForResult(intent, requestDeparturePortCode)
+            startActivityForResult(intent, requestSeaPortCode)
         }
 
         ktcdbBtnBatDau.setOnClickListener {
@@ -68,7 +68,7 @@ class ManHinhKhoiTaoChuyenDiBien : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == requestDeparturePortCode) {
+        if (requestCode == requestSeaPortCode) {
             if (resultCode == Activity.RESULT_OK) {
                 showPreviousSelectedSeaPort()
             }

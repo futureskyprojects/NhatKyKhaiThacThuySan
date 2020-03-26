@@ -21,5 +21,6 @@ data class Trip(
     @SerializedName("destination_port") var destinationPort: Int = -1,
     @SerializedName("destination_time") var destinationTime: String = "",
     @SerializedName("submit_time") var submitTime: String = "",
-    @SerializedName("hauls") var hauls: List<Hauls> = emptyList()
+    @SerializedName("hauls") var hauls: List<Hauls> = emptyList(),
+    @SerializedName("is_synced") var isSynced: Boolean = false
 )

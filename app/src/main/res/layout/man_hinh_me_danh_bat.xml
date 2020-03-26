@@ -6,18 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.me_danh_bat.ManHinhMeDanhBat">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/mhmdbBottomContainer">
 
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mhmdbRvDsMeDanhBat"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <include layout="@layout/item_me_danh_bat" />
-        </LinearLayout>
-    </ScrollView>
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/mhmdbBottomContainer"
