@@ -12,9 +12,9 @@ class OfflineDataStorage {
         val tripHistory = "TRIP_HISTORY_OFFLINE_DATA_STORAGE"
 
         fun <T> saveData(dataKey: String, `object`: T): Boolean {
-            if (Constants.sharedPreferences != null) {
+            if (Constants.sharedPreferencesForOfflineData != null) {
                 val jsonString = GsonBuilder().create().toJson(`object`)
-                return Constants.sharedPreferences?.edit()?.putString(
+                return Constants.sharedPreferencesForOfflineData?.edit()?.putString(
                     dataKey,
                     jsonString
                 )!!.commit()
@@ -24,14 +24,13 @@ class OfflineDataStorage {
         }
 
         inline fun <reified T> get(key: String): T? {
-            if (Constants.sharedPreferences != null) {
-                val jsonString = Constants.sharedPreferences?.getString(key, null)
+            if (Constants.sharedPreferencesForOfflineData != null) {
+                val jsonString = Constants.sharedPreferencesForOfflineData?.getString(key, null)
                 if (jsonString != null) {
                     return GsonBuilder().create().fromJson(jsonString, T::class.java)
                 }
             }
             return null
-
         }
     }
 }

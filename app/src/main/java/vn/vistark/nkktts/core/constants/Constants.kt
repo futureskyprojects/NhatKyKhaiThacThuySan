@@ -24,6 +24,7 @@ class Constants {
         }
 
         var sharedPreferences: SharedPreferences? = null
+        var sharedPreferencesForOfflineData: SharedPreferences? = null
         var userId: String = ""
         var userToken: String = ""
         var tokenType: String = ""

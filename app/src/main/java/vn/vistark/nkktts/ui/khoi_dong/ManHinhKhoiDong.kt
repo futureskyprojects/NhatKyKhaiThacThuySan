@@ -100,6 +100,11 @@ class ManHinhKhoiDong : AppCompatActivity() {
     private fun initPre() {
         Constants.sharedPreferences =
             getSharedPreferences(application.packageName.toUpperCase(), Context.MODE_PRIVATE)
+        Constants.sharedPreferencesForOfflineData =
+            getSharedPreferences(
+                application.packageName.toUpperCase() + "_FOR_SAVE_OFFLINE_DATA",
+                Context.MODE_PRIVATE
+            )
     }
 
     private fun chuyenQuaManHinhDangNhap() {
