@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.LocationManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -35,6 +36,23 @@ class ManHinhKhoiDong : AppCompatActivity() {
     val TAG = ManHinhKhoiDong::class.java.simpleName
     lateinit var pDialog: SweetAlertDialog
     private var DONT_NEED_TO_LOAD_OFFLINE_DATAS = false
+
+    val appPermissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+        arrayOf(
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
+        )
+    } else {
+        arrayOf(
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -165,21 +183,21 @@ class ManHinhKhoiDong : AppCompatActivity() {
 
     private fun permissionRequest() {
         // Here, thisActivity is the current activity
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-
+        var isFullGranted = true
+        appPermissions.forEach {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    it
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                isFullGranted = false
+                return@forEach
+            }
+        }
+        if (isFullGranted) {
             ActivityCompat.requestPermissions(
                 this,
-                arrayOf(
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ),
+                appPermissions,
                 1234
             )
         } else {
@@ -198,7 +216,14 @@ class ManHinhKhoiDong : AppCompatActivity() {
     ) {
         when (requestCode) {
             1234 -> {
-                if (grantResults.size >= 2 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                var isFullGranted = true
+                grantResults.forEach {
+                    if (it != PackageManager.PERMISSION_GRANTED) {
+                        isFullGranted = false
+                        return@forEach
+                    }
+                }
+                if (grantResults.size >= appPermissions.size && isFullGranted) {
                     if (DONT_NEED_TO_LOAD_OFFLINE_DATAS) {
                         chuyenQuaManHinhDangNhap()
                     } else {

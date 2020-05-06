@@ -20,6 +20,10 @@ import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.vansuita.pickimage.BuildConfig
+import com.vansuita.pickimage.bean.PickResult
+import com.vansuita.pickimage.bundle.PickSetup
+import com.vansuita.pickimage.dialog.PickImageDialog
 import kotlinx.android.synthetic.main.layout_item_san_luong_mac_dinh.*
 import kotlinx.android.synthetic.main.man_hinh_danh_sach_loai.*
 import vn.vistark.nkktts.R
@@ -366,10 +370,27 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
     fun spiceImagesVisibleManager(sis: Array<String>) {
         hideAllSpiceImages()
         for (i in sis.indices) {
-            getSpicesImageView(i + 1).visibility = View.VISIBLE
+            // current image
+            val currentImage = getSpicesImageView(i + 1)
+            currentImage.visibility = View.VISIBLE
+            // next image if have
             if (i + 1 <= MAX_SPICE_IMAGES) {
-                getSpicesImageView(i + 2).visibility = View.VISIBLE
+                val nextImage = getSpicesImageView(i + 2)
+                nextImage.visibility = View.VISIBLE
+                nextImage.setOnClickListener {
+                    PickImageDialog.build(PickSetup()) { pr ->
+                        onPickResult(nextImage, pr)
+                    }
+                }
             }
+        }
+    }
+
+    private fun onPickResult(iv: ImageView, r: PickResult?) {
+        if (r != null && r.error == null) {
+            iv.setImageBitmap(r.bitmap)
+        } else {
+
         }
     }
 
@@ -382,6 +403,8 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
             )
         )
     }
+
+
 //    override fun onSupportNavigateUp(): Boolean {
 //        onBackPressed()
 //        return true
