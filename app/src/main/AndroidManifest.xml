@@ -67,7 +67,7 @@
             android:label="Thông tin hồ sơ" />
         <activity
             android:name=".ui.khoi_dong.ManHinhKhoiDong"
-            android:theme="@style/WhiteScreen">
+            android:theme="@style/FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

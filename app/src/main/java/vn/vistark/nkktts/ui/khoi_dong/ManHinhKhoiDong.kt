@@ -61,7 +61,9 @@ class ManHinhKhoiDong : AppCompatActivity() {
             intent.getBooleanExtra("DONT_NEED_TO_LOAD_OFFLINE_DATAS", false)
         initPreComponents()
         initPre()
-        DataInitialize() // Fetch data from internet
+        if (!DONT_NEED_TO_LOAD_OFFLINE_DATAS) {
+            DataInitialize() // Fetch data from internet
+        }
         permissionRequest()
     }
 
@@ -194,7 +196,7 @@ class ManHinhKhoiDong : AppCompatActivity() {
                 return@forEach
             }
         }
-        if (isFullGranted) {
+        if (!isFullGranted) {
             ActivityCompat.requestPermissions(
                 this,
                 appPermissions,

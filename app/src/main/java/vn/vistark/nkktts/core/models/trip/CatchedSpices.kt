@@ -16,5 +16,5 @@ data class CatchedSpices(
     @SerializedName("id") var id: Int = -1,
     @SerializedName("name") var name: String = "",
     @SerializedName("weight") var weight: Float = -1F,
-    @SerializedName("image") var images: String = ""
+    @SerializedName("image") var images: String = "[]"
 )

@@ -45,6 +45,4 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 
-    implementation 'com.github.jrvansuita:PickImage:2.2.4'
-
 }

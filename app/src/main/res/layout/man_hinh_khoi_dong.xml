@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF"
+    android:background="#18cfef"
     tools:context=".ui.khoi_dong.ManHinhKhoiDong">
 
     <LinearLayout
@@ -18,13 +18,14 @@
             android:layout_height="@dimen/logo_size"
             android:layout_gravity="center"
             android:scaleType="fitXY"
-            android:src="@drawable/your_logo" />
+            android:src="@mipmap/ic_launcher" />
 
         <ProgressBar
-            android:layout_width="@dimen/scroll_size"
+            android:layout_width="60dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:progressDrawable="@drawable/pgr_drawable" />
 
     </LinearLayout>
 
