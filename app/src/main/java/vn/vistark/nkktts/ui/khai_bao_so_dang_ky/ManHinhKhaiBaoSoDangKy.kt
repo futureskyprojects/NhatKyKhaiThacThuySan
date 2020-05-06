@@ -7,6 +7,7 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.widget.DatePicker
 import androidx.appcompat.app.AppCompatActivity
 import cn.pedant.SweetAlert.SweetAlertDialog
@@ -30,6 +31,7 @@ import java.util.*
 class ManHinhKhaiBaoSoDangKy : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     lateinit var pDialog: SweetAlertDialog
     var isEditingProfile = false
+    val TAG = ManHinhKhaiBaoSoDangKy::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -135,8 +137,15 @@ class ManHinhKhaiBaoSoDangKy : AppCompatActivity(), DatePickerDialog.OnDateSetLi
                                 val registerSuccess = response.body()
                                 if (registerSuccess != null) {
                                     if (registerSuccess.status == 200 && registerSuccess.data != null) {
-                                        Constants.userId = registerSuccess.data.id.toString()
-                                        Constants.updateUserId()
+                                        Constants.userId = "${registerSuccess.data.id}"
+                                        if (Constants.updateUserId()) {
+                                            Log.w(TAG, "Cập nhật user_id lỗi")
+                                        } else {
+                                            Log.w(
+                                                TAG,
+                                                "Cập nhật user_id thành công: ${Constants.userId}"
+                                            )
+                                        }
                                         if (registerSuccess.data.token?.original?.access_token != null) {
                                             Constants.userToken =
                                                 registerSuccess.data.token.original.access_token

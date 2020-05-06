@@ -1,15 +1,18 @@
 package vn.vistark.nkktts.ui.ket_thuc_chuyen_di_bien
 
 import PreviousTripNumberReponse
+import ProfileResponse
 import SeaPortsReponse
 import SyncSuccess
 import TheTripStorage
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.man_hinh_ket_thuc_chuyen_di_bien.*
 import kotlinx.android.synthetic.main.man_hinh_ket_thuc_chuyen_di_bien.mhktcdbLnChonCang
@@ -30,13 +33,26 @@ import vn.vistark.nkktts.utils.SimpleNotify
 import vn.vistark.nkktts.utils.ToolbarBackButton
 
 class ManHinhKetThucChuyenDiBien : AppCompatActivity() {
+    lateinit var pDialog: SweetAlertDialog
+    private fun initPreComponents() {
+        // Progress dialog
+        pDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
+        pDialog.progressHelper.barColor = Color.parseColor("#A5DC86")
+        pDialog.titleText = "Đang xử lý"
+        pDialog.setCancelable(false)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.man_hinh_ket_thuc_chuyen_di_bien)
+        initPreComponents()
         ToolbarBackButton(this).show()
 
         initEvents()
+    }
+
+    private fun errNotify() {
+        SimpleNotify.error(this, "Oops...", "Vui lòng thử lại")
     }
 
     private fun initEvents() {
@@ -47,56 +63,91 @@ class ManHinhKetThucChuyenDiBien : AppCompatActivity() {
         }
 
         mhktcdbBtnNopNhatKy.setOnClickListener {
+            if (!pDialog.isShowing) {
+                pDialog.show()
+            }
             if (Constants.currentTrip.trip.destinationPort >= 0) {
-                Constants.currentTrip.trip.captainId = Constants.userId.toInt()
-                Constants.currentTrip.trip.destinationTime = DateTimeUtils.getStringCurrentYMD()
-                Constants.currentTrip.trip.submitTime = DateTimeUtils.getStringCurrentYMD()
-                //
-                APIUtils.mAPIServices?.syncTrip(Constants.currentTrip)
-                    ?.enqueue(object : Callback<SyncSuccess> {
-                        override fun onFailure(call: Call<SyncSuccess>, t: Throwable) {
-                            SimpleNotify.success(
-                                this@ManHinhKetThucChuyenDiBien,
-                                "CẦN KẾT NỐI INTERNET",
-                                ""
-                            )
-                        }
-
-                        override fun onResponse(
-                            call: Call<SyncSuccess>,
-                            response: Response<SyncSuccess>
-                        ) {
-                            TripHistory.add(Constants.currentTrip)
-                            Constants.currentTrip = TheTripStorage()
-                            Constants.updateCurrentTrip()
-                            if (response.isSuccessful) {
-                                Toast.makeText(
-                                    this@ManHinhKetThucChuyenDiBien,
-                                    "Đồng bộ chuyến thành công", Toast.LENGTH_SHORT
-                                ).show()
-                            } else {
-                                Toast.makeText(
-                                    this@ManHinhKetThucChuyenDiBien,
-                                    "Đồng bộ chưa được", Toast.LENGTH_SHORT
-                                ).show()
+                if (Constants.userId == "") {
+                    APIUtils.mAPIServices?.profileAPI()
+                        ?.enqueue(object : Callback<ProfileResponse> {
+                            override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
+                                pDialog.dismissWithAnimation()
+                                errNotify()
                             }
-                            // Về màn khởi tạo chuyến đi biển
-                            val ktcdbIntent =
-                                Intent(
-                                    this@ManHinhKetThucChuyenDiBien,
-                                    ManHinhKhoiTaoChuyenDiBien::class.java
-                                )
-                            startActivity(ktcdbIntent)
-                            finish()
-                        }
-                    })
 
-                Log.w("Token", GsonBuilder().create().toJson(Constants.userToken))
-                Log.w("ABC", GsonBuilder().create().toJson(Constants.currentTrip))
+                            override fun onResponse(
+                                call: Call<ProfileResponse>,
+                                response: Response<ProfileResponse>
+                            ) {
+                                if (response.isSuccessful) {
+                                    val profileResponse = response.body()?.profile
+                                    if (profileResponse != null) {
+                                        Constants.userId = "${profileResponse.id}"
+                                        Constants.updateUserId()
+                                        syncCurrentTrip()
+                                        return
+                                    }
+                                }
+                                pDialog.dismissWithAnimation()
+                                errNotify()
+
+                            }
+                        })
+                    return@setOnClickListener
+                }
+                syncCurrentTrip()
             } else {
                 SimpleNotify.error(this, "Chưa chọn cảng", "")
             }
         }
+    }
+
+    private fun syncCurrentTrip() {
+        Constants.currentTrip.trip.captainId = Constants.userId.toInt()
+        Constants.currentTrip.trip.destinationTime = DateTimeUtils.getStringCurrentYMD()
+        Constants.currentTrip.trip.submitTime = DateTimeUtils.getStringCurrentYMD()
+        //
+        APIUtils.mAPIServices?.syncTrip(Constants.currentTrip)
+            ?.enqueue(object : Callback<SyncSuccess> {
+                override fun onFailure(call: Call<SyncSuccess>, t: Throwable) {
+                    SimpleNotify.success(
+                        this@ManHinhKetThucChuyenDiBien,
+                        "CẦN KẾT NỐI INTERNET",
+                        ""
+                    )
+                }
+
+                override fun onResponse(
+                    call: Call<SyncSuccess>,
+                    response: Response<SyncSuccess>
+                ) {
+                    TripHistory.add(Constants.currentTrip)
+                    Constants.currentTrip = TheTripStorage()
+                    Constants.updateCurrentTrip()
+                    if (response.isSuccessful) {
+                        Toast.makeText(
+                            this@ManHinhKetThucChuyenDiBien,
+                            "Đồng bộ chuyến thành công", Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        Toast.makeText(
+                            this@ManHinhKetThucChuyenDiBien,
+                            "Đồng bộ chưa được", Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    // Về màn khởi tạo chuyến đi biển
+                    val ktcdbIntent =
+                        Intent(
+                            this@ManHinhKetThucChuyenDiBien,
+                            ManHinhKhoiTaoChuyenDiBien::class.java
+                        )
+                    startActivity(ktcdbIntent)
+                    finish()
+                }
+            })
+
+        Log.w("Token", GsonBuilder().create().toJson(Constants.userToken))
+        Log.w("ABC", GsonBuilder().create().toJson(Constants.currentTrip))
     }
 
     override fun onSupportNavigateUp(): Boolean {

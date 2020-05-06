@@ -15,6 +15,8 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -312,6 +314,15 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
             ),
             1234
         )
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean { // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu_trong_danh_sach_nghe, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return ToolbarBackButton(this).onOptionsItemSelected(item)
     }
 
 //    override fun onSupportNavigateUp(): Boolean {

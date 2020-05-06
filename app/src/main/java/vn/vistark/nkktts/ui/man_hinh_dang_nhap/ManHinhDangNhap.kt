@@ -20,6 +20,7 @@ import retrofit2.Response
 import vn.vistark.nkktts.R
 import vn.vistark.nkktts.core.api.APIUtils
 import vn.vistark.nkktts.core.constants.Constants
+import vn.vistark.nkktts.ui.change_password.ManHinhDoiMatKhau
 import vn.vistark.nkktts.ui.danh_sach_nghe.ManHinhDanhSachNghe
 import vn.vistark.nkktts.ui.khai_bao_thong_tin_ho_so.ManHinhKhaiBaoThongTinHoSo
 import vn.vistark.nkktts.utils.SimpleNotify
@@ -78,6 +79,12 @@ class ManHinhDangNhap : AppCompatActivity() {
     }
 
     private fun initEvents() {
+        mhdnTvForgetPassword.setOnClickListener {
+            val intent = Intent(this, ManHinhDoiMatKhau::class.java)
+            ManHinhDoiMatKhau.isChangePassword = false
+            startActivity(intent)
+        }
+
         mhdnRegisterBtn.setOnClickListener {
             chuyenQuaManHinhKhaiBaoThongTin()
             finish()

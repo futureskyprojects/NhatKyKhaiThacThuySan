@@ -9,7 +9,10 @@ import com.google.gson.GsonBuilder
 import vn.vistark.nkktts.core.models.selected_job.SelectedJob
 
 class Constants {
+
     companion object {
+        val TAG = Constants::class.java.simpleName
+
         class DataKey {
             companion object {
                 val selectedJob: String = "selectedJob"
@@ -29,16 +32,19 @@ class Constants {
         var currentTrip: TheTripStorage = TheTripStorage()
 
         fun logOut(): Boolean {
-            userId = ""
-            userToken = ""
-            tokenType = ""
-            userInfo = UserInfo()
-            return updateAll()
+            if (sharedPreferences != null) {
+                val editor = sharedPreferences!!.edit()
+                if (editor != null) {
+                    return editor.clear().commit()
+                }
+            }
+            return false
         }
 
         fun readAllSavedData(): Boolean {
             if (sharedPreferences != null) {
                 userId = sharedPreferences?.getString(DataKey.userId, "")!!
+                Log.w(TAG, "Mã người dùng lấy được là ${userId}")
                 userToken = sharedPreferences?.getString(DataKey.userToken, "")!!
                 tokenType = sharedPreferences?.getString(DataKey.tokenType, "")!!
                 val tempUserInfo = sharedPreferences?.getString(DataKey.userInfo, "")

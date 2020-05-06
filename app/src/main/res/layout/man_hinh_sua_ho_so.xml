@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.sua_ho_so.ManHinhSuaHoSo">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginBottom="5dp"
+                android:text="Họ tên chủ tàu"
+                android:textColor="@color/sub_color"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/mhcctsnEdtParam1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:background="@drawable/default_edt_bg"
+                android:drawableStart="@drawable/ic_user_32"
+                android:drawableLeft="@drawable/ic_user_32"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="Họ tên chủ tàu"
+                android:inputType="textPersonName|textAutoComplete|textAutoCorrect"
+                android:lines="1"
+                android:padding="15dp"
+                android:textSize="@dimen/default_font_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginBottom="5dp"
+                android:text="Họ tên thuyền trưởng"
+                android:textColor="@color/sub_color"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/mhkbtthsEdtHoTenThuyenTruong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:background="@drawable/default_edt_bg"
+                android:drawableStart="@drawable/ic_captain"
+                android:drawableLeft="@drawable/ic_captain"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="Họ tên thuyền trưởng"
+                android:inputType="textPersonName|textAutoComplete|textAutoCorrect"
+                android:lines="1"
+                android:padding="15dp"
+                android:textSize="@dimen/default_font_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginBottom="5dp"
+                android:text="Số đăng ký tàu"
+                android:textColor="@color/sub_color"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/mhkbtthsEdtSoDangKyTau"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:background="@drawable/default_edt_bg"
+                android:drawableStart="@drawable/ic_boat"
+                android:drawableLeft="@drawable/ic_boat"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="Số đăng ký tàu"
+                android:lines="1"
+                android:padding="15dp"
+                android:textSize="@dimen/default_font_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginBottom="5dp"
+                android:text="Công suất máy chính (CV)"
+                android:textColor="@color/sub_color"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/mhkbtthsEdtCongSuatMayChinh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+
+                android:background="@drawable/default_edt_bg"
+                android:drawableStart="@drawable/ic_milling_machine"
+                android:drawableLeft="@drawable/ic_milling_machine"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="Công suất máy chính (CV)"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:padding="15dp"
+                android:textSize="@dimen/default_font_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginBottom="5dp"
+                android:text="Chiều dài của tàu (m)"
+                android:textColor="@color/sub_color"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/mhkbtthsEdtChieuDaiCuaTau"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+
+                android:background="@drawable/default_edt_bg"
+                android:drawableStart="@drawable/ic_double_arrow"
+                android:drawableLeft="@drawable/ic_double_arrow"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="Chiều dài của tàu"
+                android:inputType="numberDecimal|textAutoComplete"
+                android:lines="1"
+                android:padding="15dp"
+                android:textSize="@dimen/default_font_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginBottom="5dp"
+                android:text="Số giấy phép khai thác"
+                android:textColor="@color/sub_color"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/mhkbsdkEdtSoGiayPhepKhaiThac"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:background="@drawable/default_edt_bg"
+                android:drawableStart="@drawable/ic_license_plate"
+                android:drawableLeft="@drawable/ic_license_plate"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="Số giấy phép khai thác"
+                android:lines="1"
+                android:padding="15dp"
+                android:textSize="@dimen/default_font_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginBottom="5dp"
+                android:text="Thời hạn"
+                android:textColor="@color/sub_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/mhkbsdkTvThoiHan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:background="@drawable/default_edt_bg"
+                android:clickable="true"
+                android:drawableStart="@drawable/ic_calendar"
+                android:drawableLeft="@drawable/ic_calendar"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:focusable="true"
+                android:gravity="center|left"
+                android:hint="Thời hạn"
+                android:lines="1"
+                android:padding="15dp"
+                android:textSize="@dimen/default_font_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginBottom="5dp"
+                android:text="Nghề phụ"
+                android:textColor="@color/sub_color"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/mhkbsdkEdtNghePhu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:background="@drawable/default_edt_bg"
+                android:drawableStart="@drawable/ic_work"
+                android:drawableLeft="@drawable/ic_work"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="Nghề phụ"
+                android:inputType="textAutoComplete|textAutoCorrect"
+                android:lines="1"
+                android:padding="15dp"
+                android:textSize="@dimen/default_font_size" />
+
+            <Button
+                android:id="@+id/mhshsHoanTat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin"
+                android:background="@drawable/btn_info"
+                android:padding="@dimen/default_padding"
+                android:text="Hoàn tất sửa"
+                android:textColor="#FFF"
+                android:textSize="@dimen/default_font_size" />
+
+            <Button
+                android:id="@+id/mhshsHuy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginBottom="@dimen/default_margin"
+                android:background="@drawable/btn_error"
+                android:padding="@dimen/default_padding"
+                android:text="HỦY"
+                android:textColor="#FFF"
+                android:textSize="@dimen/default_font_size" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -1,6 +1,7 @@
 package vn.vistark.nkktts.ui.cung_cap_thong_so_nghe
 
 import UpdateSelectedJobResponse
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +22,13 @@ import vn.vistark.nkktts.utils.SimpleNotify
 import vn.vistark.nkktts.utils.ToolbarBackButton
 
 class ManHinhCungCapThongSoNghe : AppCompatActivity() {
+
+    companion object {
+        var jobId: Int = -1
+    }
+
+    var actRes = Activity.RESULT_CANCELED
+
     lateinit var pDialog: SweetAlertDialog
 
     var inputTitle1 = ""
@@ -36,6 +44,13 @@ class ManHinhCungCapThongSoNghe : AppCompatActivity() {
         updateInputTitleAndPlaceHolder()
 
         initEvents()
+
+        if (Constants.selectedJob.jobId == jobId) {
+            if (Constants.selectedJob.jobInfoArray.size == 2) {
+                mhcctsnEdtParam1.setText(Constants.selectedJob.jobInfoArray[0].toString())
+                mhcctsnEdtParam2.setText(Constants.selectedJob.jobInfoArray[1].toString())
+            }
+        }
     }
 
     private fun initPreComponents() {
@@ -67,7 +82,7 @@ class ManHinhCungCapThongSoNghe : AppCompatActivity() {
     }
 
     private fun initInputTitle() {
-        when (Constants.selectedJob.jobId) {
+        when (jobId) {
             1 -> {
                 inputTitle1 = "Chiều dài toàn bộ vàng câu"
                 inputTitle2 = "Số lưỡi câu"
@@ -102,56 +117,113 @@ class ManHinhCungCapThongSoNghe : AppCompatActivity() {
                 )
                 processed()
             } else {
-                Constants.selectedJob.jobInfoArray = listOf(param1.toFloat(), param2.toFloat())
-                Constants.selectedJob.jobInfo =
-                    GsonBuilder().create().toJson(Constants.selectedJob.jobInfoArray)
-                APIUtils.mAPIServices?.updateSelectedJobAPI(Constants.selectedJob)?.enqueue(object :
-                    Callback<UpdateSelectedJobResponse> {
-                    override fun onFailure(call: Call<UpdateSelectedJobResponse>, t: Throwable) {
-                        processed()
-                        SimpleNotify.error(
-                            this@ManHinhCungCapThongSoNghe,
-                            "Oops...",
-                            "Lỗi khi cập nhật"
-                        )
-                    }
-
-                    override fun onResponse(
-                        call: Call<UpdateSelectedJobResponse>,
-                        response: Response<UpdateSelectedJobResponse>
-                    ) {
-                        if (response.isSuccessful) {
-                            val captainSelectedJob = response.body()?.captainSelectedJob
-                            if (captainSelectedJob != null) {
-                                Constants.selectedJob.id =
-                                    captainSelectedJob.id ?: -1
-                                Constants.selectedJob.captainId = captainSelectedJob.captainId ?: -1
-                                Constants.updateSelectedJob()
-                                // Xong
-                                processed()
-                                // Chuyển sang khởi tạo chuyến đi biển
-                                val ktcdbIntent =
-                                    Intent(
-                                        this@ManHinhCungCapThongSoNghe,
-                                        ManHinhKhoiTaoChuyenDiBien::class.java
-                                    )
-                                startActivity(ktcdbIntent)
-                                // End màn hiện tại
-                                finish()
-                                return
-                            }
-                        }
-                        // Khi không thành công
-                        SimpleNotify.error(
-                            this@ManHinhCungCapThongSoNghe,
-                            "CHƯA ĐƯỢC",
-                            "Đã xảy ra lỗi"
-                        )
-                        processed()
-                    }
-                })
+                if (!ManHinhDanhSachNghe.isEdit) {
+                    Constants.selectedJob.jobId = jobId
+                    Constants.selectedJob.jobInfoArray = listOf(param1.toFloat(), param2.toFloat())
+                    Constants.selectedJob.jobInfo =
+                        GsonBuilder().create().toJson(Constants.selectedJob.jobInfoArray)
+                    updateSelectedJob()
+                } else {
+                    changeSelectedJob(
+                        jobId.toString(),
+                        GsonBuilder().create().toJson(listOf(param1.toFloat(), param2.toFloat()))
+                    )
+                }
             }
         }
+    }
+
+    private fun changeSelectedJob(jobId: String, infoJob: String) {
+        Log.w("AXASXSAX", infoJob)
+        APIUtils.mAPIServices?.changeSelectedJobAPI(jobId, infoJob)?.enqueue(object :
+            Callback<UpdateSelectedJobResponse> {
+            override fun onFailure(call: Call<UpdateSelectedJobResponse>, t: Throwable) {
+                processed()
+                SimpleNotify.error(
+                    this@ManHinhCungCapThongSoNghe,
+                    "Oops...",
+                    "Lỗi khi cập nhật"
+                )
+                t.printStackTrace()
+            }
+
+            override fun onResponse(
+                call: Call<UpdateSelectedJobResponse>,
+                response: Response<UpdateSelectedJobResponse>
+            ) {
+                processed()
+                if (response.isSuccessful) {
+                    setResult(ManHinhDanhSachNghe.infoJobRequestCode, Intent())
+                    runOnUiThread {
+                        val param1 = mhcctsnEdtParam1.text.toString()
+                        val param2 = mhcctsnEdtParam2.text.toString()
+                        Constants.selectedJob.jobId = Companion.jobId
+                        Constants.selectedJob.jobInfoArray =
+                            listOf(param1.toFloat(), param2.toFloat())
+                        Constants.selectedJob.jobInfo =
+                            GsonBuilder().create().toJson(Constants.selectedJob.jobInfoArray)
+                        Constants.updateSelectedJob()
+                    }
+                    actRes = Activity.RESULT_OK
+                    onBackPressed()
+                    return
+                }
+                // Khi không thành công
+                SimpleNotify.error(
+                    this@ManHinhCungCapThongSoNghe,
+                    "CHƯA ĐƯỢC",
+                    "Đã xảy ra lỗi"
+                )
+            }
+        })
+    }
+
+    private fun updateSelectedJob() {
+        APIUtils.mAPIServices?.updateSelectedJobAPI(Constants.selectedJob)?.enqueue(object :
+            Callback<UpdateSelectedJobResponse> {
+            override fun onFailure(call: Call<UpdateSelectedJobResponse>, t: Throwable) {
+                processed()
+                SimpleNotify.error(
+                    this@ManHinhCungCapThongSoNghe,
+                    "Oops...",
+                    "Lỗi khi cập nhật"
+                )
+            }
+
+            override fun onResponse(
+                call: Call<UpdateSelectedJobResponse>,
+                response: Response<UpdateSelectedJobResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val captainSelectedJob = response.body()?.captainSelectedJob
+                    if (captainSelectedJob != null) {
+                        Constants.selectedJob.id =
+                            captainSelectedJob.id ?: -1
+                        Constants.selectedJob.captainId = captainSelectedJob.captainId ?: -1
+                        Constants.updateSelectedJob()
+                        // Xong
+                        processed()
+                        // Chuyển sang khởi tạo chuyến đi biển
+                        val ktcdbIntent =
+                            Intent(
+                                this@ManHinhCungCapThongSoNghe,
+                                ManHinhKhoiTaoChuyenDiBien::class.java
+                            )
+                        startActivity(ktcdbIntent)
+                        // End màn hiện tại
+                        finish()
+                        return
+                    }
+                }
+                // Khi không thành công
+                SimpleNotify.error(
+                    this@ManHinhCungCapThongSoNghe,
+                    "CHƯA ĐƯỢC",
+                    "Đã xảy ra lỗi"
+                )
+                processed()
+            }
+        })
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -160,9 +232,13 @@ class ManHinhCungCapThongSoNghe : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val manHinhDanhSachNgheIntent = Intent(this, ManHinhDanhSachNghe::class.java)
-        startActivity(manHinhDanhSachNgheIntent)
-        ToolbarBackButton(this).overrideAnimationOnEnterAndExitActivityReveret()
+        if (!ManHinhDanhSachNghe.isEdit) {
+            val manHinhDanhSachNgheIntent = Intent(this, ManHinhDanhSachNghe::class.java)
+            startActivity(manHinhDanhSachNgheIntent)
+            ToolbarBackButton(this).overrideAnimationOnEnterAndExitActivityReveret()
+        } else {
+            setResult(actRes, Intent())
+        }
         finish()
         super.onBackPressed()
     }

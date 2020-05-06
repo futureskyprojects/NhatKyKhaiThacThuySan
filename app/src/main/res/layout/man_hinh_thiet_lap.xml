@@ -34,6 +34,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/mhtlTvTenThuyenTruong"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -66,9 +67,9 @@
 
                 <RelativeLayout
                     android:id="@+id/rlBtnSuaThongTin"
-                    android:background="@drawable/default_press_effect"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/default_press_effect"
                     android:padding="@dimen/default_padding">
 
                     <ImageView
@@ -104,15 +105,121 @@
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:elevation="8dp"
+                app:cardCornerRadius="@dimen/default_corners_radius">
+
+                <RelativeLayout
+                    android:id="@+id/rlBtnDoiMatKhau"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/default_press_effect"
+                    android:padding="@dimen/default_padding">
+
+                    <ImageView
+                        android:id="@+id/mhtlIconUser1"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/ic_key" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:layout_toStartOf="@id/mhtlNextIcon1"
+                        android:layout_toLeftOf="@id/mhtlNextIcon1"
+                        android:layout_toEndOf="@id/mhtlIconUser1"
+                        android:layout_toRightOf="@id/mhtlIconUser1"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/default_padding"
+                        android:paddingRight="@dimen/default_padding"
+                        android:shadowColor="#808695"
+                        android:text="Đổi mật khẩu"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/mhtlNextIcon1"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_navigate_next" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:elevation="8dp"
+                app:cardCornerRadius="@dimen/default_corners_radius">
+
+                <RelativeLayout
+                    android:id="@+id/rlBtnDoiNghe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/default_press_effect"
+                    android:padding="@dimen/default_padding">
+
+                    <ImageView
+                        android:id="@+id/mhtlIconUser2"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/ic_captain" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:layout_toStartOf="@id/mhtlNextIcon2"
+                        android:layout_toLeftOf="@id/mhtlNextIcon2"
+                        android:layout_toEndOf="@id/mhtlIconUser2"
+                        android:layout_toRightOf="@id/mhtlIconUser2"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/default_padding"
+                        android:paddingRight="@dimen/default_padding"
+                        android:shadowColor="#808695"
+                        android:text="Đổi nghề"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/mhtlNextIcon2"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_navigate_next" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/mhtlBtnDangXuat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin"
+                android:background="@drawable/btn_error"
+                android:padding="@dimen/default_padding"
+                android:text="Đăng xuất"
+                android:textColor="#FFF"
+                android:textSize="@dimen/default_font_size" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:src="@drawable/watermark_200" />
         </LinearLayout>
 
     </ScrollView>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="30dp"
-        android:src="@drawable/watermark_200" />
 </RelativeLayout>

@@ -5,6 +5,8 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import kotlinx.android.synthetic.main.man_hinh_khoi_tao_chuyen_di_bien.*
 import vn.vistark.nkktts.R
 import vn.vistark.nkktts.core.constants.Constants
@@ -13,6 +15,7 @@ import vn.vistark.nkktts.ui.chon_cang.ManHinhChonCang
 import vn.vistark.nkktts.ui.me_danh_bat.ManHinhMeDanhBat
 import vn.vistark.nkktts.utils.DateTimeUtils
 import vn.vistark.nkktts.utils.SimpleNotify
+import vn.vistark.nkktts.utils.ToolbarBackButton
 
 class ManHinhKhoiTaoChuyenDiBien : AppCompatActivity() {
     companion object {
@@ -74,6 +77,15 @@ class ManHinhKhoiTaoChuyenDiBien : AppCompatActivity() {
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean { // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu_trong_danh_sach_nghe, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return ToolbarBackButton(this).onOptionsItemSelected(item)
     }
 
 //    override fun onSupportNavigateUp(): Boolean {

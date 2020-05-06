@@ -92,6 +92,8 @@
                 android:layout_gravity="end"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
+                android:clickable="true"
+                android:focusable="true"
                 android:paddingLeft="10dp"
                 android:paddingTop="3dp"
                 android:paddingRight="10dp"

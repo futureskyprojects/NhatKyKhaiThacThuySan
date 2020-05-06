@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -26,6 +27,7 @@ import java.util.*
 
 
 class ManHinhKhoiDong : AppCompatActivity() {
+    val TAG = ManHinhKhoiDong::class.java.simpleName
     lateinit var pDialog: SweetAlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,23 +62,29 @@ class ManHinhKhoiDong : AppCompatActivity() {
                 } else {
                     runOnUiThread {
                         if (pDialog.isShowing) {
-                            pDialog.hide()
+                            pDialog.dismissWithAnimation()
                         }
                     }
                     if (DataInitialize.isFinished()) {
                         if (!DataInitialize.isInitSeaPortSuccess) {
+                            Log.w(TAG, "Chưa hoàn tất fetch dữ liệu cảng biển")
                             DataInitialize() // Lấy lại lần nữa
                             SimpleNotify.error(this@ManHinhKhoiDong, "Oops...", "Lấy cảng lỗi")
                         } else if (!DataInitialize.isInitSpiceSuccess) {
+                            Log.w(TAG, "Chưa hoàn tất fetch dữ liệu loài")
                             DataInitialize() // Lấy lại lần nữa
                             SimpleNotify.error(this@ManHinhKhoiDong, "Oops...", "Lấy loài lỗi")
                         } else if (!DataInitialize.isInitJobSuccess) {
+                            Log.w(TAG, "Chưa hoàn tất fetch dữ liệu nghề")
                             DataInitialize() // Lấy lại lần nữa
                             SimpleNotify.error(this@ManHinhKhoiDong, "Oops...", "Lấy nghề lỗi")
                         } else {
+                            Log.w(TAG, "Đã hoàn tất fetch dữ liệu từ Internet")
                             this.cancel()
                             chuyenQuaManHinhDangNhap()
                         }
+                    } else {
+                        Log.w(TAG, "Đang fetch dữ liệu mới từ mạng")
                     }
 
                 }
@@ -107,15 +115,18 @@ class ManHinhKhoiDong : AppCompatActivity() {
                 if (Constants.isSelectedJob()) {
                     if (Constants.isSelectedDeparturePortAndStarted()) {
                         if (Constants.isCreatingNewHaul()) {
+                            Log.w(TAG, "Vào màn hình danh sách loài")
                             val intent = Intent(this, ManHinhDanhSachLoai::class.java)
                             startActivity(intent)
                             finish()
                         } else {
+                            Log.w(TAG, "Vào mà hình tạo mẻ mới")
                             val manHinhMeDanhBatIntent = Intent(this, ManHinhMeDanhBat::class.java)
                             startActivity(manHinhMeDanhBatIntent)
                             finish()
                         }
                     } else {
+                        Log.w(TAG, "Vào màn hình khởi tạo chuyến đi biển")
                         val ktcdbIntent =
                             Intent(
                                 this,
@@ -125,11 +136,13 @@ class ManHinhKhoiDong : AppCompatActivity() {
                         finish()
                     }
                 } else {
+                    Log.w(TAG, "Vào màn hình chọn nghề")
                     // Vào màn hình chọn nghề khi chưa chọn
                     startActivity(Intent(this, ManHinhDanhSachNghe::class.java))
                     finish()
                 }
             } else {
+                Log.w(TAG, "Vào màn hình đăng nhập")
                 // Vào màn hình đăng nhập
                 startActivity(Intent(this, ManHinhDangNhap::class.java))
                 finish()

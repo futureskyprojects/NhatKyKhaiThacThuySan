@@ -2,6 +2,7 @@ package vn.vistark.nkktts.ui.danh_sach_nghe
 
 import GetJobsResponse
 import Jobs
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -27,9 +28,19 @@ import vn.vistark.nkktts.utils.ToolbarBackButton
 class ManHinhDanhSachNghe : AppCompatActivity() {
     lateinit var pDialog: SweetAlertDialog
 
+    companion object {
+        var isEdit = false
+        var infoJobRequestCode = 2233
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.man_hinh_danh_sach_nghe)
+
+        if (isEdit) {
+            title = "Đổi nghề"
+            ToolbarBackButton(this).show()
+        }
 
         initPreComponents()
         initJobsDataFromAPI()
@@ -42,7 +53,7 @@ class ManHinhDanhSachNghe : AppCompatActivity() {
 
     fun processed() {
         if (pDialog.isShowing)
-            pDialog.hide()
+            pDialog.dismissWithAnimation()
     }
 
     private fun initPreComponents() {
@@ -134,11 +145,15 @@ class ManHinhDanhSachNghe : AppCompatActivity() {
 
     private fun initJobSelectionEvent(v: View, id: Int) {
         v.setOnClickListener {
-            Constants.selectedJob.jobId = id
+            ManHinhCungCapThongSoNghe.jobId = id
 
             val intent = Intent(this, ManHinhCungCapThongSoNghe::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            startActivity(intent)
+            if (!isEdit) {
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                startActivity(intent)
+            } else {
+                startActivityForResult(intent, infoJobRequestCode)
+            }
         }
     }
 
@@ -151,4 +166,15 @@ class ManHinhDanhSachNghe : AppCompatActivity() {
         return ToolbarBackButton(this).onOptionsItemSelected(item)
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == infoJobRequestCode && resultCode == Activity.RESULT_OK) {
+            finish()
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
 }

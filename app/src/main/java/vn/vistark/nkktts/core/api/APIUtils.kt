@@ -10,5 +10,9 @@ class APIUtils {
         fun replaceAPIServices() {
             mAPIServices = getAPIServices()
         }
+
+        fun getTempAPIServices(tokenType: String, token: String): APIServices? {
+            return RetrofitClient.getTempClient(tokenType, token)?.create(APIServices::class.java)
+        }
     }
 }

@@ -18,7 +18,13 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:icon">
-        <activity android:name=".ui.thong_tin_san_luong.ManHinhThongTinSanLuong"></activity>
+        <activity
+            android:name="vn.vistark.nkktts.ui.change_password.ManHinhDoiMatKhau"
+            android:label="Đổi mật khẩu"></activity>
+        <activity
+            android:name=".ui.sua_ho_so.ManHinhSuaHoSo"
+            android:label="Sửa hồ sơ" />
+        <activity android:name=".ui.thong_tin_san_luong.ManHinhThongTinSanLuong" />
         <activity
             android:name=".ui.man_hinh_dang_nhap.ManHinhDangNhap"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

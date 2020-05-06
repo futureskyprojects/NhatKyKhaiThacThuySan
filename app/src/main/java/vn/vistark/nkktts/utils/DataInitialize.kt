@@ -12,6 +12,7 @@ import vn.vistark.nkktts.core.api.APIUtils
 import vn.vistark.nkktts.core.constants.OfflineDataStorage
 
 class DataInitialize() {
+
     init {
         isInitSeaPort = true
         isInitSeaPortSuccess = false
@@ -25,6 +26,8 @@ class DataInitialize() {
     }
 
     companion object {
+        val TAG = DataInitialize::class.java.simpleName
+
         var isInitSeaPort = true
         var isInitSeaPortSuccess = false
 
@@ -35,15 +38,17 @@ class DataInitialize() {
         var isInitJobSuccess = false
 
         fun isFinished(): Boolean {
-            return (!isInitSeaPort && !isInitSpices && !isInitJobs)
+            return !(isInitSeaPort || isInitSpices || isInitJobs)
         }
 
         fun initSeaPorts() {
+            Log.w(TAG, "Đang tiến hành lấy dữ liệu cảng")
             APIUtils.mAPIServices?.getSeaPorts()?.enqueue(object : Callback<SeaPortsReponse> {
                 override fun onFailure(call: Call<SeaPortsReponse>, t: Throwable) {
                     isInitSeaPortSuccess =
                         OfflineDataStorage.get<SeaPortsReponse>(OfflineDataStorage.seaPorts) != null
                     isInitSeaPort = false
+                    Log.w(TAG, "Lấy online không được, tiến hành lấy offline cảng")
                 }
 
                 override fun onResponse(
@@ -53,6 +58,7 @@ class DataInitialize() {
                     if (response.isSuccessful) {
                         val seaPortsReponse = response.body()
                         if (seaPortsReponse != null) {
+                            Log.w(TAG, "Đã lấy thành công cảng biển")
                             OfflineDataStorage.saveData(
                                 OfflineDataStorage.seaPorts,
                                 seaPortsReponse
@@ -62,6 +68,7 @@ class DataInitialize() {
                             return
                         }
                     }
+                    Log.w(TAG, "Lấy cảng offline")
                     // Khi lấy không thành công
                     isInitSeaPortSuccess =
                         OfflineDataStorage.get<SeaPortsReponse>(OfflineDataStorage.seaPorts) != null
@@ -71,11 +78,13 @@ class DataInitialize() {
         }
 
         fun initSpices() {
+            Log.w(TAG, "Tiến hành lấy danh sách loài")
             APIUtils.mAPIServices?.getSpices()?.enqueue(object : Callback<SpicesResponse> {
                 override fun onFailure(call: Call<SpicesResponse>, t: Throwable) {
                     isInitSpiceSuccess =
                         OfflineDataStorage.get<SpicesResponse>(OfflineDataStorage.spices) != null
                     isInitSpices = false
+                    Log.w(TAG, "Lấy loài online không được, tiến hành lấy offline")
                 }
 
                 override fun onResponse(
@@ -85,6 +94,7 @@ class DataInitialize() {
                     if (response.isSuccessful) {
                         val spicesResponse = response.body()
                         if (spicesResponse != null) {
+
 //                            for (spice in spicesResponse.spices) {
 //                                Log.w("DataInit", spice.name)
 //                                Log.w("DataInit", spice.image)
@@ -94,9 +104,9 @@ class DataInitialize() {
                                     spicesResponse
                                 )
                             ) {
-                                Log.w("DataInit", "Lưu dữ liệu thành công")
+                                Log.w("DataInit", "Lưu dữ liệu loài thành công")
                             } else {
-                                Log.w("DataInit", "Lưu dữ liệu KHÔNG thành công")
+                                Log.w("DataInit", "Lưu dữ liệu loài KHÔNG thành công")
                             }
                             isInitSpiceSuccess = true
                             isInitSpices = false
@@ -112,11 +122,13 @@ class DataInitialize() {
         }
 
         fun initJobs() {
+            Log.w(TAG, "Tiến hành lấy dữ liệu danh sách nghề")
             APIUtils.mAPIServices?.getJobAPI()?.enqueue(object : Callback<GetJobsResponse> {
                 override fun onFailure(call: Call<GetJobsResponse>, t: Throwable) {
                     isInitJobSuccess =
                         OfflineDataStorage.get<GetJobsResponse>(OfflineDataStorage.jobs) != null
                     isInitJobs = false
+                    Log.w(TAG, "Lấy dữ liệu nghề online thất bại, lấy dữ liệu offline")
                 }
 
                 override fun onResponse(
@@ -126,6 +138,7 @@ class DataInitialize() {
                     if (response.isSuccessful) {
                         val getJobsResponse = response.body()
                         if (getJobsResponse != null) {
+                            Log.w(TAG, "Tiến hành lấy dữ liệu nghề xong")
                             OfflineDataStorage.saveData(
                                 OfflineDataStorage.jobs,
                                 getJobsResponse
@@ -135,6 +148,7 @@ class DataInitialize() {
                             return
                         }
                     }
+                    Log.w(TAG, "Lấy online không được, lấy offline")
                     // Khi lấy không thành công
                     isInitJobSuccess =
                         OfflineDataStorage.get<GetJobsResponse>(OfflineDataStorage.jobs) != null
