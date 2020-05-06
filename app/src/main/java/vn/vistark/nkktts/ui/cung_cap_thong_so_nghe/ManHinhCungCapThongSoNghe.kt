@@ -195,25 +195,26 @@ class ManHinhCungCapThongSoNghe : AppCompatActivity() {
                 response: Response<UpdateSelectedJobResponse>
             ) {
                 if (response.isSuccessful) {
-                    val captainSelectedJob = response.body()?.captainSelectedJob
-                    if (captainSelectedJob != null) {
-                        Constants.selectedJob.id =
-                            captainSelectedJob.id ?: -1
-                        Constants.selectedJob.captainId = captainSelectedJob.captainId ?: -1
-                        Constants.updateSelectedJob()
-                        // Xong
-                        processed()
-                        // Chuyển sang khởi tạo chuyến đi biển
-                        val ktcdbIntent =
-                            Intent(
-                                this@ManHinhCungCapThongSoNghe,
-                                ManHinhKhoiTaoChuyenDiBien::class.java
-                            )
-                        startActivity(ktcdbIntent)
-                        // End màn hiện tại
-                        finish()
-                        return
-                    }
+                    // Xong
+                    processed()
+                    // Chuyển sang khởi tạo chuyến đi biển
+                    val ktcdbIntent =
+                        Intent(
+                            this@ManHinhCungCapThongSoNghe,
+                            ManHinhKhoiTaoChuyenDiBien::class.java
+                        )
+                    startActivity(ktcdbIntent)
+                    // End màn hiện tại
+                    finish()
+                    return
+//                    val captainSelectedJob = response.body()?.captainSelectedJob
+//                    if (captainSelectedJob != null) {
+//                        Constants.selectedJob.id =
+//                            captainSelectedJob.id ?: -1
+//                        Constants.selectedJob.captainId = captainSelectedJob.captainId ?: -1
+//                        Constants.updateSelectedJob()
+//
+//                    }
                 }
                 // Khi không thành công
                 SimpleNotify.error(

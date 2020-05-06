@@ -200,6 +200,10 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
         }
         // Nút kết thúc
         mhdslBtnKetThucMe.setOnClickListener {
+            if (Hauls.currentHault.spices.isEmpty()) {
+                startActivity(Intent(this@ManHinhDanhSachLoai, ManHinhMeDanhBat::class.java))
+                return@setOnClickListener
+            }
             mFusedLocationClient = FusedLocationProviderClient(this)
             if (pressedMillis == -1L) {
                 pressedMillis = System.currentTimeMillis()
@@ -229,7 +233,11 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
                     SimpleNotify.error(this, "KẾT THÚC LỖI", "Vui lòng thử lại")
                 }
             } else {
-                SimpleNotify.warning(this, "ĐANG LẤY VỊ TRÍ", "Thử lại sau 1 giây")
+                SimpleNotify.warning(
+                    this,
+                    "ĐANG LẤY VỊ TRÍ",
+                    "Thử lại sau 5 giây hoặc lâu hơn nếu GPS kém."
+                )
             }
         }
     }
