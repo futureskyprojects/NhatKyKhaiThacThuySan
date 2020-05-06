@@ -44,6 +44,7 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
     lateinit var pDialog: SweetAlertDialog
     lateinit var adapter: SpiceAdapter
     var pressedMillis = -1L
+    var syncLocationManagerTimer: Timer? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.man_hinh_danh_sach_loai)
@@ -71,9 +72,11 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
 
     private fun initLocationServices() {
         manager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        mFusedLocationClient =
+            FusedLocationProviderClient(this@ManHinhDanhSachLoai);//LocationServices.getFusedLocationProviderClient(this)
         // Ngăn cản tắt GPS
-        Timer().schedule(object : TimerTask() {
+        syncLocationManagerTimer = Timer()
+        syncLocationManagerTimer?.schedule(object : TimerTask() {
             override fun run() {
                 if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                     runOnUiThread {
@@ -86,12 +89,15 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
                     runOnUiThread {
                         if (pDialog.isShowing && pDialog.titleText == "HÃY BẬT GPS") {
                             pDialog.titleText = "Đang xử lý..."
-                            pDialog.hide()
+                            pDialog.dismiss()
                         }
+                    }
+                    runOnUiThread {
+                        SimpfyLocationUtils.requestNewLocationData(mFusedLocationClient)
                     }
                 }
             }
-        }, 1000, 1000)
+        }, 1000, 5000)
         // Lấy vị trí
     }
 
@@ -108,7 +114,6 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
         }
         islmdTenLoai.text = spices.name
         islmdBtnCapNhatSanLuong.setOnClickListener {
-            mFusedLocationClient = FusedLocationProviderClient(this)
             if (pressedMillis == -1L) {
                 pressedMillis = System.currentTimeMillis()
                 SimpfyLocationUtils.requestNewLocationData(mFusedLocationClient)
@@ -204,7 +209,6 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
                 startActivity(Intent(this@ManHinhDanhSachLoai, ManHinhMeDanhBat::class.java))
                 return@setOnClickListener
             }
-            mFusedLocationClient = FusedLocationProviderClient(this)
             if (pressedMillis == -1L) {
                 pressedMillis = System.currentTimeMillis()
                 SimpfyLocationUtils.requestNewLocationData(mFusedLocationClient)
@@ -226,6 +230,7 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
                 }
 
                 if (isUpdated && Constants.updateCurrentTrip()) {
+                    stopTimer()
                     val thongTinMeDanhBatIntent = Intent(this, ManHinhThongTinMeDanhBat::class.java)
                     startActivity(thongTinMeDanhBatIntent)
                     finish()
@@ -258,7 +263,7 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
 
     fun processed() {
         if (pDialog.isShowing) {
-            pDialog.hide()
+            pDialog.dismiss()
         }
     }
 
@@ -331,6 +336,16 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return ToolbarBackButton(this).onOptionsItemSelected(item)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        stopTimer()
+    }
+
+    fun stopTimer() {
+        syncLocationManagerTimer?.cancel()
+        syncLocationManagerTimer = null
     }
 
 //    override fun onSupportNavigateUp(): Boolean {

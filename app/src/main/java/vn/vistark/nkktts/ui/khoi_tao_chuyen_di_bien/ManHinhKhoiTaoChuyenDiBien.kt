@@ -56,6 +56,7 @@ class ManHinhKhoiTaoChuyenDiBien : AppCompatActivity() {
 
         ktcdbBtnBatDau.setOnClickListener {
             if (Constants.currentTrip.trip.departurePort >= 0) {
+                Constants.currentTrip.trip.captainId = Constants.userId.toInt()
                 Constants.currentTrip.trip.departureTime = DateTimeUtils.getStringCurrentYMD()
                 if (Constants.updateCurrentTrip()) {
                     val manHinhMeDanhBatIntent = Intent(this, ManHinhMeDanhBat::class.java)
