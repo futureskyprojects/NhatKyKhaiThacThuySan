@@ -1,8 +1,10 @@
 package vn.vistark.nkktts.ui.dang_nhap
 
+import GetSelectedJobResponse
 import LoginFailResponse
 import LoginResponse
 import ProfileResponse
+import UpdateSelectedJobResponse
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
@@ -22,6 +24,8 @@ import vn.vistark.nkktts.core.constants.Constants
 import vn.vistark.nkktts.ui.doi_mat_khau.ManHinhDoiMatKhau
 import vn.vistark.nkktts.ui.danh_sach_nghe.ManHinhDanhSachNghe
 import vn.vistark.nkktts.ui.khai_bao_thong_tin_ho_so.ManHinhKhaiBaoThongTinHoSo
+import vn.vistark.nkktts.ui.khoi_dong.ManHinhKhoiDong
+import vn.vistark.nkktts.ui.khoi_tao_chuyen_di_bien.ManHinhKhoiTaoChuyenDiBien
 import vn.vistark.nkktts.utils.SimpleNotify
 import java.lang.Exception
 import java.net.HttpURLConnection.HTTP_UNAUTHORIZED
@@ -85,7 +89,6 @@ class ManHinhDangNhap : AppCompatActivity() {
 
         mhdnRegisterBtn.setOnClickListener {
             chuyenQuaManHinhKhaiBaoThongTin()
-            finish()
         }
 
         mhdnLoginBtn.setOnClickListener {
@@ -107,8 +110,8 @@ class ManHinhDangNhap : AppCompatActivity() {
                         override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                             SimpleNotify.error(
                                 this@ManHinhDangNhap,
-                                "Oops...",
-                                "Lỗi không xác định"
+                                "KHÔNG CÓ MẠNG INTERNET",
+                                "LỖI"
                             )
                             processed()
                         }
@@ -201,10 +204,8 @@ class ManHinhDangNhap : AppCompatActivity() {
                         Constants.userInfo.updateAt = profileResponse.updatedAt
 
                         Constants.updateUserInfo()
-                        processed()
                         // Tiến hành vào trang chọn nghề
-                        chuyenQuaManHinhDanhSachNghe()
-                        finish()
+                        getSelectedJob()
                         //
                         return
                     }
@@ -223,9 +224,50 @@ class ManHinhDangNhap : AppCompatActivity() {
 
     private fun chuyenQuaManHinhKhaiBaoThongTin() {
         startActivity(Intent(this, ManHinhKhaiBaoThongTinHoSo::class.java))
+        finish()
     }
 
     private fun chuyenQuaManHinhDanhSachNghe() {
+        processed()
         startActivity(Intent(this, ManHinhDanhSachNghe::class.java))
+        finish()
+    }
+
+    private fun getSelectedJob() {
+        APIUtils.mAPIServices?.getSelectedJobAPI()?.enqueue(object :
+            Callback<GetSelectedJobResponse> {
+            override fun onFailure(call: Call<GetSelectedJobResponse>, t: Throwable) {
+                chuyenQuaManHinhDanhSachNghe()
+            }
+
+            override fun onResponse(
+                call: Call<GetSelectedJobResponse>,
+                response: Response<GetSelectedJobResponse>
+            ) {
+                if (response.isSuccessful) {
+                    processed()
+                    val selectedJob = response.body()?.data?.first()
+                    if (selectedJob != null) {
+                        val jis = selectedJob.infoJob!!.replace("\\[|\\]".toRegex(), "").split(",")
+                        Constants.selectedJob.id = selectedJob.id!!
+                        Constants.selectedJob.jobId = selectedJob.jobId!!
+                        Constants.selectedJob.jobInfoArray =
+                            listOf(jis[0].trim().toFloat(), jis[1].trim().toFloat())
+                        Constants.selectedJob.jobInfo = selectedJob.infoJob
+                        Constants.selectedJob.captainId = selectedJob.captainId!!
+                        Constants.updateSelectedJob()
+
+                        val intent = Intent(this@ManHinhDangNhap, ManHinhKhoiDong::class.java)
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                                    Intent.FLAG_ACTIVITY_NEW_TASK
+                        intent.putExtra("DONT_NEED_TO_LOAD_OFFLINE_DATAS", true)
+                        startActivity(intent)
+                    }
+                } else {
+                    chuyenQuaManHinhDanhSachNghe()
+                }
+            }
+        })
     }
 }

@@ -34,10 +34,13 @@ import java.util.*
 class ManHinhKhoiDong : AppCompatActivity() {
     val TAG = ManHinhKhoiDong::class.java.simpleName
     lateinit var pDialog: SweetAlertDialog
+    private var DONT_NEED_TO_LOAD_OFFLINE_DATAS = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.man_hinh_khoi_dong)
+        DONT_NEED_TO_LOAD_OFFLINE_DATAS =
+            intent.getBooleanExtra("DONT_NEED_TO_LOAD_OFFLINE_DATAS", false)
         initPreComponents()
         initPre()
         DataInitialize() // Fetch data from internet
@@ -180,7 +183,11 @@ class ManHinhKhoiDong : AppCompatActivity() {
                 1234
             )
         } else {
-            startTimer()
+            if (DONT_NEED_TO_LOAD_OFFLINE_DATAS) {
+                chuyenQuaManHinhDangNhap()
+            } else {
+                startTimer()
+            }
         }
     }
 
@@ -192,7 +199,11 @@ class ManHinhKhoiDong : AppCompatActivity() {
         when (requestCode) {
             1234 -> {
                 if (grantResults.size >= 2 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                    startTimer()
+                    if (DONT_NEED_TO_LOAD_OFFLINE_DATAS) {
+                        chuyenQuaManHinhDangNhap()
+                    } else {
+                        startTimer()
+                    }
                 } else {
                     permissionRequest()
                 }

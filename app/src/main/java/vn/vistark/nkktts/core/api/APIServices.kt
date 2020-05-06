@@ -4,6 +4,7 @@ import ChangePassSuccessResponse
 import CheckUser
 import ForgotPasswordResponse
 import GetJobsResponse
+import GetSelectedJobResponse
 import LoginResponse
 import PreviousTripNumberReponse
 import ProfileResponse
@@ -40,7 +41,10 @@ public interface APIServices {
     //=============== Login API ============================//
     @POST("/api/captains/login")
     @FormUrlEncoded
-    fun loginAPI(@Field("username") username: String, @Field("password") password: String): Call<LoginResponse>
+    fun loginAPI(
+        @Field("username") username: String,
+        @Field("password") password: String
+    ): Call<LoginResponse>
 
     //=============== Profile API ==========================//
     @GET("/api/captains/profile")
@@ -53,9 +57,15 @@ public interface APIServices {
     @POST("/api/captains/job")
     fun updateSelectedJobAPI(@Body selectedJob: SelectedJob): Call<UpdateSelectedJobResponse>
 
+    @GET("/api/captains/job_captain")
+    fun getSelectedJobAPI(): Call<GetSelectedJobResponse>
+
     @POST("/api/captains/changejob")
     @FormUrlEncoded
-    fun changeSelectedJobAPI(@Field("job_id") job_id: String, @Field("info_job") info_job: String): Call<UpdateSelectedJobResponse>
+    fun changeSelectedJobAPI(
+        @Field("job_id") job_id: String,
+        @Field("info_job") info_job: String
+    ): Call<UpdateSelectedJobResponse>
 
     //=============== Get Spices API =================================//
     @GET("/api/requests/species")
@@ -71,7 +81,10 @@ public interface APIServices {
     //============= Password API ======================================//
     @POST("/api/captains/checkforgotpass")
     @FormUrlEncoded
-    fun checkForgotPass(@Field("username") username: String, @Field("fishing_license") fishingLicense: String): Call<ForgotPasswordResponse>
+    fun checkForgotPass(
+        @Field("username") username: String,
+        @Field("fishing_license") fishingLicense: String
+    ): Call<ForgotPasswordResponse>
 
     @POST("/api/captains/forgotpass")
     @FormUrlEncoded
