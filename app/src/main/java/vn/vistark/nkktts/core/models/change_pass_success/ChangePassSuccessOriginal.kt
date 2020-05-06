@@ -15,6 +15,5 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 data class ChangePassSuccessOriginal(
 
     @SerializedName("access_token") val access_token: String,
-    @SerializedName("token_type") val token_type: String,
-    @SerializedName("expires_in") val expires_in: Int
+    @SerializedName("token_type") val token_type: String
 )

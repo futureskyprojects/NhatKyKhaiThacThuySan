@@ -19,14 +19,14 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:icon">
         <activity
-            android:name="vn.vistark.nkktts.ui.change_password.ManHinhDoiMatKhau"
+            android:name="vn.vistark.nkktts.ui.doi_mat_khau.ManHinhDoiMatKhau"
             android:label="Đổi mật khẩu"></activity>
         <activity
             android:name=".ui.sua_ho_so.ManHinhSuaHoSo"
             android:label="Sửa hồ sơ" />
         <activity android:name=".ui.thong_tin_san_luong.ManHinhThongTinSanLuong" />
         <activity
-            android:name=".ui.man_hinh_dang_nhap.ManHinhDangNhap"
+            android:name=".ui.dang_nhap.ManHinhDangNhap"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".ui.thiet_lap.ManHinhThietLap"
@@ -63,7 +63,7 @@
             android:name=".ui.khai_bao_thong_tin_ho_so.ManHinhKhaiBaoThongTinHoSo"
             android:label="Thông tin hồ sơ" />
         <activity
-            android:name=".ui.man_hinh_khoi_dong.ManHinhKhoiDong"
+            android:name=".ui.khoi_dong.ManHinhKhoiDong"
             android:theme="@style/WhiteScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -3,15 +3,14 @@ package vn.vistark.nkktts.ui.thiet_lap
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import cn.pedant.SweetAlert.SweetAlertDialog
 import kotlinx.android.synthetic.main.man_hinh_thiet_lap.*
 import vn.vistark.nkktts.R
 import vn.vistark.nkktts.core.constants.Constants
-import vn.vistark.nkktts.ui.change_password.ManHinhDoiMatKhau
+import vn.vistark.nkktts.ui.doi_mat_khau.ManHinhDoiMatKhau
 import vn.vistark.nkktts.ui.danh_sach_nghe.ManHinhDanhSachNghe
-import vn.vistark.nkktts.ui.khai_bao_thong_tin_ho_so.ManHinhKhaiBaoThongTinHoSo
-import vn.vistark.nkktts.ui.man_hinh_dang_nhap.ManHinhDangNhap
+import vn.vistark.nkktts.ui.dang_nhap.ManHinhDangNhap
+import vn.vistark.nkktts.ui.khoi_dong.ManHinhKhoiDong
 import vn.vistark.nkktts.ui.sua_ho_so.ManHinhSuaHoSo
 import vn.vistark.nkktts.utils.SimpleNotify
 import vn.vistark.nkktts.utils.ToolbarBackButton
@@ -56,7 +55,11 @@ class ManHinhThietLap : AppCompatActivity() {
                 contentText = "Bạn chắc chắn?"
                 setConfirmButton("Đồng ý") {
                     if (Constants.logOut()) {
-                        startActivity(Intent(this@ManHinhThietLap, ManHinhDangNhap::class.java))
+                        val intent = Intent(this@ManHinhThietLap, ManHinhKhoiDong::class.java)
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                                    Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(intent)
                         finish()
                     } else {
                         SimpleNotify.error(

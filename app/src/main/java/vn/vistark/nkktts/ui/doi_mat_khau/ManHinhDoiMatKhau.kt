@@ -1,14 +1,15 @@
-package vn.vistark.nkktts.ui.change_password
+package vn.vistark.nkktts.ui.doi_mat_khau
 
 import ChangePassSuccessResponse
 import ForgotPasswordResponse
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_man_hinh_doi_mat_khau.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,7 +19,6 @@ import vn.vistark.nkktts.core.api.APIUtils
 import vn.vistark.nkktts.core.constants.Constants
 import vn.vistark.nkktts.utils.SimpleNotify
 import vn.vistark.nkktts.utils.ToolbarBackButton
-import java.lang.Exception
 
 class ManHinhDoiMatKhau : AppCompatActivity() {
     lateinit var pDialog: SweetAlertDialog
@@ -99,7 +99,14 @@ class ManHinhDoiMatKhau : AppCompatActivity() {
                     call: Call<ChangePassSuccessResponse>,
                     response: Response<ChangePassSuccessResponse>
                 ) {
+                    println("TOKEN: $theToken")
+                    println("PASSWORD: $pass")
+                    println("ERROR BODY:" + GsonBuilder().create().toJson(response.errorBody()))
+                    println("SUCCESS BODY:" + GsonBuilder().create().toJson(response.body()))
                     if (response.isSuccessful) {
+                        if (pDialog.isShowing) {
+                            pDialog.dismiss()
+                        }
                         val changePassSuccessResponse = response.body()
                         if (changePassSuccessResponse != null) {
                             val token =
@@ -119,17 +126,23 @@ class ManHinhDoiMatKhau : AppCompatActivity() {
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 finish()
+                                return
                             }
                         }
                         SimpleNotify.success(this@ManHinhDoiMatKhau, "LỖI KHÔNG XÁC ĐỊNH", "")
                     } else {
-                        SimpleNotify.success(this@ManHinhDoiMatKhau, "THẤT BẠI", "Vui lòng thử lại")
+                        if (pDialog.isShowing) {
+                            pDialog.dismiss()
+                        }
+                        SimpleNotify.error(this@ManHinhDoiMatKhau, "THẤT BẠI", "Vui lòng thử lại")
                     }
                 }
             })
     }
 
     fun processingCheckBaseInfo(u: String, s: String) {
+        println("KIỂM TRA - Username: $u")
+        println("KIỂM TRA - SĐK: $s")
         if (u.isEmpty() || s.isEmpty()) {
             SimpleNotify.error(
                 this@ManHinhDoiMatKhau,
@@ -145,7 +158,7 @@ class ManHinhDoiMatKhau : AppCompatActivity() {
             ?.enqueue(object : Callback<ForgotPasswordResponse> {
                 override fun onFailure(call: Call<ForgotPasswordResponse>, t: Throwable) {
                     SimpleNotify.error(this@ManHinhDoiMatKhau, "LỖI MẠNG", "Vui lòng thử lại")
-                    pDialog.dismissWithAnimation()
+                    pDialog.dismiss()
                 }
 
                 override fun onResponse(
@@ -163,12 +176,12 @@ class ManHinhDoiMatKhau : AppCompatActivity() {
                                 mhdmkBtnNutXacNhan.text = "Đổi mật khẩu"
                             mhdmkLnForgotPass.visibility = View.GONE
                             mhdkmPart2.visibility = View.VISIBLE
-                            pDialog.dismissWithAnimation()
+                            pDialog.dismiss()
                             return
                         }
                     }
                     SimpleNotify.error(this@ManHinhDoiMatKhau, "LỖI", "Thông tin sai")
-                    pDialog.dismissWithAnimation()
+                    pDialog.dismiss()
                 }
             })
     }

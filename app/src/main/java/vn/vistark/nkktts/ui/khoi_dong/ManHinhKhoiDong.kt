@@ -1,4 +1,4 @@
-package vn.vistark.nkktts.ui.man_hinh_khoi_dong
+package vn.vistark.nkktts.ui.khoi_dong
 
 import ProfileResponse
 import android.Manifest
@@ -24,7 +24,7 @@ import vn.vistark.nkktts.core.models.trip_history.TripHistory
 import vn.vistark.nkktts.ui.danh_sach_loai.ManHinhDanhSachLoai
 import vn.vistark.nkktts.ui.danh_sach_nghe.ManHinhDanhSachNghe
 import vn.vistark.nkktts.ui.khoi_tao_chuyen_di_bien.ManHinhKhoiTaoChuyenDiBien
-import vn.vistark.nkktts.ui.man_hinh_dang_nhap.ManHinhDangNhap
+import vn.vistark.nkktts.ui.dang_nhap.ManHinhDangNhap
 import vn.vistark.nkktts.ui.me_danh_bat.ManHinhMeDanhBat
 import vn.vistark.nkktts.utils.DataInitialize
 import vn.vistark.nkktts.utils.SimpleNotify
@@ -38,7 +38,6 @@ class ManHinhKhoiDong : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.man_hinh_khoi_dong)
-
         initPreComponents()
         initPre()
         DataInitialize() // Fetch data from internet
@@ -74,15 +73,15 @@ class ManHinhKhoiDong : AppCompatActivity() {
                         if (!DataInitialize.isInitSeaPortSuccess) {
                             Log.w(TAG, "Chưa hoàn tất fetch dữ liệu cảng biển")
                             DataInitialize() // Lấy lại lần nữa
-                            SimpleNotify.error(this@ManHinhKhoiDong, "Oops...", "Lấy cảng lỗi")
+//                            SimpleNotify.error(this@ManHinhKhoiDong, "Oops...", "Lấy cảng lỗi")
                         } else if (!DataInitialize.isInitSpiceSuccess) {
                             Log.w(TAG, "Chưa hoàn tất fetch dữ liệu loài")
                             DataInitialize() // Lấy lại lần nữa
-                            SimpleNotify.error(this@ManHinhKhoiDong, "Oops...", "Lấy loài lỗi")
+//                            SimpleNotify.error(this@ManHinhKhoiDong, "Oops...", "Lấy loài lỗi")
                         } else if (!DataInitialize.isInitJobSuccess) {
                             Log.w(TAG, "Chưa hoàn tất fetch dữ liệu nghề")
                             DataInitialize() // Lấy lại lần nữa
-                            SimpleNotify.error(this@ManHinhKhoiDong, "Oops...", "Lấy nghề lỗi")
+//                            SimpleNotify.error(this@ManHinhKhoiDong, "Oops...", "Lấy nghề lỗi")
                         } else {
                             Log.w(TAG, "Đã hoàn tất fetch dữ liệu từ Internet")
                             this.cancel()

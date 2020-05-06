@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_"
     android:fitsSystemWindows="true"
-    tools:context=".ui.man_hinh_dang_nhap.ManHinhDangNhap">
+    tools:context=".ui.dang_nhap.ManHinhDangNhap">
 
     <ScrollView
         android:layout_width="match_parent"

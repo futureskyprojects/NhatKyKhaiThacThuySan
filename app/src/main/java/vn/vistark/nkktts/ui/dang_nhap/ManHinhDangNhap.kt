@@ -1,4 +1,4 @@
-package vn.vistark.nkktts.ui.man_hinh_dang_nhap
+package vn.vistark.nkktts.ui.dang_nhap
 
 import LoginFailResponse
 import LoginResponse
@@ -9,7 +9,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.gson.Gson
@@ -20,12 +19,11 @@ import retrofit2.Response
 import vn.vistark.nkktts.R
 import vn.vistark.nkktts.core.api.APIUtils
 import vn.vistark.nkktts.core.constants.Constants
-import vn.vistark.nkktts.ui.change_password.ManHinhDoiMatKhau
+import vn.vistark.nkktts.ui.doi_mat_khau.ManHinhDoiMatKhau
 import vn.vistark.nkktts.ui.danh_sach_nghe.ManHinhDanhSachNghe
 import vn.vistark.nkktts.ui.khai_bao_thong_tin_ho_so.ManHinhKhaiBaoThongTinHoSo
 import vn.vistark.nkktts.utils.SimpleNotify
 import java.lang.Exception
-import java.net.HttpURLConnection.HTTP_OK
 import java.net.HttpURLConnection.HTTP_UNAUTHORIZED
 
 
@@ -75,7 +73,7 @@ class ManHinhDangNhap : AppCompatActivity() {
         mhdnRegisterBtn.isEnabled = true
         mhdnLoginBtn.isEnabled = true
         if (pDialog.isShowing)
-            pDialog.hide()
+            pDialog.dismiss()
     }
 
     private fun initEvents() {
@@ -186,7 +184,6 @@ class ManHinhDangNhap : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     val profileResponse = response.body()?.profile
-                    print(profileResponse?.shipOwner)
                     if (profileResponse != null) {
                         Constants.userId = profileResponse.id.toString()
                         Constants.userInfo.shipOwner = profileResponse.shipOwner

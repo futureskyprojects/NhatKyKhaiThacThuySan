@@ -15,7 +15,7 @@ import vn.vistark.nkktts.R
 import vn.vistark.nkktts.core.api.APIUtils
 import vn.vistark.nkktts.core.constants.Constants
 import vn.vistark.nkktts.ui.khai_bao_so_dang_ky.ManHinhKhaiBaoSoDangKy
-import vn.vistark.nkktts.ui.man_hinh_dang_nhap.ManHinhDangNhap
+import vn.vistark.nkktts.ui.dang_nhap.ManHinhDangNhap
 import vn.vistark.nkktts.utils.SimpleNotify
 import vn.vistark.nkktts.utils.ToolbarBackButton
 import java.lang.Exception

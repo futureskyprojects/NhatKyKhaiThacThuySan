@@ -13,7 +13,5 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 
 data class ChangePassSuccessToken(
-
-    @SerializedName("original") val changePassSuccessOriginal: ChangePassSuccessOriginal,
-    @SerializedName("exception") val exception: String
+    @SerializedName("original") val changePassSuccessOriginal: ChangePassSuccessOriginal
 )
