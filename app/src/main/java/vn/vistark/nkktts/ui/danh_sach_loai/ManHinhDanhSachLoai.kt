@@ -5,27 +5,21 @@ import Hauls
 import Spices
 import SpicesResponse
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.location.Location
-import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.layout_item_san_luong_mac_dinh.*
 import kotlinx.android.synthetic.main.man_hinh_danh_sach_loai.*
 import vn.vistark.nkktts.R
@@ -39,15 +33,26 @@ import kotlin.collections.ArrayList
 
 
 class ManHinhDanhSachLoai : AppCompatActivity() {
+    val MIN_SPICE_IMAGES = 3
+    val MAX_SPICE_IMAGES = 6
+
     lateinit var manager: LocationManager
     lateinit var mFusedLocationClient: FusedLocationProviderClient
     lateinit var pDialog: SweetAlertDialog
     lateinit var adapter: SpiceAdapter
     var pressedMillis = -1L
     var syncLocationManagerTimer: Timer? = null
+
+    var spiceImages: Array<String> = emptyArray()
+        set(value) {
+            spiceImagesVisibleManager(value)
+            field = value
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.man_hinh_danh_sach_loai)
+        hideAllSpiceImages()
         initPreComponents()
         initLocationServices()
 
@@ -343,11 +348,40 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
         stopTimer()
     }
 
-    fun stopTimer() {
+    private fun stopTimer() {
         syncLocationManagerTimer?.cancel()
         syncLocationManagerTimer = null
     }
 
+    private fun hideAllSpiceImages() {
+        for (i in 1..MAX_SPICE_IMAGES) {
+            val v = getSpicesImageView(i)
+            v.setImageResource(R.drawable.add_photo)
+            if (i > 1) {
+                v.visibility = View.GONE
+            }
+        }
+    }
+
+    fun spiceImagesVisibleManager(sis: Array<String>) {
+        hideAllSpiceImages()
+        for (i in sis.indices) {
+            getSpicesImageView(i + 1).visibility = View.VISIBLE
+            if (i + 1 <= MAX_SPICE_IMAGES) {
+                getSpicesImageView(i + 2).visibility = View.VISIBLE
+            }
+        }
+    }
+
+    fun getSpicesImageView(num: Int): ImageView {
+        return this.findViewById(
+            resources.getIdentifier(
+                "spice_img_${num}",
+                "id",
+                packageName
+            )
+        )
+    }
 //    override fun onSupportNavigateUp(): Boolean {
 //        onBackPressed()
 //        return true

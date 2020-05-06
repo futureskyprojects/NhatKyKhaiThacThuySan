@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#5C000000"
@@ -50,11 +51,114 @@
                 android:src="@drawable/ic_close_black_24dp" />
         </RelativeLayout>
 
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            tools:ignore="RtlSymmetry">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/spices_image_size"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:id="@+id/spice_img_1"
+                    android:layout_width="@dimen/spices_image_size"
+                    android:layout_height="@dimen/spices_image_size"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/bg_photo_border"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="2dp"
+                    android:src="@drawable/add_photo" />
+
+                <ImageView
+                    android:id="@+id/spice_img_2"
+                    android:layout_width="@dimen/spices_image_size"
+                    android:layout_height="@dimen/spices_image_size"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/bg_photo_border"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="2dp"
+                    android:src="@drawable/add_photo" />
+
+                <ImageView
+                    android:id="@+id/spice_img_3"
+                    android:layout_width="@dimen/spices_image_size"
+                    android:layout_height="@dimen/spices_image_size"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/bg_photo_border"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="2dp"
+                    android:src="@drawable/add_photo" />
+
+                <ImageView
+                    android:id="@+id/spice_img_4"
+                    android:layout_width="@dimen/spices_image_size"
+                    android:layout_height="@dimen/spices_image_size"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/bg_photo_border"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="2dp"
+                    android:src="@drawable/add_photo" />
+
+                <ImageView
+                    android:id="@+id/spice_img_5"
+                    android:layout_width="@dimen/spices_image_size"
+                    android:layout_height="@dimen/spices_image_size"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/bg_photo_border"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="2dp"
+                    android:src="@drawable/add_photo" />
+
+                <ImageView
+                    android:id="@+id/spice_img_6"
+                    android:layout_width="@dimen/spices_image_size"
+                    android:layout_height="@dimen/spices_image_size"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/bg_photo_border"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="2dp"
+                    android:src="@drawable/add_photo" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:layout_marginBottom="5dp"
+            android:text="Lưu ý: ít nhất phải có 03 ảnh về loài này."
+            android:textColor="@color/red_btn_bg_color"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
             android:layout_marginLeft="35dp"
             android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
             android:layout_marginRight="@dimen/default_margin"
             android:layout_marginBottom="5dp"
             android:text="Sản lượng (KG)"

@@ -7,4 +7,5 @@
     <dimen name="default_padding">20dp</dimen>
     <dimen name="default_font_size">18sp</dimen>
     <dimen name="default_card_shadow">4sp</dimen>
+    <dimen name="spices_image_size">80dp</dimen>
 </resources>

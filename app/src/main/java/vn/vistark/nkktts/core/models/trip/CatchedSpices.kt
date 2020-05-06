@@ -15,5 +15,6 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 data class CatchedSpices(
     @SerializedName("id") var id: Int = -1,
     @SerializedName("name") var name: String = "",
-    @SerializedName("weight") var weight: Float = -1F
+    @SerializedName("weight") var weight: Float = -1F,
+    @SerializedName("image") var images: String = ""
 )
