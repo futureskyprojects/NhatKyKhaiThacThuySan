@@ -95,6 +95,26 @@ class ManHinhSuaHoSo : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             isFully = false
         }
 
+        if (power.toLongOrNull() == null || power.toLong() > Int.MAX_VALUE) {
+            processed()
+            SimpleNotify.error(
+                this@ManHinhSuaHoSo,
+                "Công suất máy không hợp lệ",
+                "LỖI"
+            )
+            return
+        }
+
+        if (lengthShip.toLongOrNull() == null || lengthShip.toLong() > Int.MAX_VALUE) {
+            processed()
+            SimpleNotify.error(
+                this@ManHinhSuaHoSo,
+                "Chiều dài tàu không hợp lệ",
+                "LỖI"
+            )
+            return
+        }
+
         if (isFully) {
             Constants.userInfo.shipOwner = shipOwner
             Constants.userInfo.captain = captain
@@ -108,10 +128,11 @@ class ManHinhSuaHoSo : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             APIUtils.mAPIServices?.profileUpdateAPI(Constants.userInfo)
                 ?.enqueue(object : Callback<UpdateProfileResponse> {
                     override fun onFailure(call: Call<UpdateProfileResponse>, t: Throwable) {
+                        t.printStackTrace()
                         SimpleNotify.error(
                             this@ManHinhSuaHoSo,
                             "Oops...",
-                            "Không thể cập nhật, hãy thử lại"
+                            "Không thể cập nhật!"
                         )
                         processed()
                     }
