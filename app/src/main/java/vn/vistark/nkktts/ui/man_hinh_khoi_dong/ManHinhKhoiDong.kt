@@ -1,5 +1,6 @@
 package vn.vistark.nkktts.ui.man_hinh_khoi_dong
 
+import ProfileResponse
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
@@ -13,7 +14,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import cn.pedant.SweetAlert.SweetAlertDialog
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import vn.vistark.nkktts.R
+import vn.vistark.nkktts.core.api.APIUtils
 import vn.vistark.nkktts.core.constants.Constants
 import vn.vistark.nkktts.core.models.trip_history.TripHistory
 import vn.vistark.nkktts.ui.danh_sach_loai.ManHinhDanhSachLoai
@@ -112,6 +117,7 @@ class ManHinhKhoiDong : AppCompatActivity() {
             Constants.readAllSavedData()
             // Kiểm tra xem đã đăng nhập chưa
             if (Constants.isLoggedIn()) {
+                getUserProfile()
                 if (Constants.isSelectedJob()) {
                     if (Constants.isSelectedDeparturePortAndStarted()) {
                         if (Constants.isCreatingNewHaul()) {
@@ -189,5 +195,39 @@ class ManHinhKhoiDong : AppCompatActivity() {
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    private fun getUserProfile() {
+        APIUtils.mAPIServices?.profileAPI()?.enqueue(object : Callback<ProfileResponse> {
+            override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
+            }
+
+            override fun onResponse(
+                call: Call<ProfileResponse>,
+                response: Response<ProfileResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val profileResponse = response.body()?.profile
+                    if (profileResponse != null) {
+                        Constants.userId = profileResponse.id.toString()
+                        Constants.userInfo.shipOwner = profileResponse.shipOwner
+                        Constants.userInfo.captain = profileResponse.captain
+                        Constants.userInfo.shipNumber = profileResponse.shipNumber
+                        Constants.userInfo.lengthShip = profileResponse.lengthShip.toString()
+                        Constants.userInfo.power = profileResponse.power.toString()
+                        Constants.userInfo.fishingLicense = profileResponse.fishingLicense
+                        Constants.userInfo.duration = profileResponse.duration
+                        Constants.userInfo.secondJob = profileResponse.secondJob
+                        Constants.userInfo.phone = profileResponse.phone
+                        Constants.userInfo.image = profileResponse.image
+                        Constants.userInfo.status = profileResponse.status.toString()
+                        Constants.userInfo.createAt = profileResponse.createdAt
+                        Constants.userInfo.updateAt = profileResponse.updatedAt
+                        Constants.updateUserInfo()
+                        return
+                    }
+                }
+            }
+        })
     }
 }

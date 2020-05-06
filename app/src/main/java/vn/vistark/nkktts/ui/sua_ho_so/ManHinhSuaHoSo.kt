@@ -1,6 +1,7 @@
 package vn.vistark.nkktts.ui.sua_ho_so
 
 import CheckUser
+import ProfileResponse
 import UpdateProfileResponse
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -165,78 +166,18 @@ class ManHinhSuaHoSo : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             //========== Tiến hành lấy giá trị nhập vào =====================//
             val shipNumber: String = mhkbtthsEdtSoDangKyTau.text.toString()
             //========== Xong lấy giá trị nhập vào =====================//
-
             if (shipNumber.isBlank() || shipNumber.isEmpty()) {
                 SimpleNotify.warning(this, "THIẾU MÃ TÀU", "Vui lòng nhập số đăng ký tàu")
                 return@setOnClickListener
             }
             processing()
-            // Tiến hành kiểm tra xem số tàu đã được đăng ký hay chưa
-            if (shipNumber != Constants.userInfo.shipNumber) {
-
-            } else {
-                updateProfile()
-            }
-
-            APIUtils.mAPIServices?.checkUserAPI(shipNumber)?.enqueue(object :
-                Callback<CheckUser> {
-                override fun onFailure(call: Call<CheckUser>, t: Throwable) {
-                    SimpleNotify.error(
-                        this@ManHinhSuaHoSo,
-                        "Oops...",
-                        "Không thể kiểm tra được số đăng ký tàu"
-                    )
-                    println("Không thể kiểm tra được")
-                    processed()
-                }
-
-                override fun onResponse(call: Call<CheckUser>, response: Response<CheckUser>) {
-                    processed()
-                    if (response.code() == 200 || response.code() == 419) {
-                        var checkUser: CheckUser? = null
-                        if (response.code() == 200) {
-                            checkUser = response.body()
-                        } else {
-                            try {
-                                val errResponse = response.errorBody()?.string()
-                                if (errResponse != null) {
-                                    println(errResponse)
-                                    checkUser =
-                                        Gson().fromJson(errResponse, CheckUser::class.java)
-                                }
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-
-                            }
-                        }
-                        if (checkUser != null) {
-                            if (checkUser.status == 200) {
-                                updateProfile()
-                            } else {
-                                SimpleNotify.warning(
-                                    this@ManHinhSuaHoSo,
-                                    "BỊ TRÙNG",
-                                    "Số đăng ký tàu đã tồn tại"
-                                )
-                            }
-                            return
-                        } else {
-                            SimpleNotify.error(
-                                this@ManHinhSuaHoSo,
-                                "Oops...",
-                                "Lỗi khi kiểm tra số đăng ký tàu"
-                            )
-                            return
-                        }
-                    }
-                    println("Lỗi không xác định, Mã: ${response.code()}")
-                    SimpleNotify.error(
-                        this@ManHinhSuaHoSo,
-                        "Oops...",
-                        "Lỗi không xác định"
-                    )
-                }
-            })
+            // Cập nhật hồ sơ ngay
+            updateProfile()
+//            // Tiến hành kiểm tra xem số tàu đã được đăng ký hay chưa
+//            if (shipNumber != Constants.userInfo.shipNumber) {
+//
+//            } else {
+//            }
         }
     }
 
