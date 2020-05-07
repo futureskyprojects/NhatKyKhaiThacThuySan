@@ -14,6 +14,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.man_hinh_dang_nhap.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -234,9 +235,12 @@ class ManHinhDangNhap : AppCompatActivity() {
     }
 
     private fun getSelectedJob() {
+        println("Tiến hành lấy nghề mà ngư dân đã chọn")
         APIUtils.mAPIServices?.getSelectedJobAPI()?.enqueue(object :
             Callback<GetSelectedJobResponse> {
             override fun onFailure(call: Call<GetSelectedJobResponse>, t: Throwable) {
+                println("Bị lỗi khi lấy nghề")
+                t.printStackTrace()
                 chuyenQuaManHinhDanhSachNghe()
             }
 
@@ -244,6 +248,11 @@ class ManHinhDangNhap : AppCompatActivity() {
                 call: Call<GetSelectedJobResponse>,
                 response: Response<GetSelectedJobResponse>
             ) {
+                println(
+                    "JOB GET SUCCESS: ${GsonBuilder().create().toJson(response.body())}"
+                )
+                println("JOB GET FAIL: ${GsonBuilder().create().toJson(response.errorBody())}")
+
                 if (response.isSuccessful) {
                     processed()
                     val selectedJob = response.body()?.data?.first()
@@ -265,6 +274,7 @@ class ManHinhDangNhap : AppCompatActivity() {
                         startActivity(intent)
                     }
                 } else {
+                    println("Lấy nghề không thành công")
                     chuyenQuaManHinhDanhSachNghe()
                 }
             }

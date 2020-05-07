@@ -1,5 +1,6 @@
 package vn.vistark.nkktts.ui.khoi_dong
 
+import GetSelectedJobResponse
 import ProfileResponse
 import android.Manifest
 import android.annotation.SuppressLint
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.google.gson.GsonBuilder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -145,35 +147,7 @@ class ManHinhKhoiDong : AppCompatActivity() {
             // Kiểm tra xem đã đăng nhập chưa
             if (Constants.isLoggedIn()) {
                 getUserProfile()
-                if (Constants.isSelectedJob()) {
-                    if (Constants.isSelectedDeparturePortAndStarted()) {
-                        if (Constants.isCreatingNewHaul()) {
-                            Log.w(TAG, "Vào màn hình danh sách loài")
-                            val intent = Intent(this, ManHinhDanhSachLoai::class.java)
-                            startActivity(intent)
-                            finish()
-                        } else {
-                            Log.w(TAG, "Vào mà hình tạo mẻ mới")
-                            val manHinhMeDanhBatIntent = Intent(this, ManHinhMeDanhBat::class.java)
-                            startActivity(manHinhMeDanhBatIntent)
-                            finish()
-                        }
-                    } else {
-                        Log.w(TAG, "Vào màn hình khởi tạo chuyến đi biển")
-                        val ktcdbIntent =
-                            Intent(
-                                this,
-                                ManHinhKhoiTaoChuyenDiBien::class.java
-                            )
-                        startActivity(ktcdbIntent)
-                        finish()
-                    }
-                } else {
-                    Log.w(TAG, "Vào màn hình chọn nghề")
-                    // Vào màn hình chọn nghề khi chưa chọn
-                    startActivity(Intent(this, ManHinhDanhSachNghe::class.java))
-                    finish()
-                }
+                getSelectedJob()
             } else {
                 Log.w(TAG, "Vào màn hình đăng nhập")
                 // Vào màn hình đăng nhập
@@ -271,5 +245,76 @@ class ManHinhKhoiDong : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    private fun getSelectedJob() {
+        println("Tiến hành lấy nghề mà ngư dân đã chọn")
+        APIUtils.mAPIServices?.getSelectedJobAPI()?.enqueue(object :
+            Callback<GetSelectedJobResponse> {
+            override fun onFailure(call: Call<GetSelectedJobResponse>, t: Throwable) {
+                println("Bị lỗi khi lấy nghề")
+                t.printStackTrace()
+                appRouting()
+            }
+
+            override fun onResponse(
+                call: Call<GetSelectedJobResponse>,
+                response: Response<GetSelectedJobResponse>
+            ) {
+                println(
+                    "JOB GET SUCCESS: ${GsonBuilder().create().toJson(response.body())}"
+                )
+                println("JOB GET FAIL: ${GsonBuilder().create().toJson(response.errorBody())}")
+
+                if (response.isSuccessful) {
+                    val selectedJob = response.body()?.data?.first()
+                    if (selectedJob != null) {
+                        val jis = selectedJob.infoJob!!.replace("\\[|\\]".toRegex(), "").split(",")
+                        Constants.selectedJob.id = selectedJob.id!!
+                        Constants.selectedJob.jobId = selectedJob.jobId!!
+                        Constants.selectedJob.jobInfoArray =
+                            listOf(jis[0].trim().toFloat(), jis[1].trim().toFloat())
+                        Constants.selectedJob.jobInfo = selectedJob.infoJob
+                        Constants.selectedJob.captainId = selectedJob.captainId!!
+                        Constants.updateSelectedJob()
+                    }
+                } else {
+                    println("Lấy nghề không thành công")
+                }
+                appRouting()
+            }
+        })
+    }
+
+    fun appRouting() {
+        if (Constants.isSelectedJob()) {
+            if (Constants.isSelectedDeparturePortAndStarted()) {
+                if (Constants.isCreatingNewHaul()) {
+                    Log.w(TAG, "Vào màn hình danh sách loài")
+                    val intent = Intent(this, ManHinhDanhSachLoai::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    Log.w(TAG, "Vào mà hình tạo mẻ mới")
+                    val manHinhMeDanhBatIntent = Intent(this, ManHinhMeDanhBat::class.java)
+                    startActivity(manHinhMeDanhBatIntent)
+                    finish()
+                }
+            } else {
+                Log.w(TAG, "Vào màn hình khởi tạo chuyến đi biển")
+                val ktcdbIntent =
+                    Intent(
+                        this,
+                        ManHinhKhoiTaoChuyenDiBien::class.java
+                    )
+                startActivity(ktcdbIntent)
+                finish()
+            }
+        } else {
+            Log.w(TAG, "Vào màn hình chọn nghề")
+            // Vào màn hình chọn nghề khi chưa chọn
+            startActivity(Intent(this, ManHinhDanhSachNghe::class.java))
+            finish()
+        }
     }
 }

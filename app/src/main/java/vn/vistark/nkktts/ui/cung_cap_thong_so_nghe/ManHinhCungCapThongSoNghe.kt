@@ -206,6 +206,8 @@ class ManHinhCungCapThongSoNghe : AppCompatActivity() {
                             ManHinhKhoiTaoChuyenDiBien::class.java
                         )
                     startActivity(ktcdbIntent)
+                    // Lưu các thông số
+                    Constants.updateSelectedJob()
                     // End màn hiện tại
                     finish()
                     return
@@ -214,7 +216,7 @@ class ManHinhCungCapThongSoNghe : AppCompatActivity() {
 //                        Constants.selectedJob.id =
 //                            captainSelectedJob.id ?: -1
 //                        Constants.selectedJob.captainId = captainSelectedJob.captainId ?: -1
-//                        Constants.updateSelectedJob()
+//                    Constants.updateSelectedJob()
 //
 //                    }
                 }
