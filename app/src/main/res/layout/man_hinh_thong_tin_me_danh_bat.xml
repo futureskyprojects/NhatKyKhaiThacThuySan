@@ -18,12 +18,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
                 android:layout_marginLeft="35dp"
                 android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
                 android:layout_marginRight="@dimen/default_margin"
                 android:layout_marginBottom="5dp"
                 android:gravity="center|start"
-                android:text="Thời gian thả"
+                android:text="@string/thoi_gian_tha"
                 android:textColor="@color/sub_color"
                 android:textSize="16sp" />
 
@@ -40,20 +42,21 @@
                 android:drawablePadding="10dp"
                 android:ems="10"
                 android:gravity="center|start"
-                android:hint="Thời gian thả"
-                android:inputType="textPersonName|textAutoComplete|textAutoCorrect"
+                android:hint="@string/thoi_gian_tha"
                 android:padding="15dp"
                 android:textSize="@dimen/default_font_size" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
                 android:layout_marginLeft="35dp"
                 android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
                 android:layout_marginRight="@dimen/default_margin"
                 android:layout_marginBottom="5dp"
                 android:gravity="center|start"
-                android:text="Vị trí thả"
+                android:text="@string/vi_tri_tha"
                 android:textColor="@color/sub_color"
                 android:textSize="16sp" />
 
@@ -71,20 +74,21 @@
                 android:drawablePadding="10dp"
                 android:ems="10"
                 android:gravity="center|start"
-                android:hint="Vị trí thả"
-                android:inputType="textPersonName|textAutoComplete|textAutoCorrect"
+                android:hint="@string/vi_tri_tha"
                 android:padding="15dp"
                 android:textSize="@dimen/default_font_size" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
                 android:layout_marginLeft="35dp"
                 android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
                 android:layout_marginRight="@dimen/default_margin"
                 android:layout_marginBottom="5dp"
                 android:gravity="center|start"
-                android:text="Thời gian thu"
+                android:text="@string/thoi_gian_thu"
                 android:textColor="@color/sub_color"
                 android:textSize="16sp" />
 
@@ -95,26 +99,27 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/default_margin"
                 android:layout_marginRight="@dimen/default_margin"
-
                 android:background="@drawable/default_edt_bg"
                 android:drawableStart="@drawable/ic_calendar_tw"
                 android:drawableLeft="@drawable/ic_calendar_tw"
                 android:drawablePadding="10dp"
                 android:ems="10"
                 android:gravity="center|start"
-                android:hint="Thời gian thu"
+                android:hint="@string/thoi_gian_thu"
                 android:padding="15dp"
                 android:textSize="@dimen/default_font_size" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
                 android:layout_marginLeft="35dp"
                 android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
                 android:layout_marginRight="@dimen/default_margin"
                 android:layout_marginBottom="5dp"
                 android:gravity="center|start"
-                android:text="Vị trí thu"
+                android:text="@string/vi_tri_thu"
                 android:textColor="@color/sub_color"
                 android:textSize="16sp" />
 
@@ -125,27 +130,27 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/default_margin"
                 android:layout_marginRight="@dimen/default_margin"
-
                 android:background="@drawable/default_edt_bg"
                 android:drawableStart="@drawable/ic_pin"
                 android:drawableLeft="@drawable/ic_pin"
                 android:drawablePadding="10dp"
                 android:ems="10"
                 android:gravity="center|start"
-                android:hint="Vị trí thu"
-                android:inputType="numberDecimal"
+                android:hint="@string/vi_tri_thu"
                 android:padding="15dp"
                 android:textSize="@dimen/default_font_size" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
                 android:layout_marginLeft="35dp"
                 android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
                 android:layout_marginRight="@dimen/default_margin"
                 android:layout_marginBottom="5dp"
                 android:gravity="center|start"
-                android:text="Tổng sản lượng (tấn)"
+                android:text="@string/tong_san_luong_tan"
                 android:textColor="@color/sub_color"
                 android:textSize="16sp" />
 
@@ -156,15 +161,13 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/default_margin"
                 android:layout_marginRight="@dimen/default_margin"
-
                 android:background="@drawable/default_edt_bg"
                 android:drawableStart="@drawable/ic_weight"
                 android:drawableLeft="@drawable/ic_weight"
                 android:drawablePadding="10dp"
                 android:ems="10"
                 android:gravity="center|start"
-                android:hint="Tổng sản lượng (tấn)"
-                android:inputType="numberDecimal|textAutoComplete"
+                android:hint="@string/tong_san_luong_tan"
                 android:padding="15dp"
                 android:textSize="@dimen/default_font_size" />
 
@@ -175,7 +178,7 @@
                 android:layout_margin="@dimen/default_margin"
                 android:background="@drawable/btn_info"
                 android:padding="@dimen/default_padding"
-                android:text="Lưu"
+                android:text="@string/luu"
                 android:textColor="#FFF"
                 android:textSize="@dimen/default_font_size" />
         </LinearLayout>

@@ -61,7 +61,11 @@ class ManHinhThongTinMeDanhBat : AppCompatActivity() {
                 startActivity(manHinhMeDanhBatIntent)
                 finish()
             } else {
-                SimpleNotify.warning(this, "LƯU KHÔNG ĐƯỢC", "Vui lòng thử lại")
+                SimpleNotify.warning(
+                    this,
+                    getString(R.string.luu_khong_duoc),
+                    getString(R.string.vui_long_thu_lai)
+                )
             }
         }
     }

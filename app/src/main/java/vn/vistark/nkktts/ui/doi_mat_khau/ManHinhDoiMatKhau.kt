@@ -34,7 +34,7 @@ class ManHinhDoiMatKhau : AppCompatActivity() {
         // Progress dialog
         pDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
         pDialog.progressHelper.barColor = Color.parseColor("#A5DC86")
-        pDialog.titleText = "Đang xử lý"
+        pDialog.titleText = getString(R.string.dang_xu_ly)
         pDialog.setCancelable(false)
     }
 
@@ -46,19 +46,19 @@ class ManHinhDoiMatKhau : AppCompatActivity() {
         ToolbarBackButton(this).show()
 
         mhdkmPart2.visibility = View.GONE
-        mhdmkBtnNutXacNhan.text = "Kiểm tra"
+        mhdmkBtnNutXacNhan.text = getString(R.string.kiem_tra)
         if (isChangePassword) {
-            title = "Đổi mật khẩu"
+            title = getString(R.string.doi_mat_khau)
             mhdmkLnForgotPass.visibility = View.GONE
-            mhdmkBtnNutXacNhan.text = "Hoàn tất"
+            mhdmkBtnNutXacNhan.text = getString(R.string.hoan_tat)
             processingCheckBaseInfo(
                 Constants.userInfo.username!!,
                 Constants.userInfo.fishingLicense!!
             )
         } else {
-            title = "Quên mật khẩu"
+            title = getString(R.string.quen_mat_khau)
             mhdmkLnForgotPass.visibility = View.VISIBLE
-            mhdmkBtnNutXacNhan.text = "KIỂM CHỨNG"
+            mhdmkBtnNutXacNhan.text = getString(R.string.kiem_chung).toUpperCase()
         }
 
         initEvents()
@@ -73,9 +73,13 @@ class ManHinhDoiMatKhau : AppCompatActivity() {
 
             if (theToken.isNotEmpty() && theTokenType.isNotEmpty()) {
                 if (pass1.isEmpty()) {
-                    SimpleNotify.error(this, "MẬT KHẨU TRỐNG", "")
+                    SimpleNotify.error(this, getString(R.string.mat_khau_trong).toUpperCase(), "")
                 } else if (pass1 != pass2) {
-                    SimpleNotify.error(this, "MẬT KHẨU KHÔNG GIỐNG NHAU", "")
+                    SimpleNotify.error(
+                        this,
+                        getString(R.string.hai_mat_khau_khong_giong_nhau).toUpperCase(),
+                        ""
+                    )
                 } else {
                     changePass(pass1)
                 }
@@ -92,17 +96,17 @@ class ManHinhDoiMatKhau : AppCompatActivity() {
         APIUtils.getTempAPIServices(theTokenType, theToken)?.changePassword(pass)
             ?.enqueue(object : Callback<ChangePassSuccessResponse> {
                 override fun onFailure(call: Call<ChangePassSuccessResponse>, t: Throwable) {
-                    SimpleNotify.error(this@ManHinhDoiMatKhau, "LỖI MẠNG", "Vui lòng thử lại")
+                    SimpleNotify.error(
+                        this@ManHinhDoiMatKhau,
+                        getString(R.string.khong_co_mang).toUpperCase(),
+                        getString(R.string.vui_long_thu_lai)
+                    )
                 }
 
                 override fun onResponse(
                     call: Call<ChangePassSuccessResponse>,
                     response: Response<ChangePassSuccessResponse>
                 ) {
-                    println("TOKEN: $theToken")
-                    println("PASSWORD: $pass")
-                    println("ERROR BODY:" + GsonBuilder().create().toJson(response.errorBody()))
-                    println("SUCCESS BODY:" + GsonBuilder().create().toJson(response.body()))
                     if (response.isSuccessful) {
                         if (pDialog.isShowing) {
                             pDialog.dismiss()
@@ -122,32 +126,38 @@ class ManHinhDoiMatKhau : AppCompatActivity() {
                                 }
                                 Toast.makeText(
                                     this@ManHinhDoiMatKhau,
-                                    "Đổi mật khẩu hoàn tất",
+                                    getString(R.string.doi_mat_khau_hoan_tat),
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 finish()
                                 return
                             }
                         }
-                        SimpleNotify.success(this@ManHinhDoiMatKhau, "LỖI KHÔNG XÁC ĐỊNH", "")
+                        SimpleNotify.success(
+                            this@ManHinhDoiMatKhau,
+                            getString(R.string.loi_khong_xac_dinh).toUpperCase(),
+                            ""
+                        )
                     } else {
                         if (pDialog.isShowing) {
                             pDialog.dismiss()
                         }
-                        SimpleNotify.error(this@ManHinhDoiMatKhau, "THẤT BẠI", "Vui lòng thử lại")
+                        SimpleNotify.error(
+                            this@ManHinhDoiMatKhau,
+                            getString(R.string.doi_mat_khau_khong_thanh_cong).toUpperCase(),
+                            ""
+                        )
                     }
                 }
             })
     }
 
     fun processingCheckBaseInfo(u: String, s: String) {
-        println("KIỂM TRA - Username: $u")
-        println("KIỂM TRA - SĐK: $s")
         if (u.isEmpty() || s.isEmpty()) {
             SimpleNotify.error(
                 this@ManHinhDoiMatKhau,
-                "THIẾU",
-                "Vui lòng nhập tài khoản và số đăng ký tàu"
+                getString(R.string.thieu_thong_tin).toUpperCase(),
+                getString(R.string.vui_long_nhap_tai_khoan_va_so_dang_ky_tau)
             )
             return
         }
@@ -157,7 +167,11 @@ class ManHinhDoiMatKhau : AppCompatActivity() {
         APIUtils.mAPIServices?.checkForgotPass(u, s)
             ?.enqueue(object : Callback<ForgotPasswordResponse> {
                 override fun onFailure(call: Call<ForgotPasswordResponse>, t: Throwable) {
-                    SimpleNotify.error(this@ManHinhDoiMatKhau, "LỖI MẠNG", "Vui lòng thử lại")
+                    SimpleNotify.error(
+                        this@ManHinhDoiMatKhau,
+                        getString(R.string.khong_co_mang),
+                        getString(R.string.vui_long_thu_lai)
+                    )
                     pDialog.dismiss()
                 }
 
@@ -175,14 +189,18 @@ class ManHinhDoiMatKhau : AppCompatActivity() {
                             theToken =
                                 forgotPasswordResponse.forgotData.forgotToken.forgotOriginal.access_token
                             if (theTokenType.isNotEmpty() && theToken.isNotEmpty())
-                                mhdmkBtnNutXacNhan.text = "Đổi mật khẩu"
+                                mhdmkBtnNutXacNhan.text = getString(R.string.doi_mat_khau)
                             mhdmkLnForgotPass.visibility = View.GONE
                             mhdkmPart2.visibility = View.VISIBLE
                             pDialog.dismiss()
                             return
                         }
                     }
-                    SimpleNotify.error(this@ManHinhDoiMatKhau, "LỖI", "Thông tin sai")
+                    SimpleNotify.error(
+                        this@ManHinhDoiMatKhau,
+                        getString(R.string.thong_tin_sai),
+                        getString(R.string.loi)
+                    )
                     pDialog.dismiss()
                 }
             })

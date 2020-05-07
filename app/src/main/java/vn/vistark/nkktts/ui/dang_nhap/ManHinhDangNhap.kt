@@ -63,7 +63,7 @@ class ManHinhDangNhap : AppCompatActivity() {
         // Progress dialog
         pDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
         pDialog.progressHelper.barColor = Color.parseColor("#A5DC86")
-        pDialog.titleText = "Đang xử lý"
+        pDialog.titleText = getString(R.string.dang_xu_ly)
         pDialog.setCancelable(false)
     }
 
@@ -99,7 +99,11 @@ class ManHinhDangNhap : AppCompatActivity() {
             if (maTaiKhoan.isBlank() || maTaiKhoan.isEmpty() ||
                 matKhau.isBlank() || matKhau.isEmpty()
             ) {
-                SimpleNotify.warning(this, "NHẬP THIẾU", "Vui lòng nhập đầy đủ thông tin")
+                SimpleNotify.warning(
+                    this,
+                    getString(R.string.vui_long_nhap_day_du_thong_tin),
+                    getString(R.string.thieu_thong_tin).toUpperCase()
+                )
                 processed()
                 return@setOnClickListener
             } else {
@@ -111,8 +115,8 @@ class ManHinhDangNhap : AppCompatActivity() {
                         override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                             SimpleNotify.error(
                                 this@ManHinhDangNhap,
-                                "KHÔNG CÓ MẠNG INTERNET",
-                                "LỖI"
+                                getString(R.string.khong_co_mang).toUpperCase(),
+                                getString(R.string.loi).toString()
                             )
                             processed()
                         }
@@ -147,8 +151,8 @@ class ManHinhDangNhap : AppCompatActivity() {
                                             Gson().fromJson(errRes, LoginFailResponse::class.java)
                                         SimpleNotify.error(
                                             this@ManHinhDangNhap,
-                                            "KHÔNG ĐƯỢC",
-                                            "Sai tài khoản hoặc mật khẩu"
+                                            getString(R.string.sai_tai_khoan_hoac_mat_khau),
+                                            ""
                                         )
                                         processed()
                                         return
@@ -159,8 +163,8 @@ class ManHinhDangNhap : AppCompatActivity() {
                             }
                             SimpleNotify.error(
                                 this@ManHinhDangNhap,
-                                "ĐĂNG NHẬP THẤT BẠI",
-                                "Đã xảy ra lỗi trong quá trình đăng nhập"
+                                getString(R.string.da_xay_ra_loi_trong_qua_trinh_dang_nhap),
+                                getString(R.string.dang_nhap_that_bai).toUpperCase()
                             )
                             processed()
                         }
@@ -174,8 +178,8 @@ class ManHinhDangNhap : AppCompatActivity() {
             override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
                 SimpleNotify.error(
                     this@ManHinhDangNhap,
-                    "LỖI LẤY HỒ SƠ",
-                    "Không lấy được hồ sơ"
+                    getString(R.string.khong_lay_duoc_ho_so),
+                    getString(R.string.loi).toUpperCase()
                 )
                 // Đăng xuất
                 Constants.logOut()
@@ -213,8 +217,8 @@ class ManHinhDangNhap : AppCompatActivity() {
                 }
                 SimpleNotify.error(
                     this@ManHinhDangNhap,
-                    "HÃY ĐĂNG NHẬP LẠI",
-                    "Không lấy được hồ sơ"
+                    getString(R.string.hay_dang_nhap_lai).toUpperCase(),
+                    getString(R.string.khong_lay_duoc_ho_so)
                 )
                 // Đăng xuất
                 Constants.logOut()
@@ -235,11 +239,9 @@ class ManHinhDangNhap : AppCompatActivity() {
     }
 
     private fun getSelectedJob() {
-        println("Tiến hành lấy nghề mà ngư dân đã chọn")
         APIUtils.mAPIServices?.getSelectedJobAPI()?.enqueue(object :
             Callback<GetSelectedJobResponse> {
             override fun onFailure(call: Call<GetSelectedJobResponse>, t: Throwable) {
-                println("Bị lỗi khi lấy nghề")
                 t.printStackTrace()
                 chuyenQuaManHinhDanhSachNghe()
             }
@@ -248,11 +250,6 @@ class ManHinhDangNhap : AppCompatActivity() {
                 call: Call<GetSelectedJobResponse>,
                 response: Response<GetSelectedJobResponse>
             ) {
-                println(
-                    "JOB GET SUCCESS: ${GsonBuilder().create().toJson(response.body())}"
-                )
-                println("JOB GET FAIL: ${GsonBuilder().create().toJson(response.errorBody())}")
-
                 if (response.isSuccessful) {
                     processed()
                     val selectedJob = response.body()?.data?.first()
@@ -274,7 +271,6 @@ class ManHinhDangNhap : AppCompatActivity() {
                         startActivity(intent)
                     }
                 } else {
-                    println("Lấy nghề không thành công")
                     chuyenQuaManHinhDanhSachNghe()
                 }
             }

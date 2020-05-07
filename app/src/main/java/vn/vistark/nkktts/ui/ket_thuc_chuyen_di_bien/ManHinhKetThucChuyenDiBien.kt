@@ -51,7 +51,7 @@ class ManHinhKetThucChuyenDiBien : AppCompatActivity() {
         // Progress dialog
         pDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
         pDialog.progressHelper.barColor = Color.parseColor("#A5DC86")
-        pDialog.titleText = "Đang xử lý"
+        pDialog.titleText = getString(R.string.dang_xu_ly)
         pDialog.setCancelable(false)
     }
 
@@ -65,7 +65,7 @@ class ManHinhKetThucChuyenDiBien : AppCompatActivity() {
     }
 
     private fun errNotify() {
-        SimpleNotify.error(this, "Oops...", "Vui lòng thử lại")
+        SimpleNotify.error(this, "Oops...", getString(R.string.vui_long_thu_lai))
     }
 
     private fun initEvents() {
@@ -110,7 +110,7 @@ class ManHinhKetThucChuyenDiBien : AppCompatActivity() {
                 }
                 syncHistoryTrip()
             } else {
-                SimpleNotify.error(this, "Chưa chọn cảng", "")
+                SimpleNotify.error(this, getString(R.string.chua_chon_cang).toUpperCase(), "")
                 pDialog.dismiss()
             }
         }
@@ -163,7 +163,7 @@ class ManHinhKetThucChuyenDiBien : AppCompatActivity() {
                 override fun onFailure(call: Call<HistoryTripSuccessResponse>, t: Throwable) {
                     SimpleNotify.success(
                         this@ManHinhKetThucChuyenDiBien,
-                        "CẦN KẾT NỐI INTERNET",
+                        getString(R.string.khong_co_mang).toUpperCase(),
                         ""
                     )
 //                    if (OfflineDataStorage.get<SeaPortsReponse>(OfflineDataStorage.tripHistory) == null) {
@@ -240,7 +240,7 @@ class ManHinhKetThucChuyenDiBien : AppCompatActivity() {
                 override fun onFailure(call: Call<SyncSuccess>, t: Throwable) {
                     SimpleNotify.success(
                         this@ManHinhKetThucChuyenDiBien,
-                        "CẦN KẾT NỐI INTERNET",
+                        getString(R.string.khong_co_mang).toUpperCase(),
                         ""
                     )
                 }
@@ -257,18 +257,20 @@ class ManHinhKetThucChuyenDiBien : AppCompatActivity() {
                         if (syss == 200) {
                             Toast.makeText(
                                 this@ManHinhKetThucChuyenDiBien,
-                                "Đồng bộ chuyến thành công", Toast.LENGTH_SHORT
+                                getString(R.string.dong_bo_chuyen_di_bien_thanh_cong),
+                                Toast.LENGTH_SHORT
                             ).show()
                         } else {
                             Toast.makeText(
                                 this@ManHinhKetThucChuyenDiBien,
-                                "Chuyến đã tồn tại. Bỏ qua chuyến này", Toast.LENGTH_SHORT
+                                getString(R.string.chuyen_di_bien_da_ton_tai),
+                                Toast.LENGTH_SHORT
                             ).show()
                         }
                     } else {
                         Toast.makeText(
                             this@ManHinhKetThucChuyenDiBien,
-                            "Đồng bộ chưa được", Toast.LENGTH_SHORT
+                            getString(R.string.dong_bo_chuyen_di_bien_chua_duoc), Toast.LENGTH_SHORT
                         ).show()
                     }
                     // Về màn khởi tạo chuyến đi biển
@@ -281,9 +283,6 @@ class ManHinhKetThucChuyenDiBien : AppCompatActivity() {
                     finish()
                 }
             })
-
-        Log.w("Token", GsonBuilder().create().toJson(Constants.userToken))
-        Log.w("ABC", GsonBuilder().create().toJson(Constants.currentTrip))
     }
 
     class syncImages(val syncTrip: () -> Unit) :
@@ -332,9 +331,7 @@ class ManHinhKetThucChuyenDiBien : AppCompatActivity() {
                                             }
                                         } while (true)
                                     }
-                                    println("SUCCESS: Xong ảnh $k -> $path")
                                 } else {
-                                    println("ERROR: Không may, kết quả trả về khi đồng bộ ảnh bị null hoặc không thành công")
                                 }
                             } catch (ez: Exception) {
                                 ez.printStackTrace()

@@ -17,7 +17,8 @@ class MeViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
     @SuppressLint("SetTextI18n")
     fun bind(hauls: Hauls) {
-        imdbTvTenMe.text = "Mẻ thứ ${hauls.orderNumber}"
-        imdbTvKhoangThoiGian.text = "${hauls.timeDropNets} đến ${hauls.timeCollectingNets}"
+        imdbTvTenMe.text = "#${hauls.orderNumber}"
+        imdbTvKhoangThoiGian.text =
+            "${hauls.timeDropNets} " + imdbTvTenMe.context.getString(R.string.den) + " ${hauls.timeCollectingNets}"
     }
 }

@@ -55,9 +55,9 @@ class ManHinhMeDanhBat : AppCompatActivity() {
         mhmdbBtnKetThucChuyenDiBien.setOnClickListener {
             if (Constants.currentTrip.trip.hauls.isEmpty()) {
                 SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE).apply {
-                    titleText = "CHƯA CÓ MẺ NÀO"
-                    contentText = "Vẫn thoát?"
-                    setConfirmButton("Đồng ý") {
+                    titleText = getString(R.string.chua_co_me_nao).toUpperCase()
+                    contentText = getString(R.string.van_thoat)
+                    setConfirmButton(getString(R.string.dong_y)) {
                         it.dismiss()
                         Constants.currentTrip.trip = Trip()
                         Constants.updateCurrentTrip()
@@ -69,7 +69,7 @@ class ManHinhMeDanhBat : AppCompatActivity() {
                         )
                         finish()
                     }
-                    setCancelButton("Hủy") {
+                    setCancelButton(getString(R.string.huy)) {
                         it.dismiss()
                     }
                     show()

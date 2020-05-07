@@ -51,9 +51,9 @@ class ManHinhThietLap : AppCompatActivity() {
 
         mhtlBtnDangXuat.setOnClickListener {
             SweetAlertDialog(this).apply {
-                titleText = "ĐĂNG XUẤT"
-                contentText = "Bạn chắc chắn?"
-                setConfirmButton("Đồng ý") {
+                titleText = getString(R.string.dang_xuat).toUpperCase()
+                contentText = getString(R.string.ban_co_chac_chan)
+                setConfirmButton(getString(R.string.dong_y)) {
                     if (Constants.logOut()) {
                         val intent = Intent(this@ManHinhThietLap, ManHinhKhoiDong::class.java)
                         intent.flags =
@@ -64,12 +64,12 @@ class ManHinhThietLap : AppCompatActivity() {
                     } else {
                         SimpleNotify.error(
                             this@ManHinhThietLap,
-                            "ĐĂNG XUẤT LỖI",
-                            "Vui lòng thử lại"
+                            getString(R.string.dang_xuat_loi).toUpperCase(),
+                            getString(R.string.vui_long_thu_lai)
                         )
                     }
                 }
-                setCancelButton("Quay lại") {
+                setCancelButton(getString(R.string.quay_ve)) {
                     it.dismissWithAnimation()
                 }
                 show()

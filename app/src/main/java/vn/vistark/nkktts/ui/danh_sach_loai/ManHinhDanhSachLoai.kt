@@ -45,8 +45,8 @@ import kotlin.collections.ArrayList
 
 
 class ManHinhDanhSachLoai : AppCompatActivity() {
-    val MIN_SPICE_IMAGES = 3
-    val MAX_SPICE_IMAGES = 6
+    val MIN_SPICE_IMAGES = 0
+    val MAX_SPICE_IMAGES = 3
 
     val REQUEST_TAKE_PHOTO = 1122
     val REQUEST_PICK_PHOTO = 2233
@@ -83,7 +83,7 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
     private fun initIfNowIsReview() {
         if (Hauls.currentHault.timeCollectingNets.isNotEmpty()) {
             mhdslBtnKetThucMe.setBackgroundResource(R.drawable.btn_info)
-            mhdslBtnKetThucMe.text = "Quay về"
+            mhdslBtnKetThucMe.text = getString(R.string.quay_ve)
             mhdslBtnKetThucMe.setOnClickListener {
                 val manHinhMeDanhBatIntent =
                     Intent(this@ManHinhDanhSachLoai, ManHinhMeDanhBat::class.java)
@@ -104,15 +104,15 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
             override fun run() {
                 if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                     runOnUiThread {
-                        if (!pDialog.isShowing || pDialog.titleText != "HÃY BẬT GPS") {
-                            pDialog.titleText = "HÃY BẬT GPS"
+                        if (!pDialog.isShowing || pDialog.titleText != getString(R.string.hay_bat_gps)) {
+                            pDialog.titleText = getString(R.string.hay_bat_gps)
                             pDialog.show()
                         }
                     }
                 } else {
                     runOnUiThread {
-                        if (pDialog.isShowing && pDialog.titleText == "HÃY BẬT GPS") {
-                            pDialog.titleText = "Đang xử lý..."
+                        if (pDialog.isShowing && pDialog.titleText == getString(R.string.hay_bat_gps)) {
+                            pDialog.titleText = getString(R.string.dang_xu_ly)
                             pDialog.dismiss()
                         }
                     }
@@ -141,7 +141,7 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
             if (spiceImages.size < MIN_SPICE_IMAGES) {
                 SimpleNotify.error(
                     this,
-                    "Vui lòng cung cấp ít nhất ${MIN_SPICE_IMAGES} ảnh về loài này",
+                    getString(R.string.vui_long_cung_cap_day_du_anh_ve_loai_nay),
                     ""
                 )
                 return@setOnClickListener
@@ -156,14 +156,15 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
                 pressedMillis = -1
                 val input = islmdEdtSanLuong.text.toString().toFloatOrNull()
                 if (input == null) {
-                    SimpleNotify.error(this, "SẢN LƯỢNG SAI", "")
+                    SimpleNotify.error(this, getString(R.string.san_luong_sai).toUpperCase(), "")
                 } else {
                     var isExists = false
                     if (Hauls.currentHault.spices.isNotEmpty()) {
                         // Nếu trong danh sách các loài đã đánh bắt của mẻ đã có loài này rồi, thì tiến hành cập nhật nó
                         for (i in Hauls.currentHault.spices.indices) {
                             if (Hauls.currentHault.spices[i].id == spices.id) {
-                                Hauls.currentHault.spices[i].name = spices.name ?: "<Không rõ>"
+                                Hauls.currentHault.spices[i].name =
+                                    spices.name ?: getString(R.string.tag_khong_ro)
                                 Hauls.currentHault.spices[i].weight = input
                                 Hauls.currentHault.spices[i].images =
                                     GsonBuilder().create().toJson(spiceImages)
@@ -177,7 +178,7 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
                         // Còn nếu nó chưa hề tồn tại, ta tiến hành tạo một đối tượng loài bắt được mới
                         val catchedSpices = CatchedSpices()
                         catchedSpices.id = spices.id
-                        catchedSpices.name = spices.name ?: "<Không rõ>"
+                        catchedSpices.name = spices.name ?: getString(R.string.tag_khong_ro)
                         catchedSpices.weight = input
                         catchedSpices.images = GsonBuilder().create().toJson(spiceImages)
 
@@ -207,7 +208,11 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
                     adapter.notifyDataSetChanged()
                 }
             } else {
-                SimpleNotify.warning(this, "ĐANG LẤY VỊ TRÍ", "Thử lại sau 1 giây")
+                SimpleNotify.warning(
+                    this,
+                    getString(R.string.dang_lay_vi_tri).toUpperCase(),
+                    getString(R.string.thu_lai_sau_1_giay)
+                )
             }
         }
 
@@ -278,13 +283,17 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
                     startActivity(thongTinMeDanhBatIntent)
                     finish()
                 } else {
-                    SimpleNotify.error(this, "KẾT THÚC LỖI", "Vui lòng thử lại")
+                    SimpleNotify.error(
+                        this,
+                        getString(R.string.ket_thuc_loi).toUpperCase(),
+                        getString(R.string.vui_long_thu_lai)
+                    )
                 }
             } else {
                 SimpleNotify.warning(
                     this,
-                    "ĐANG LẤY VỊ TRÍ",
-                    "Thử lại sau 5 giây hoặc lâu hơn nếu GPS kém."
+                    getString(R.string.dang_lay_vi_tri),
+                    getString(R.string.thu_lai_sau_x_giay_hoac_lau_hon_neu_gps_kem)
                 )
             }
         }
@@ -294,7 +303,7 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
         // Progress dialog
         pDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
         pDialog.progressHelper.barColor = Color.parseColor("#A5DC86")
-        pDialog.titleText = "Đang xử lý"
+        pDialog.titleText = getString(R.string.dang_xu_ly)
         pDialog.setCancelable(false)
     }
 
@@ -319,8 +328,8 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
         } else {
             SimpleNotify.error(
                 this,
-                "LẤY LOÀI LỖI",
-                "Vui lòng thử lại"
+                getString(R.string.lay_loai_loi).toUpperCase(),
+                getString(R.string.vui_long_thu_lai)
             )
         }
         processed()
@@ -438,9 +447,13 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
 
     private fun selectImage() {
         val options =
-            arrayOf<CharSequence>("Chụp ảnh", "Chọn ảnh", "Đóng")
+            arrayOf<CharSequence>(
+                getString(R.string.chup_anh), getString(R.string.chon_anh), getString(
+                    R.string.dong
+                )
+            )
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Chọn phương thức lấy ảnh")
+        builder.setTitle(getString(R.string.chon_phuong_thuc_lay_anh))
         builder.setItems(options) { dialog, index ->
             when (index) {
                 0 -> {

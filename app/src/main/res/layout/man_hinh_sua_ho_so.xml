@@ -18,11 +18,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
                 android:layout_marginLeft="35dp"
                 android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
                 android:layout_marginRight="@dimen/default_margin"
                 android:layout_marginBottom="5dp"
-                android:text="Họ tên chủ tàu"
+                android:text="@string/ho_ten_chu_tau"
                 android:textColor="@color/sub_color"
                 android:textSize="16sp" />
 
@@ -38,7 +40,7 @@
                 android:drawableLeft="@drawable/ic_user_32"
                 android:drawablePadding="10dp"
                 android:ems="10"
-                android:hint="Họ tên chủ tàu"
+                android:hint="@string/ho_ten_chu_tau"
                 android:inputType="textPersonName|textAutoComplete|textAutoCorrect"
                 android:lines="1"
                 android:padding="15dp"
@@ -47,11 +49,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
                 android:layout_marginLeft="35dp"
                 android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
                 android:layout_marginRight="@dimen/default_margin"
                 android:layout_marginBottom="5dp"
-                android:text="Họ tên thuyền trưởng"
+                android:text="@string/ho_ten_thuyen_truong"
                 android:textColor="@color/sub_color"
                 android:textSize="16sp" />
 
@@ -67,7 +71,7 @@
                 android:drawableLeft="@drawable/ic_captain"
                 android:drawablePadding="10dp"
                 android:ems="10"
-                android:hint="Họ tên thuyền trưởng"
+                android:hint="@string/ho_ten_thuyen_truong"
                 android:inputType="textPersonName|textAutoComplete|textAutoCorrect"
                 android:lines="1"
                 android:padding="15dp"
@@ -76,11 +80,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
                 android:layout_marginLeft="35dp"
                 android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
                 android:layout_marginRight="@dimen/default_margin"
                 android:layout_marginBottom="5dp"
-                android:text="Số đăng ký tàu"
+                android:text="@string/so_dang_ky_tau"
                 android:textColor="@color/sub_color"
                 android:textSize="16sp" />
 
@@ -96,7 +102,7 @@
                 android:drawableLeft="@drawable/ic_boat"
                 android:drawablePadding="10dp"
                 android:ems="10"
-                android:hint="Số đăng ký tàu"
+                android:hint="@string/so_dang_ky_tau"
                 android:lines="1"
                 android:padding="15dp"
                 android:textSize="@dimen/default_font_size" />
@@ -104,11 +110,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
                 android:layout_marginLeft="35dp"
                 android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
                 android:layout_marginRight="@dimen/default_margin"
                 android:layout_marginBottom="5dp"
-                android:text="Công suất máy chính (CV)"
+                android:text="@string/cong_suat_may_chinh_cv"
                 android:textColor="@color/sub_color"
                 android:textSize="16sp" />
 
@@ -119,13 +127,12 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/default_margin"
                 android:layout_marginRight="@dimen/default_margin"
-
                 android:background="@drawable/default_edt_bg"
                 android:drawableStart="@drawable/ic_milling_machine"
                 android:drawableLeft="@drawable/ic_milling_machine"
                 android:drawablePadding="10dp"
                 android:ems="10"
-                android:hint="Công suất máy chính (CV)"
+                android:hint="@string/cong_suat_may_chinh_cv"
                 android:inputType="numberDecimal"
                 android:lines="1"
                 android:padding="15dp"
@@ -134,11 +141,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
                 android:layout_marginLeft="35dp"
                 android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
                 android:layout_marginRight="@dimen/default_margin"
                 android:layout_marginBottom="5dp"
-                android:text="Chiều dài của tàu (m)"
+                android:text="@string/chieu_dai_cua_tau_m"
                 android:textColor="@color/sub_color"
                 android:textSize="16sp" />
 
@@ -149,13 +158,12 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/default_margin"
                 android:layout_marginRight="@dimen/default_margin"
-
                 android:background="@drawable/default_edt_bg"
                 android:drawableStart="@drawable/ic_double_arrow"
                 android:drawableLeft="@drawable/ic_double_arrow"
                 android:drawablePadding="10dp"
                 android:ems="10"
-                android:hint="Chiều dài của tàu"
+                android:hint="@string/chieu_dai_cua_tau_m"
                 android:inputType="numberDecimal|textAutoComplete"
                 android:lines="1"
                 android:padding="15dp"
@@ -164,11 +172,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
                 android:layout_marginLeft="35dp"
                 android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
                 android:layout_marginRight="@dimen/default_margin"
                 android:layout_marginBottom="5dp"
-                android:text="Số giấy phép khai thác"
+                android:text="@string/so_giay_phep_khai_thac"
                 android:textColor="@color/sub_color"
                 android:textSize="16sp" />
 
@@ -184,7 +194,7 @@
                 android:drawableLeft="@drawable/ic_license_plate"
                 android:drawablePadding="10dp"
                 android:ems="10"
-                android:hint="Số giấy phép khai thác"
+                android:hint="@string/so_giay_phep_khai_thac"
                 android:lines="1"
                 android:padding="15dp"
                 android:textSize="@dimen/default_font_size" />
@@ -192,11 +202,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
                 android:layout_marginLeft="35dp"
                 android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
                 android:layout_marginRight="@dimen/default_margin"
                 android:layout_marginBottom="5dp"
-                android:text="Thời hạn"
+                android:text="@string/thoi_han"
                 android:textColor="@color/sub_color"
                 android:textSize="16sp" />
 
@@ -214,8 +226,8 @@
                 android:drawablePadding="10dp"
                 android:ems="10"
                 android:focusable="true"
-                android:gravity="center|left"
-                android:hint="Thời hạn"
+                android:gravity="center|start"
+                android:hint="@string/thoi_han"
                 android:lines="1"
                 android:padding="15dp"
                 android:textSize="@dimen/default_font_size" />
@@ -223,11 +235,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
                 android:layout_marginLeft="35dp"
                 android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
                 android:layout_marginRight="@dimen/default_margin"
                 android:layout_marginBottom="5dp"
-                android:text="Nghề phụ"
+                android:text="@string/nghe_phu"
                 android:textColor="@color/sub_color"
                 android:textSize="16sp" />
 
@@ -243,7 +257,7 @@
                 android:drawableLeft="@drawable/ic_work"
                 android:drawablePadding="10dp"
                 android:ems="10"
-                android:hint="Nghề phụ"
+                android:hint="@string/nghe_phu"
                 android:inputType="textAutoComplete|textAutoCorrect"
                 android:lines="1"
                 android:padding="15dp"
@@ -256,7 +270,7 @@
                 android:layout_margin="@dimen/default_margin"
                 android:background="@drawable/btn_info"
                 android:padding="@dimen/default_padding"
-                android:text="Hoàn tất sửa"
+                android:text="@string/hoan_tat_sua"
                 android:textColor="#FFF"
                 android:textSize="@dimen/default_font_size" />
 
@@ -269,7 +283,8 @@
                 android:layout_marginBottom="@dimen/default_margin"
                 android:background="@drawable/btn_error"
                 android:padding="@dimen/default_padding"
-                android:text="HỦY"
+                android:text="@string/huy"
+                android:textAllCaps="true"
                 android:textColor="#FFF"
                 android:textSize="@dimen/default_font_size" />
         </LinearLayout>

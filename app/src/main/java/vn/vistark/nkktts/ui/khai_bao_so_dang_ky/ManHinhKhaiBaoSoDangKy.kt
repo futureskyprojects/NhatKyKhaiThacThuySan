@@ -54,7 +54,7 @@ class ManHinhKhaiBaoSoDangKy : AppCompatActivity(), DatePickerDialog.OnDateSetLi
         // Progress dialog
         pDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
         pDialog.progressHelper.barColor = Color.parseColor("#A5DC86")
-        pDialog.titleText = "Đang xử lý"
+        pDialog.titleText = getString(R.string.dang_xu_ly)
         pDialog.setCancelable(false)
     }
 
@@ -99,8 +99,8 @@ class ManHinhKhaiBaoSoDangKy : AppCompatActivity(), DatePickerDialog.OnDateSetLi
             if (!isFully) {
                 SimpleNotify.warning(
                     this,
-                    "THIẾU THÔNG TIN",
-                    "Vui lòng nhập đầy đủ các thông tin"
+                    getString(R.string.thieu_thong_tin),
+                    getString(R.string.vui_long_nhap_day_du_thong_tin)
                 )
                 processed()
                 return@setOnClickListener
@@ -121,8 +121,8 @@ class ManHinhKhaiBaoSoDangKy : AppCompatActivity(), DatePickerDialog.OnDateSetLi
                     override fun onFailure(call: Call<RegisterSuccess>, t: Throwable) {
                         SimpleNotify.error(
                             this@ManHinhKhaiBaoSoDangKy,
-                            "Oops...",
-                            "Không thể đăng ký, hãy thử lại"
+                            getString(R.string.khong_the_dang_ky_vui_long_thu_lai),
+                            getString(R.string.loi)
                         )
                         processed()
                     }
@@ -138,14 +138,14 @@ class ManHinhKhaiBaoSoDangKy : AppCompatActivity(), DatePickerDialog.OnDateSetLi
                                 if (registerSuccess != null) {
                                     if (registerSuccess.status == 200 && registerSuccess.data != null) {
                                         Constants.userId = "${registerSuccess.data.id}"
-                                        if (Constants.updateUserId()) {
-                                            Log.w(TAG, "Cập nhật user_id lỗi")
-                                        } else {
-                                            Log.w(
-                                                TAG,
-                                                "Cập nhật user_id thành công: ${Constants.userId}"
-                                            )
-                                        }
+//                                        if (Constants.updateUserId()) {
+//                                            Log.w(TAG, "Cập nhật user_id lỗi")
+//                                        } else {
+//                                            Log.w(
+//                                                TAG,
+//                                                "Cập nhật user_id thành công: ${Constants.userId}"
+//                                            )
+//                                        }
                                         if (registerSuccess.data.token?.original?.access_token != null) {
                                             Constants.userToken =
                                                 registerSuccess.data.token.original.access_token
@@ -191,17 +191,16 @@ class ManHinhKhaiBaoSoDangKy : AppCompatActivity(), DatePickerDialog.OnDateSetLi
 
                             SimpleNotify.error(
                                 this@ManHinhKhaiBaoSoDangKy,
-                                "LỖI MÁY CHỦ",
-                                "Đăng ký không thành công"
+                                getString(R.string.dang_ky_khong_thanh_cong),
+                                getString(R.string.loi).toUpperCase()
                             )
                             processed()
                             return
                         }
-                        println("Lỗi không xác định, Mã: ${response.code()}")
                         SimpleNotify.error(
                             this@ManHinhKhaiBaoSoDangKy,
                             "Oops...",
-                            "Lỗi không xác định"
+                            getString(R.string.loi_khong_xac_dinh)
                         )
                         processed()
                     }

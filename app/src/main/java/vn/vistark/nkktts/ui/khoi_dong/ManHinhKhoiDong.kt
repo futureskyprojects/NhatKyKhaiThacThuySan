@@ -73,7 +73,7 @@ class ManHinhKhoiDong : AppCompatActivity() {
         // Progress dialog
         pDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
         pDialog.progressHelper.barColor = Color.parseColor("#A5DC86")
-        pDialog.titleText = "Hãy bật GPS"
+        pDialog.titleText = getString(R.string.hay_bat_gps).toUpperCase()
         pDialog.setCancelable(false)
     }
 
@@ -134,7 +134,11 @@ class ManHinhKhoiDong : AppCompatActivity() {
 
     private fun chuyenQuaManHinhDangNhap() {
         if (Constants.sharedPreferences == null) {
-            SimpleNotify.error(this, "LỖI DỮ LIỆU", "Khởi tạo trình đọc dữ liệu không được")
+            SimpleNotify.error(
+                this,
+                getString(R.string.loi_du_lieu).toUpperCase(),
+                getString(R.string.khoi_tao_trinh_doc_du_lieu_khong_duoc)
+            )
             Timer().schedule(object : TimerTask() {
                 override fun run() {
                     chuyenQuaManHinhDangNhap()
@@ -248,11 +252,9 @@ class ManHinhKhoiDong : AppCompatActivity() {
     }
 
     private fun getSelectedJob() {
-        println("Tiến hành lấy nghề mà ngư dân đã chọn")
         APIUtils.mAPIServices?.getSelectedJobAPI()?.enqueue(object :
             Callback<GetSelectedJobResponse> {
             override fun onFailure(call: Call<GetSelectedJobResponse>, t: Throwable) {
-                println("Bị lỗi khi lấy nghề")
                 t.printStackTrace()
                 appRouting()
             }
@@ -261,11 +263,6 @@ class ManHinhKhoiDong : AppCompatActivity() {
                 call: Call<GetSelectedJobResponse>,
                 response: Response<GetSelectedJobResponse>
             ) {
-                println(
-                    "JOB GET SUCCESS: ${GsonBuilder().create().toJson(response.body())}"
-                )
-                println("JOB GET FAIL: ${GsonBuilder().create().toJson(response.errorBody())}")
-
                 if (response.isSuccessful) {
                     val selectedJob = response.body()?.data?.first()
                     if (selectedJob != null) {
@@ -279,7 +276,6 @@ class ManHinhKhoiDong : AppCompatActivity() {
                         Constants.updateSelectedJob()
                     }
                 } else {
-                    println("Lấy nghề không thành công")
                 }
                 appRouting()
             }

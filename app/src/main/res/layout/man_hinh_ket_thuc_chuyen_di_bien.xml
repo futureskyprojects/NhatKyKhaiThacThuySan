@@ -37,7 +37,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:text="Bấm để chọn cảng về"
+                android:text="@string/bam_de_chon_cang_ve"
                 android:textAllCaps="true"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="24sp"
@@ -53,7 +53,7 @@
         android:layout_margin="@dimen/default_margin"
         android:background="@drawable/btn_info"
         android:padding="@dimen/default_padding"
-        android:text="Nộp nhật ký"
+        android:text="@string/nop_nhat_ky"
         android:textColor="#FFF"
         android:textSize="@dimen/default_font_size" />
 </RelativeLayout>

@@ -34,7 +34,7 @@
                 android:layout_toEndOf="@id/islmdHinhAnhLoai"
                 android:layout_toRightOf="@id/islmdHinhAnhLoai"
                 android:gravity="center"
-                android:text="LOÀI KHÔNG XÁC ĐỊNH"
+                android:text="@string/loai_khong_xac_dinh"
                 android:textColor="#000000"
                 android:textSize="@dimen/default_font_size"
                 android:textStyle="bold" />
@@ -43,6 +43,7 @@
                 android:id="@+id/islmdIvBtnNutDong"
                 android:layout_width="?android:attr/actionBarSize"
                 android:layout_height="?android:attr/actionBarSize"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:src="@drawable/ic_close_black_24dp" />
         </RelativeLayout>
@@ -50,11 +51,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
             android:layout_marginLeft="35dp"
             android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
             android:layout_marginRight="@dimen/default_margin"
             android:layout_marginBottom="5dp"
-            android:text="Sản lượng (KG)"
+            android:text="@string/san_luong_kg"
             android:textColor="@color/sub_color"
             android:textSize="16sp" />
 
@@ -70,7 +73,7 @@
             android:drawableLeft="@drawable/ic_weight"
             android:drawablePadding="10dp"
             android:ems="10"
-            android:hint="Sản lượng (KG)"
+            android:hint="@string/san_luong_kg"
             android:inputType="numberDecimal"
             android:padding="15dp"
             android:textSize="@dimen/default_font_size" />
@@ -83,7 +86,7 @@
             android:layout_margin="@dimen/default_margin"
             android:background="@drawable/btn_info"
             android:padding="@dimen/default_padding"
-            android:text="Cập nhật"
+            android:text="@string/cap_nhat"
             android:textColor="#FFF"
             android:textSize="@dimen/default_font_size" />
     </LinearLayout>

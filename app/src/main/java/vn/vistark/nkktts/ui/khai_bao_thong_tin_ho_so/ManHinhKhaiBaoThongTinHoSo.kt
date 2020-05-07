@@ -47,7 +47,7 @@ class ManHinhKhaiBaoThongTinHoSo : AppCompatActivity() {
         // Progress dialog
         pDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
         pDialog.progressHelper.barColor = Color.parseColor("#A5DC86")
-        pDialog.titleText = "Đang xử lý"
+        pDialog.titleText = getString(R.string.dang_xu_ly)
         pDialog.setCancelable(false)
     }
 
@@ -74,7 +74,11 @@ class ManHinhKhaiBaoThongTinHoSo : AppCompatActivity() {
             //========== Xong lấy giá trị nhập vào =====================//
 
             if (shipNumber.isBlank() || shipNumber.isEmpty()) {
-                SimpleNotify.warning(this, "THIẾU THÔNG TIN", "Vui lòng nhập số đăng ký tàu")
+                SimpleNotify.warning(
+                    this,
+                    getString(R.string.vui_long_nhap_so_dang_ky_tau),
+                    getString(R.string.thieu_thong_tin).toUpperCase()
+                )
                 return@setOnClickListener
             }
             processing()
@@ -83,10 +87,9 @@ class ManHinhKhaiBaoThongTinHoSo : AppCompatActivity() {
                 override fun onFailure(call: Call<CheckUser>, t: Throwable) {
                     SimpleNotify.error(
                         this@ManHinhKhaiBaoThongTinHoSo,
-                        "Oops...",
-                        "Không thể kiểm tra được số đăng ký tàu"
+                        getString(R.string.khong_the_kiem_tra_duoc_so_dang_ky_tau),
+                        getString(R.string.loi).toUpperCase()
                     )
-                    println("Không thể kiểm tra được")
                     processed()
                 }
 
@@ -138,32 +141,31 @@ class ManHinhKhaiBaoThongTinHoSo : AppCompatActivity() {
                                 } else {
                                     SimpleNotify.warning(
                                         this@ManHinhKhaiBaoThongTinHoSo,
-                                        "THIẾU THÔNG TIN",
-                                        "Vui lòng nhập đầy đủ các thông tin"
+                                        getString(R.string.vui_long_nhap_day_du_thong_tin),
+                                        getString(R.string.thieu_thong_tin).toUpperCase()
                                     )
                                 }
                             } else {
                                 SimpleNotify.warning(
                                     this@ManHinhKhaiBaoThongTinHoSo,
-                                    "BỊ TRÙNG",
-                                    "Số đăng ký tàu đã tồn tại"
+                                    getString(R.string.so_dang_ky_tau_da_ton_tai),
+                                    getString(R.string.bi_trung).toUpperCase()
                                 )
                             }
                             return
                         } else {
                             SimpleNotify.error(
                                 this@ManHinhKhaiBaoThongTinHoSo,
-                                "Oops...",
-                                "Lỗi khi kiểm tra số đăng ký tàu"
+                                getString(R.string.loi_khi_kiem_tra_so_dang_ky_tau),
+                                getString(R.string.loi)
                             )
                             return
                         }
                     }
-                    println("Lỗi không xác định, Mã: ${response.code()}")
                     SimpleNotify.error(
                         this@ManHinhKhaiBaoThongTinHoSo,
-                        "Oops...",
-                        "Lỗi không xác định"
+                        getString(R.string.loi_khong_xac_dinh),
+                        getString(R.string.loi)
                     )
                 }
             })

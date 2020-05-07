@@ -28,13 +28,12 @@
             android:id="@+id/mhmdbBtnThemMeMoi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/default_margin"
             android:layout_marginTop="10dp"
             android:layout_marginRight="@dimen/default_margin"
             android:background="@drawable/btn_info"
             android:padding="@dimen/default_padding"
-            android:text="Thêm mẻ mới"
+            android:text="@string/them_me_moi"
             android:textColor="#FFF"
             android:textSize="@dimen/default_font_size" />
 
@@ -42,11 +41,10 @@
             android:id="@+id/mhmdbBtnKetThucChuyenDiBien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_margin="@dimen/default_margin"
             android:background="@drawable/btn_error"
             android:padding="@dimen/default_padding"
-            android:text="Kết thúc chuyến đi biển"
+            android:text="@string/ket_thuc_chuyen_di_bien"
             android:textColor="#FFF"
             android:textSize="@dimen/default_font_size" />
     </LinearLayout>

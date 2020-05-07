@@ -28,7 +28,7 @@
                     android:layout_marginTop="@dimen/default_margin"
                     android:layout_marginRight="@dimen/default_margin"
                     android:layout_marginBottom="5dp"
-                    android:text="Mã tài khoản"
+                    android:text="@string/ma_tai_khoan"
                     android:textColor="@color/sub_color"
                     android:textSize="16sp" />
 
@@ -44,7 +44,7 @@
                     android:drawableLeft="@drawable/ic_boat"
                     android:drawablePadding="10dp"
                     android:ems="10"
-                    android:hint="Mã tài khoản"
+                    android:hint="@string/ma_tai_khoan"
                     android:inputType="textPersonName|textAutoComplete|textAutoCorrect"
                     android:lines="1"
                     android:padding="15dp"
@@ -57,7 +57,7 @@
                     android:layout_marginTop="@dimen/default_margin"
                     android:layout_marginRight="@dimen/default_margin"
                     android:layout_marginBottom="5dp"
-                    android:text="Số đăng ký tàu"
+                    android:text="@string/so_dang_ky_tau"
                     android:textColor="@color/sub_color"
                     android:textSize="16sp" />
 
@@ -73,7 +73,7 @@
                     android:drawableLeft="@drawable/ic_license_plate"
                     android:drawablePadding="10dp"
                     android:ems="10"
-                    android:hint="Số đăng ký tàu"
+                    android:hint="@string/so_dang_ky_tau"
                     android:inputType="textPersonName|textAutoComplete|textAutoCorrect"
                     android:lines="1"
                     android:padding="15dp"
@@ -93,7 +93,7 @@
                     android:layout_marginTop="@dimen/default_margin"
                     android:layout_marginRight="@dimen/default_margin"
                     android:layout_marginBottom="5dp"
-                    android:text="Mật khẩu mới"
+                    android:text="@string/mat_khau_moi"
                     android:textColor="@color/sub_color"
                     android:textSize="16sp" />
 
@@ -109,7 +109,7 @@
                     android:drawableLeft="@drawable/ic_vpn_key"
                     android:drawablePadding="10dp"
                     android:ems="10"
-                    android:hint="Mật khẩu mới"
+                    android:hint="@string/mat_khau_moi"
                     android:inputType="textPassword"
                     android:lines="1"
                     android:padding="15dp"
@@ -122,7 +122,7 @@
                     android:layout_marginTop="@dimen/default_margin"
                     android:layout_marginRight="@dimen/default_margin"
                     android:layout_marginBottom="5dp"
-                    android:text="Nhập lại mật khẩu mới"
+                    android:text="@string/nhap_lai_mat_khau_moi"
                     android:textColor="@color/sub_color"
                     android:textSize="16sp" />
 
@@ -139,7 +139,7 @@
                     android:drawableLeft="@drawable/ic_vpn_key"
                     android:drawablePadding="10dp"
                     android:ems="10"
-                    android:hint="Nhập lại mật khẩu mới"
+                    android:hint="@string/nhap_lai_mat_khau_moi"
                     android:inputType="textPassword"
                     android:lines="1"
                     android:padding="15dp"
@@ -154,7 +154,7 @@
                 android:layout_margin="@dimen/default_margin"
                 android:background="@drawable/btn_info"
                 android:padding="@dimen/default_padding"
-                android:text="Kiểm tra"
+                android:text="@string/kiem_tra"
                 android:textColor="#FFF"
                 android:textSize="@dimen/default_font_size" />
         </LinearLayout>

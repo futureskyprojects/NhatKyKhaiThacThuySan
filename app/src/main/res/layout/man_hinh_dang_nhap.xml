@@ -33,7 +33,7 @@
                 android:layout_marginEnd="@dimen/default_margin"
                 android:layout_marginRight="@dimen/default_margin"
                 android:layout_marginBottom="5dp"
-                android:text="Mã tài khoản"
+                android:text="@string/ma_tai_khoan"
                 android:textColor="#FFF"
                 android:textSize="16sp" />
 
@@ -49,7 +49,7 @@
                 android:drawableLeft="@drawable/ic_boat"
                 android:drawablePadding="10dp"
                 android:ems="10"
-                android:hint="Mã tài khoản"
+                android:hint="@string/ma_tai_khoan"
                 android:lines="1"
                 android:padding="15dp"
                 android:textSize="@dimen/default_font_size" />
@@ -63,7 +63,7 @@
                 android:layout_marginEnd="@dimen/default_margin"
                 android:layout_marginRight="@dimen/default_margin"
                 android:layout_marginBottom="5dp"
-                android:text="Mật khẩu"
+                android:text="@string/mat_khau"
                 android:textColor="#FFF"
                 android:textSize="16sp" />
 
@@ -79,7 +79,7 @@
                 android:drawableLeft="@drawable/ic_vpn_key"
                 android:drawablePadding="10dp"
                 android:ems="10"
-                android:hint="Mật khẩu"
+                android:hint="@string/mat_khau"
                 android:inputType="textPassword"
                 android:lines="1"
                 android:padding="15dp"
@@ -91,6 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
                 android:clickable="true"
                 android:focusable="true"
@@ -98,7 +99,7 @@
                 android:paddingTop="3dp"
                 android:paddingRight="10dp"
                 android:paddingBottom="3dp"
-                android:text="Quên mật khẩu?"
+                android:text="@string/quen_mat_khau"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp" />
 
@@ -109,7 +110,7 @@
                 android:layout_margin="@dimen/default_margin"
                 android:background="@drawable/btn_info"
                 android:padding="@dimen/default_padding"
-                android:text="Đăng nhập"
+                android:text="@string/dang_nhap"
                 android:textColor="#FFF"
                 android:textSize="@dimen/default_font_size" />
 
@@ -117,7 +118,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Hoặc"
+                android:text="@string/hoac"
                 android:textColor="#FFF"
                 android:textSize="16sp" />
 
@@ -128,7 +129,7 @@
                 android:layout_margin="@dimen/default_margin"
                 android:background="@drawable/btn_error"
                 android:padding="@dimen/default_padding"
-                android:text="Đăng ký"
+                android:text="@string/dang_ky"
                 android:textColor="#FFF"
                 android:textSize="@dimen/default_font_size" />
 

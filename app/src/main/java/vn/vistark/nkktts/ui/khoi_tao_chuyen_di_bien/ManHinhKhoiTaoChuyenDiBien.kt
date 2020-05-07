@@ -63,10 +63,18 @@ class ManHinhKhoiTaoChuyenDiBien : AppCompatActivity() {
                     startActivity(manHinhMeDanhBatIntent)
                     finish()
                 } else {
-                    SimpleNotify.error(this, "LỖI", "Vui lòng thử lại")
+                    SimpleNotify.error(
+                        this,
+                        getString(R.string.vui_long_thu_lai),
+                        getString(R.string.loi).toUpperCase()
+                    )
                 }
             } else {
-                SimpleNotify.warning(this, "CHƯA CHỌN CẢNG", "Vui lòng chọn cảng")
+                SimpleNotify.warning(
+                    this,
+                    getString(R.string.vui_long_chon_cang),
+                    getString(R.string.chua_chon_cang).toUpperCase()
+                )
             }
         }
     }

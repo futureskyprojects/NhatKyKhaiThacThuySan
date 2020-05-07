@@ -53,7 +53,7 @@ class ManHinhChonCang : AppCompatActivity() {
         // Progress dialog
         pDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
         pDialog.progressHelper.barColor = Color.parseColor("#A5DC86")
-        pDialog.titleText = "Đang xử lý"
+        pDialog.titleText = getString(R.string.dang_xu_ly)
         pDialog.setCancelable(false)
     }
 
@@ -72,7 +72,7 @@ class ManHinhChonCang : AppCompatActivity() {
                 setResult(Activity.RESULT_OK, Intent())
                 finish()
             } else {
-                SimpleNotify.error(this, "CHỌN CẢNG KHÔNG ĐƯỢC", "")
+                SimpleNotify.error(this, getString(R.string.chon_cang_khong_duoc).toUpperCase(), "")
             }
         }
         mhccRvDanhSachCangBien.adapter = cangAdapter
@@ -99,8 +99,8 @@ class ManHinhChonCang : AppCompatActivity() {
         } else {
             SimpleNotify.error(
                 this@ManHinhChonCang,
-                "LẤY CẢNG KHÔNG ĐƯỢC",
-                "Vui lòng thử lại"
+                getString(R.string.lay_cang_khong_duoc).toUpperCase(),
+                getString(R.string.vui_long_thu_lai)
             )
         }
         processed()

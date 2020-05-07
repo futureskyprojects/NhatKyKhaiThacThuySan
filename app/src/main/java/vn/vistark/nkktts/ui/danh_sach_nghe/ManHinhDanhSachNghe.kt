@@ -38,7 +38,7 @@ class ManHinhDanhSachNghe : AppCompatActivity() {
         setContentView(R.layout.man_hinh_danh_sach_nghe)
 
         if (isEdit) {
-            title = "Đổi nghề"
+            title = getString(R.string.doi_nghe)
             ToolbarBackButton(this).show()
         }
 
@@ -60,7 +60,7 @@ class ManHinhDanhSachNghe : AppCompatActivity() {
         // Progress dialog
         pDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
         pDialog.progressHelper.barColor = Color.parseColor("#A5DC86")
-        pDialog.titleText = "Đang xử lý"
+        pDialog.titleText = getString(R.string.dang_xu_ly)
         pDialog.setCancelable(false)
     }
 
@@ -135,8 +135,8 @@ class ManHinhDanhSachNghe : AppCompatActivity() {
         } else {
             SimpleNotify.error(
                 this@ManHinhDanhSachNghe,
-                "LẤY NGHỀ THẤT BẠI",
-                "Hãy thử thoát ra và vào lại",
+                getString(R.string.lay_nghe_that_bai).toUpperCase(),
+                getString(R.string.hay_dang_nhap_lai),
                 false
             )
         }

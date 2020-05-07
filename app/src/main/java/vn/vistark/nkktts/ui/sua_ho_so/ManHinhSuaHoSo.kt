@@ -56,7 +56,7 @@ class ManHinhSuaHoSo : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         // Progress dialog
         pDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
         pDialog.progressHelper.barColor = Color.parseColor("#A5DC86")
-        pDialog.titleText = "Đang xử lý"
+        pDialog.titleText = getString(R.string.dang_xu_ly)
         pDialog.setCancelable(false)
     }
 
@@ -99,8 +99,8 @@ class ManHinhSuaHoSo : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             processed()
             SimpleNotify.error(
                 this@ManHinhSuaHoSo,
-                "Công suất máy không hợp lệ",
-                "LỖI"
+                getString(R.string.cong_suat_may_khong_hop_le),
+                getString(R.string.loi).toUpperCase()
             )
             return
         }
@@ -109,8 +109,8 @@ class ManHinhSuaHoSo : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             processed()
             SimpleNotify.error(
                 this@ManHinhSuaHoSo,
-                "Chiều dài tàu không hợp lệ",
-                "LỖI"
+                getString(R.string.chieu_dai_tau_khong_hop_le),
+                getString(R.string.loi).toUpperCase()
             )
             return
         }
@@ -131,8 +131,8 @@ class ManHinhSuaHoSo : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                         t.printStackTrace()
                         SimpleNotify.error(
                             this@ManHinhSuaHoSo,
-                            "Oops...",
-                            "Không thể cập nhật!"
+                            getString(R.string.khong_the_cap_nhat),
+                            getString(R.string.loi).toUpperCase()
                         )
                         processed()
                     }
@@ -145,15 +145,15 @@ class ManHinhSuaHoSo : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                         if (response.code() == 200) {
                             SimpleNotify.success(
                                 this@ManHinhSuaHoSo,
-                                "HOÀN TẤT",
-                                "Cập nhật thành công"
+                                getString(R.string.cap_nha_thanh_cong),
+                                getString(R.string.hoan_tat).toUpperCase()
                             )
                             Constants.updateUserInfo()
                         } else {
                             SimpleNotify.error(
                                 this@ManHinhSuaHoSo,
-                                "CHƯA ĐƯỢC",
-                                "Cập nhật không thành công"
+                                getString(R.string.cap_nhat_khong_thanh_cong),
+                                getString(R.string.loi).toUpperCase()
                             )
                         }
                         processed()
@@ -163,8 +163,8 @@ class ManHinhSuaHoSo : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         } else {
             SimpleNotify.warning(
                 this@ManHinhSuaHoSo,
-                "THIẾU THÔNG TIN",
-                "Vui lòng nhập đầy đủ các thông tin"
+                getString(R.string.vui_long_nhap_day_du_thong_tin),
+                getString(R.string.thieu_thong_tin).toUpperCase()
             )
         }
     }
@@ -189,7 +189,10 @@ class ManHinhSuaHoSo : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             val shipNumber: String = mhkbtthsEdtSoDangKyTau.text.toString()
             //========== Xong lấy giá trị nhập vào =====================//
             if (shipNumber.isBlank() || shipNumber.isEmpty()) {
-                SimpleNotify.warning(this, "THIẾU MÃ TÀU", "Vui lòng nhập số đăng ký tàu")
+                SimpleNotify.warning(
+                    this, getString(R.string.vui_long_nhap_so_dang_ky_tau),
+                    getString(R.string.thieu_ma_tau).toUpperCase()
+                )
                 return@setOnClickListener
             }
             processing()

@@ -76,7 +76,7 @@
             android:layout_margin="@dimen/default_margin"
             android:background="@drawable/btn_info"
             android:padding="@dimen/default_padding"
-            android:text="Hoàn thành"
+            android:text="@string/hoan_thanh"
             android:textColor="#FFF"
             android:textSize="@dimen/default_font_size" />
     </LinearLayout>

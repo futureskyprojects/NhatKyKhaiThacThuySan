@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.man_hinh_cung_cap_thong_so_nghe.*
@@ -57,7 +56,7 @@ class ManHinhCungCapThongSoNghe : AppCompatActivity() {
         // Progress dialog
         pDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
         pDialog.progressHelper.barColor = Color.parseColor("#A5DC86")
-        pDialog.titleText = "Đang xử lý"
+        pDialog.titleText = getString(R.string.dang_xu_ly)
         pDialog.setCancelable(false)
     }
 
@@ -84,20 +83,20 @@ class ManHinhCungCapThongSoNghe : AppCompatActivity() {
     private fun initInputTitle() {
         when (jobId) {
             1 -> {
-                inputTitle1 = "Chiều dài toàn bộ vàng câu"
-                inputTitle2 = "Số lưỡi câu"
+                inputTitle1 = getString(R.string.chieu_dai_toan_bo_vang_cau)
+                inputTitle2 = getString(R.string.so_luoi_cau)
             }
             2 -> {
-                inputTitle1 = "Chiều dài toàn bộ lưới"
-                inputTitle2 = "Chiều cao lưới"
+                inputTitle1 = getString(R.string.chieu_dai_toan_bo_luoi)
+                inputTitle2 = getString(R.string.chieu_cao_luoi)
             }
             3 -> {
-                inputTitle1 = "Chu vi miệng lưới"
-                inputTitle2 = "Chiều cao lưới"
+                inputTitle1 = getString(R.string.chu_vi_mieng_luoi)
+                inputTitle2 = getString(R.string.chieu_cao_luoi)
             }
             else -> {
-                inputTitle1 = "Chiều dài giềng phao"
-                inputTitle2 = "Chiều dài toàn bộ lưới"
+                inputTitle1 = getString(R.string.chieu_dai_gieng_phao)
+                inputTitle2 = getString(R.string.chieu_dai_toan_bo_luoi)
             }
         }
     }
@@ -112,8 +111,8 @@ class ManHinhCungCapThongSoNghe : AppCompatActivity() {
             if (param1.isEmpty() || param2.isEmpty()) {
                 SimpleNotify.warning(
                     this,
-                    "THIẾU THÔNG TIN",
-                    "Vui lòng nhập đầy đủ các thông tin"
+                    getString(R.string.thieu_thong_tin).toUpperCase(),
+                    getString(R.string.vui_long_nhap_day_du_thong_tin)
                 )
                 processed()
             } else {
@@ -134,17 +133,15 @@ class ManHinhCungCapThongSoNghe : AppCompatActivity() {
     }
 
     private fun changeSelectedJob(jobId: String, infoJob: String) {
-        Log.w("AXASXSAX", infoJob)
         APIUtils.mAPIServices?.changeSelectedJobAPI(jobId, infoJob)?.enqueue(object :
             Callback<UpdateSelectedJobResponse> {
             override fun onFailure(call: Call<UpdateSelectedJobResponse>, t: Throwable) {
                 processed()
                 SimpleNotify.error(
                     this@ManHinhCungCapThongSoNghe,
-                    "Oops...",
-                    "Lỗi khi cập nhật"
+                    getString(R.string.loi_khi_cap_nhat),
+                    ""
                 )
-                println("Xuất hiện lỗi tại đây")
                 t.printStackTrace()
             }
 
@@ -172,8 +169,8 @@ class ManHinhCungCapThongSoNghe : AppCompatActivity() {
                 // Khi không thành công
                 SimpleNotify.error(
                     this@ManHinhCungCapThongSoNghe,
-                    "CHƯA ĐƯỢC",
-                    "Đã xảy ra lỗi"
+                    getString(R.string.loi_khi_cap_nhat),
+                    ""
                 )
             }
         })
@@ -186,8 +183,8 @@ class ManHinhCungCapThongSoNghe : AppCompatActivity() {
                 processed()
                 SimpleNotify.error(
                     this@ManHinhCungCapThongSoNghe,
-                    "Oops...",
-                    "Lỗi khi cập nhật"
+                    getString(R.string.loi_khi_cap_nhat),
+                    ""
                 )
                 t.printStackTrace()
             }
@@ -223,8 +220,8 @@ class ManHinhCungCapThongSoNghe : AppCompatActivity() {
                 // Khi không thành công
                 SimpleNotify.error(
                     this@ManHinhCungCapThongSoNghe,
-                    "CHƯA ĐƯỢC",
-                    "Đã xảy ra lỗi"
+                    getString(R.string.loi_khi_cap_nhat),
+                    ""
                 )
                 processed()
             }
