@@ -9,6 +9,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
+import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -110,6 +111,47 @@ class ManHinhKetThucChuyenDiBien : AppCompatActivity() {
                 syncHistoryTrip()
             } else {
                 SimpleNotify.error(this, "Chưa chọn cảng", "")
+                pDialog.dismiss()
+            }
+        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
+    override fun onBackPressed() {
+        SimpleNotify.onBackConfirm(this) {
+            val manHinhDanhSachLoai = Intent(this, ManHinhDanhSachLoai::class.java)
+            startActivity(manHinhDanhSachLoai)
+            ToolbarBackButton(this).overrideAnimationOnEnterAndExitActivityReveret()
+            finish()
+            super.onBackPressed()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == ManHinhKhoiTaoChuyenDiBien.requestSeaPortCode) {
+            if (resultCode == Activity.RESULT_OK) {
+                showPreviousSelectedSeaPort()
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun showPreviousSelectedSeaPort() {
+        if (Constants.currentTrip.trip.destinationPort >= 0) {
+            val seaPortsReponse =
+                OfflineDataStorage.get<SeaPortsReponse>(OfflineDataStorage.seaPorts)
+            if (seaPortsReponse?.seaPorts != null) {
+                mhktcdbIvIcon.setImageResource(R.drawable.ic_pin)
+                for (seaPort in seaPortsReponse.seaPorts) {
+                    if (seaPort.id == Constants.currentTrip.trip.destinationPort) {
+                        mhktcdbTvTenCang.text = seaPort.name
+                        return
+                    }
+                }
             }
         }
     }
@@ -169,9 +211,13 @@ class ManHinhKetThucChuyenDiBien : AppCompatActivity() {
                             // Còn không thì lấy trip_number lớn nhất + 1
                             // Tiến hành đồng bộ ảnh trước
                             if (tempHTripDatas.isEmpty()) {
-                                syncImages(1)
+                                syncImages {
+                                    syncCurrentTrip(1)
+                                }.execute()
                             } else {
-                                syncImages(tempHTripDatas.first().trip_number.toInt() + 1)
+                                syncImages {
+                                    syncCurrentTrip(tempHTripDatas.first().trip_number.toInt() + 1)
+                                }.execute()
                             }
                         }
                     }
@@ -179,63 +225,8 @@ class ManHinhKetThucChuyenDiBien : AppCompatActivity() {
             })
     }
 
-    private fun syncImages(currentTripId: Int) {
-        // Tiến hành đồng bộ ảnh
-        for (i in Constants.currentTrip.trip.hauls.indices) {
-            for (j in Constants.currentTrip.trip.hauls[i].spices.indices) {
-                val imgArr = GsonBuilder().create()
-                    .fromJson(
-                        Constants.currentTrip.trip.hauls[i].spices[j].images,
-                        Array<String>::class.java
-                    )
-                for (k in imgArr) {
-                    val f = File(k)
-                    if (f.exists()) {
-                        val imageFileBody = RequestBody.create(
-                            MediaType.parse("image/jpeg"),
-                            f
-                        )
-
-                        try {
-                            // Gửi yêu cầu và lấy phản hồi
-                            val res = APIUtils.mAPIServices?.uploadImage(
-                                MultipartBody.Part.createFormData(
-                                    "image",
-                                    f.name,
-                                    imageFileBody
-                                )
-                            )?.execute()
-
-                            // Xử lý phản hồi
-                            if (res != null && res.isSuccessful) {
-                                val path = res.body()?.result?.path
-                                if (path != null) {
-                                    do {
-                                        try {
-                                            Constants.currentTrip.trip.hauls[i].spices[j].images =
-                                                Constants.currentTrip.trip.hauls[i].spices[j].images.replace(
-                                                    k,
-                                                    path
-                                                )
-                                            return
-                                        } catch (e: Exception) {
-                                            e.printStackTrace()
-                                        }
-                                    } while (true)
-                                }
-                            } else {
-                                println("ERROR: Không may, kết quả trả về khi đồng bộ ảnh bị null hoặc không thành công")
-                            }
-                        } catch (ez: Exception) {
-                            ez.printStackTrace()
-                        }
-                    }
-                }
-            }
-        }
-        // Sau khi đồng bộ xong thì tiến hành gửi ảnh lên server
-        syncCurrentTrip(currentTripId)
-    }
+//    private fun syncImages_(currentTripId: Int) {
+//    }
 
     private fun syncCurrentTrip(currentTripId: Int) {
         Constants.currentTrip.trip.captainId = Constants.userId.toInt()
@@ -258,7 +249,7 @@ class ManHinhKetThucChuyenDiBien : AppCompatActivity() {
                     call: Call<SyncSuccess>,
                     response: Response<SyncSuccess>
                 ) {
-                    TripHistory.add(Constants.currentTrip)
+//                    TripHistory.add(Constants.currentTrip)
                     Constants.currentTrip = TheTripStorage()
                     Constants.updateCurrentTrip()
                     if (response.isSuccessful) {
@@ -287,44 +278,68 @@ class ManHinhKetThucChuyenDiBien : AppCompatActivity() {
         Log.w("ABC", GsonBuilder().create().toJson(Constants.currentTrip))
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
+    class syncImages(val syncTrip: () -> Unit) :
+        AsyncTask<Void, Intent, Unit>() {
+        override fun doInBackground(vararg params: Void?) {
+            // Tiến hành đồng bộ ảnh
+            for (i in Constants.currentTrip.trip.hauls.indices) {
+                for (j in Constants.currentTrip.trip.hauls[i].spices.indices) {
+                    val imgArr = GsonBuilder().create()
+                        .fromJson(
+                            Constants.currentTrip.trip.hauls[i].spices[j].images,
+                            Array<String>::class.java
+                        )
+                    for (k in imgArr) {
+                        val f = File(k)
+                        if (f.exists()) {
+                            val imageFileBody = RequestBody.create(
+                                MediaType.parse("image/jpeg"),
+                                f
+                            )
 
-    override fun onBackPressed() {
-        SimpleNotify.onBackConfirm(this) {
-            val manHinhDanhSachLoai = Intent(this, ManHinhDanhSachLoai::class.java)
-            startActivity(manHinhDanhSachLoai)
-            ToolbarBackButton(this).overrideAnimationOnEnterAndExitActivityReveret()
-            finish()
-            super.onBackPressed()
-        }
-    }
+                            try {
+                                // Gửi yêu cầu và lấy phản hồi
+                                val res = APIUtils.mAPIServices?.uploadImage(
+                                    MultipartBody.Part.createFormData(
+                                        "image",
+                                        f.name,
+                                        imageFileBody
+                                    )
+                                )?.execute()
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == ManHinhKhoiTaoChuyenDiBien.requestSeaPortCode) {
-            if (resultCode == Activity.RESULT_OK) {
-                showPreviousSelectedSeaPort()
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data)
-    }
-
-    private fun showPreviousSelectedSeaPort() {
-        if (Constants.currentTrip.trip.destinationPort >= 0) {
-            val seaPortsReponse =
-                OfflineDataStorage.get<SeaPortsReponse>(OfflineDataStorage.seaPorts)
-            if (seaPortsReponse?.seaPorts != null) {
-                mhktcdbIvIcon.setImageResource(R.drawable.ic_pin)
-                for (seaPort in seaPortsReponse.seaPorts) {
-                    if (seaPort.id == Constants.currentTrip.trip.destinationPort) {
-                        mhktcdbTvTenCang.text = seaPort.name
-                        return
+                                // Xử lý phản hồi
+                                if (res != null && res.isSuccessful) {
+                                    val path = res.body()?.result?.path
+                                    if (path != null) {
+                                        do {
+                                            try {
+                                                Constants.currentTrip.trip.hauls[i].spices[j].images =
+                                                    Constants.currentTrip.trip.hauls[i].spices[j].images.replace(
+                                                        k,
+                                                        path
+                                                    )
+                                                break
+                                            } catch (e: Exception) {
+                                                e.printStackTrace()
+                                            }
+                                        } while (true)
+                                    }
+                                    println("SUCCESS: Xong ảnh $k -> $path")
+                                } else {
+                                    println("ERROR: Không may, kết quả trả về khi đồng bộ ảnh bị null hoặc không thành công")
+                                }
+                            } catch (ez: Exception) {
+                                ez.printStackTrace()
+                            }
+                        }
                     }
                 }
             }
         }
-    }
 
+        override fun onPostExecute(result: Unit?) {
+            super.onPostExecute(result)
+            syncTrip()
+        }
+    }
 }

@@ -86,7 +86,7 @@ class ManHinhChonCang : AppCompatActivity() {
 
     fun processed() {
         if (pDialog.isShowing) {
-            pDialog.hide()
+            pDialog.dismiss()
         }
     }
 

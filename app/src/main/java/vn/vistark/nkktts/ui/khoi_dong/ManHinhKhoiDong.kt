@@ -142,7 +142,7 @@ class ManHinhKhoiDong : AppCompatActivity() {
                 }
             }, 500)
         } else {
-            TripHistory.getHistory()
+//            TripHistory.getHistory()
             Constants.readAllSavedData()
             // Kiểm tra xem đã đăng nhập chưa
             if (Constants.isLoggedIn()) {
