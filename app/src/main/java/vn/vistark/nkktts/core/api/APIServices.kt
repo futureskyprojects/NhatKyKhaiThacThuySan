@@ -16,9 +16,11 @@ import TheTripStorage
 import UpdateProfileResponse
 import UpdateSelectedJobResponse
 import UserInfo
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
 import vn.vistark.nkktts.core.models.selected_job.SelectedJob
+import vn.vistark.nkktts.core.models.upload_image.UploadImageSuccessResponse
 
 public interface APIServices {
     //=============== Check User API ========================//
@@ -89,4 +91,8 @@ public interface APIServices {
     @POST("/api/captains/forgotpass")
     @FormUrlEncoded
     fun changePassword(@Field("password") password: String): Call<ChangePassSuccessResponse>
+
+    @POST("/api/requests/upload/image")
+    @Multipart
+    fun uploadImage(@Part image: MultipartBody.Part): Call<UploadImageSuccessResponse>
 }
