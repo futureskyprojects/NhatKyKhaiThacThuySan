@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class UploadImageSuccessResponse(
     @SerializedName("status") var status: Int,
     @SerializedName("message") var message: String,
-    @SerializedName("result") var path: ServerImagePath
+    @SerializedName("result") var result: ServerImagePath
 ) {
     data class ServerImagePath(@SerializedName("path") var path: String)
 }

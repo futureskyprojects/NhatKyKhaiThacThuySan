@@ -20,6 +20,7 @@ import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
 import vn.vistark.nkktts.core.models.selected_job.SelectedJob
+import vn.vistark.nkktts.core.models.trip_history.HistoryTripSuccessResponse
 import vn.vistark.nkktts.core.models.upload_image.UploadImageSuccessResponse
 
 public interface APIServices {
@@ -76,6 +77,9 @@ public interface APIServices {
     //============== GET previous trip number ==========================//
     @GET("/api/requests/trip_number")
     fun getPreviousTripNumber(): Call<PreviousTripNumberReponse>
+
+    @GET("/api/requests/history_trip")
+    fun getHistoryTrip(): Call<HistoryTripSuccessResponse>
 
     @POST("/api/requests/add")
     fun syncTrip(@Body theTripStorage: TheTripStorage): Call<SyncSuccess>

@@ -5,6 +5,7 @@ import ProfileResponse
 import SeaPortsReponse
 import SyncSuccess
 import TheTripStorage
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
@@ -16,6 +17,9 @@ import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.man_hinh_ket_thuc_chuyen_di_bien.*
 import kotlinx.android.synthetic.main.man_hinh_ket_thuc_chuyen_di_bien.mhktcdbLnChonCang
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,7 +27,9 @@ import vn.vistark.nkktts.R
 import vn.vistark.nkktts.core.api.APIUtils
 import vn.vistark.nkktts.core.constants.Constants
 import vn.vistark.nkktts.core.constants.OfflineDataStorage
+import vn.vistark.nkktts.core.models.trip_history.HistoryTripSuccessResponse
 import vn.vistark.nkktts.core.models.trip_history.TripHistory
+import vn.vistark.nkktts.core.models.upload_image.UploadImageSuccessResponse
 import vn.vistark.nkktts.ui.chon_cang.ManHinhChonCang
 import vn.vistark.nkktts.ui.danh_sach_nghe.ManHinhDanhSachNghe
 import vn.vistark.nkktts.ui.danh_sach_loai.ManHinhDanhSachLoai
@@ -31,6 +37,12 @@ import vn.vistark.nkktts.ui.khoi_tao_chuyen_di_bien.ManHinhKhoiTaoChuyenDiBien
 import vn.vistark.nkktts.utils.DateTimeUtils
 import vn.vistark.nkktts.utils.SimpleNotify
 import vn.vistark.nkktts.utils.ToolbarBackButton
+import java.io.File
+import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class ManHinhKetThucChuyenDiBien : AppCompatActivity() {
     lateinit var pDialog: SweetAlertDialog
@@ -71,7 +83,7 @@ class ManHinhKetThucChuyenDiBien : AppCompatActivity() {
                     APIUtils.mAPIServices?.profileAPI()
                         ?.enqueue(object : Callback<ProfileResponse> {
                             override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
-                                pDialog.dismissWithAnimation()
+                                pDialog.dismiss()
                                 errNotify()
                             }
 
@@ -84,28 +96,153 @@ class ManHinhKetThucChuyenDiBien : AppCompatActivity() {
                                     if (profileResponse != null) {
                                         Constants.userId = "${profileResponse.id}"
                                         Constants.updateUserId()
-                                        syncCurrentTrip()
+                                        syncHistoryTrip()
                                         return
                                     }
                                 }
-                                pDialog.dismissWithAnimation()
+                                pDialog.dismiss()
                                 errNotify()
 
                             }
                         })
                     return@setOnClickListener
                 }
-                syncCurrentTrip()
+                syncHistoryTrip()
             } else {
                 SimpleNotify.error(this, "Chưa chọn cảng", "")
             }
         }
     }
 
-    private fun syncCurrentTrip() {
+    private fun syncHistoryTrip() {
+        // Tiến hành lấy lịch sử chuyến đi
+        APIUtils.mAPIServices?.getHistoryTrip()
+            ?.enqueue(object : Callback<HistoryTripSuccessResponse> {
+                override fun onFailure(call: Call<HistoryTripSuccessResponse>, t: Throwable) {
+                    SimpleNotify.success(
+                        this@ManHinhKetThucChuyenDiBien,
+                        "CẦN KẾT NỐI INTERNET",
+                        ""
+                    )
+//                    if (OfflineDataStorage.get<SeaPortsReponse>(OfflineDataStorage.tripHistory) == null) {
+//                        SimpleNotify.success(
+//                            this@ManHinhKetThucChuyenDiBien,
+//                            "CẦN KẾT NỐI INTERNET",
+//                            ""
+//                        )
+//                    } else {
+//                        println("LOG: Tiến hành lấy dữ liệu lịch sử của chuyến đi cũ")
+//                    }
+                }
+
+                @SuppressLint("SimpleDateFormat")
+                override fun onResponse(
+                    call: Call<HistoryTripSuccessResponse>,
+                    response: Response<HistoryTripSuccessResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val htripDatas = response.body()?.data
+                        if (htripDatas != null) {
+                            // Lưu dữ liệu lại, cũng là cập nhật mới
+                            OfflineDataStorage.saveData(
+                                OfflineDataStorage.tripHistory,
+                                htripDatas
+                            )
+                            // Coppy để lấy các chuyến cùng năm
+                            var tempHTripDatas =
+                                emptyArray<HistoryTripSuccessResponse.HtripData>()
+                            htripDatas.forEach {
+                                val time =
+                                    it.submit_time ?: it.destination_time ?: it.created_at
+                                val y = time.subSequence(0, 4).toString().toIntOrNull()
+                                if (y != null && y >= Calendar.getInstance()
+                                        .get(Calendar.YEAR)
+                                ) {
+                                    tempHTripDatas = tempHTripDatas.plus(it)
+                                }
+                            }
+                            // Sắp xếp lại mảng để có danh sách lịch sử chuyến với trip_number giảm dần
+                            tempHTripDatas =
+                                tempHTripDatas.sortedByDescending { it.trip_number.toInt() }
+                                    .toTypedArray()
+                            // Nếu dữ liệu trống thì khởi đầu là 1,
+                            // Còn không thì lấy trip_number lớn nhất + 1
+                            // Tiến hành đồng bộ ảnh trước
+                            if (tempHTripDatas.isEmpty()) {
+                                syncImages(1)
+                            } else {
+                                syncImages(tempHTripDatas.first().trip_number.toInt() + 1)
+                            }
+                        }
+                    }
+                }
+            })
+    }
+
+    private fun syncImages(currentTripId: Int) {
+        // Tiến hành đồng bộ ảnh
+        for (i in Constants.currentTrip.trip.hauls.indices) {
+            for (j in Constants.currentTrip.trip.hauls[i].spices.indices) {
+                val imgArr = GsonBuilder().create()
+                    .fromJson(
+                        Constants.currentTrip.trip.hauls[i].spices[j].images,
+                        Array<String>::class.java
+                    )
+                for (k in imgArr) {
+                    val f = File(k)
+                    if (f.exists()) {
+                        val imageFileBody = RequestBody.create(
+                            MediaType.parse("image/jpeg"),
+                            f
+                        )
+
+                        try {
+                            // Gửi yêu cầu và lấy phản hồi
+                            val res = APIUtils.mAPIServices?.uploadImage(
+                                MultipartBody.Part.createFormData(
+                                    "image",
+                                    f.name,
+                                    imageFileBody
+                                )
+                            )?.execute()
+
+                            // Xử lý phản hồi
+                            if (res != null && res.isSuccessful) {
+                                val path = res.body()?.result?.path
+                                if (path != null) {
+                                    do {
+                                        try {
+                                            Constants.currentTrip.trip.hauls[i].spices[j].images =
+                                                Constants.currentTrip.trip.hauls[i].spices[j].images.replace(
+                                                    k,
+                                                    path
+                                                )
+                                            return
+                                        } catch (e: Exception) {
+                                            e.printStackTrace()
+                                        }
+                                    } while (true)
+                                }
+                            } else {
+                                println("ERROR: Không may, kết quả trả về khi đồng bộ ảnh bị null hoặc không thành công")
+                            }
+                        } catch (ez: Exception) {
+                            ez.printStackTrace()
+                        }
+                    }
+                }
+            }
+        }
+        // Sau khi đồng bộ xong thì tiến hành gửi ảnh lên server
+        syncCurrentTrip(currentTripId)
+    }
+
+    private fun syncCurrentTrip(currentTripId: Int) {
         Constants.currentTrip.trip.captainId = Constants.userId.toInt()
         Constants.currentTrip.trip.destinationTime = DateTimeUtils.getStringCurrentYMD()
         Constants.currentTrip.trip.submitTime = DateTimeUtils.getStringCurrentYMD()
+        Constants.currentTrip.trip.tripNumber = currentTripId
+
         //
         APIUtils.mAPIServices?.syncTrip(Constants.currentTrip)
             ?.enqueue(object : Callback<SyncSuccess> {

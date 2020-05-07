@@ -15,6 +15,5 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 data class UpdateSelectedJobResponse(
 
     @SerializedName("status") val status: Int?,
-    @SerializedName("message") val message: String?,
-    @SerializedName("data") val data: Int
+    @SerializedName("message") val message: String?
 )

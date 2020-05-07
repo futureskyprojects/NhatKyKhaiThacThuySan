@@ -151,6 +151,7 @@ class Constants {
         }
 
         fun isSelectedJob(): Boolean {
+            println(GsonBuilder().create().toJson(selectedJob))
             if (sharedPreferences != null) {
                 if (selectedJob.jobId >= 0 && selectedJob.jobInfo.isNotEmpty()) {
                     for (info in selectedJob.jobInfoArray) {

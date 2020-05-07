@@ -69,7 +69,7 @@ class ManHinhCungCapThongSoNghe : AppCompatActivity() {
 
     fun processed() {
         if (pDialog.isShowing)
-            pDialog.hide()
+            pDialog.dismiss()
         mhcctsnBtnHoanThanh.isEnabled = true
     }
 
@@ -144,6 +144,7 @@ class ManHinhCungCapThongSoNghe : AppCompatActivity() {
                     "Oops...",
                     "Lỗi khi cập nhật"
                 )
+                println("Xuất hiện lỗi tại đây")
                 t.printStackTrace()
             }
 
@@ -188,6 +189,7 @@ class ManHinhCungCapThongSoNghe : AppCompatActivity() {
                     "Oops...",
                     "Lỗi khi cập nhật"
                 )
+                t.printStackTrace()
             }
 
             override fun onResponse(
