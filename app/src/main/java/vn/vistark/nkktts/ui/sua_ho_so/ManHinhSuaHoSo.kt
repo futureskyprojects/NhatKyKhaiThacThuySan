@@ -148,10 +148,11 @@ class ManHinhSuaHoSo : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                                 "HOÀN TẤT",
                                 "Cập nhật thành công"
                             )
+                            Constants.updateUserInfo()
                         } else {
                             SimpleNotify.error(
                                 this@ManHinhSuaHoSo,
-                                "CHUA ĐƯỢC",
+                                "CHƯA ĐƯỢC",
                                 "Cập nhật không thành công"
                             )
                         }
