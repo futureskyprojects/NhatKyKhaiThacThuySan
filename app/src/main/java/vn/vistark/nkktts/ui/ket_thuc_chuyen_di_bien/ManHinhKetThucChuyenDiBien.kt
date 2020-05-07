@@ -253,10 +253,18 @@ class ManHinhKetThucChuyenDiBien : AppCompatActivity() {
                     Constants.currentTrip = TheTripStorage()
                     Constants.updateCurrentTrip()
                     if (response.isSuccessful) {
-                        Toast.makeText(
-                            this@ManHinhKetThucChuyenDiBien,
-                            "Đồng bộ chuyến thành công", Toast.LENGTH_SHORT
-                        ).show()
+                        val syss = response.body()?.status
+                        if (syss == 200) {
+                            Toast.makeText(
+                                this@ManHinhKetThucChuyenDiBien,
+                                "Đồng bộ chuyến thành công", Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                this@ManHinhKetThucChuyenDiBien,
+                                "Chuyến đã tồn tại. Bỏ qua chuyến này", Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     } else {
                         Toast.makeText(
                             this@ManHinhKetThucChuyenDiBien,
