@@ -89,6 +89,7 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
                     Intent(this@ManHinhDanhSachLoai, ManHinhMeDanhBat::class.java)
                 startActivity(manHinhMeDanhBatIntent)
                 ToolbarBackButton(this@ManHinhDanhSachLoai).overrideAnimationOnEnterAndExitActivityReveret()
+                finish()
             }
         }
     }
@@ -499,7 +500,7 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
         val bm = FileUtils.getCapturedImage(this, uri)
         val s = FileUtils.SaveImages(this, "spices", bm)
         spiceImages = spiceImages.plus(s)
-        println(GsonBuilder().create().toJson(spiceImages))
+//        println(GsonBuilder().create().toJson(spiceImages))
         // Xóa file nếu có yêu cầu
         if (isDelete) {
             val path = uri.path
@@ -509,6 +510,13 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
                     f.delete()
                 }
             }
+        }
+    }
+
+    override fun onBackPressed() {
+        SimpleNotify.onBackConfirm(this) {
+            finish()
+            super.onBackPressed()
         }
     }
 //    override fun onSupportNavigateUp(): Boolean {

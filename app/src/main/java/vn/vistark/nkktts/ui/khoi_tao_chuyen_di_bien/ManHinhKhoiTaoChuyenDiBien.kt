@@ -89,6 +89,13 @@ class ManHinhKhoiTaoChuyenDiBien : AppCompatActivity() {
         return ToolbarBackButton(this).onOptionsItemSelected(item)
     }
 
+    override fun onBackPressed() {
+        SimpleNotify.onBackConfirm(this) {
+            finish()
+            super.onBackPressed()
+        }
+    }
+
 //    override fun onSupportNavigateUp(): Boolean {
 //        onBackPressed()
 //        return true

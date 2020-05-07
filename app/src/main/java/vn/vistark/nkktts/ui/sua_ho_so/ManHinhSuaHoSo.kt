@@ -211,4 +211,11 @@ class ManHinhSuaHoSo : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         onBackPressed()
         return true
     }
+
+    override fun onBackPressed() {
+        SimpleNotify.onBackConfirm(this) {
+            finish()
+            super.onBackPressed()
+        }
+    }
 }

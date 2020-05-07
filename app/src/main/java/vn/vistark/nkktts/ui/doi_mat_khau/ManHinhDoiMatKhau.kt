@@ -167,6 +167,8 @@ class ManHinhDoiMatKhau : AppCompatActivity() {
                 ) {
                     if (response.isSuccessful) {
                         val forgotPasswordResponse = response.body()
+                        println(GsonBuilder().create().toJson(response.body()))
+                        println(GsonBuilder().create().toJson(response.errorBody()))
                         if (forgotPasswordResponse != null) {
                             theTokenType =
                                 forgotPasswordResponse.forgotData.forgotToken.forgotOriginal.token_type
@@ -189,5 +191,12 @@ class ManHinhDoiMatKhau : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+    override fun onBackPressed() {
+        SimpleNotify.onBackConfirm(this) {
+            finish()
+            super.onBackPressed()
+        }
     }
 }

@@ -233,14 +233,16 @@ class ManHinhCungCapThongSoNghe : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (!ManHinhDanhSachNghe.isEdit) {
-            val manHinhDanhSachNgheIntent = Intent(this, ManHinhDanhSachNghe::class.java)
-            startActivity(manHinhDanhSachNgheIntent)
-            ToolbarBackButton(this).overrideAnimationOnEnterAndExitActivityReveret()
-        } else {
-            setResult(actRes, Intent())
+        SimpleNotify.onBackConfirm(this) {
+            if (!ManHinhDanhSachNghe.isEdit) {
+                val manHinhDanhSachNgheIntent = Intent(this, ManHinhDanhSachNghe::class.java)
+                startActivity(manHinhDanhSachNgheIntent)
+                ToolbarBackButton(this).overrideAnimationOnEnterAndExitActivityReveret()
+            } else {
+                setResult(actRes, Intent())
+            }
+            finish()
+            super.onBackPressed()
         }
-        finish()
-        super.onBackPressed()
     }
 }

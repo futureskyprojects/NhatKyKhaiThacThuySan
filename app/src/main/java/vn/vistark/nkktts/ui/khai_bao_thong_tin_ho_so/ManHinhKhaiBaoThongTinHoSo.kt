@@ -180,13 +180,15 @@ class ManHinhKhaiBaoThongTinHoSo : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val intent = Intent(this, ManHinhDangNhap::class.java)
-        startActivity(
-            intent
-        )
-        ToolbarBackButton(this).overrideAnimationOnEnterAndExitActivityReveret()
-        finish()
-        super.onBackPressed()
+        SimpleNotify.onBackConfirm(this) {
+            val intent = Intent(this, ManHinhDangNhap::class.java)
+            startActivity(
+                intent
+            )
+            ToolbarBackButton(this).overrideAnimationOnEnterAndExitActivityReveret()
+            finish()
+            super.onBackPressed()
+        }
     }
 
 }

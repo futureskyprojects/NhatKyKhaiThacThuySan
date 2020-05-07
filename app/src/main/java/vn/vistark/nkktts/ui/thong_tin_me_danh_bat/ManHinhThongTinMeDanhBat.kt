@@ -72,9 +72,11 @@ class ManHinhThongTinMeDanhBat : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val manHinhDanhSachLoaiIntent = Intent(this, ManHinhDanhSachLoai::class.java)
-        startActivity(manHinhDanhSachLoaiIntent)
-        finish()
-        super.onBackPressed()
+        SimpleNotify.onBackConfirm(this) {
+            val manHinhDanhSachLoaiIntent = Intent(this, ManHinhDanhSachLoai::class.java)
+            startActivity(manHinhDanhSachLoaiIntent)
+            finish()
+            super.onBackPressed()
+        }
     }
 }

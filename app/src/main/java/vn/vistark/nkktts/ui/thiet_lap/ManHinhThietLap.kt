@@ -81,4 +81,11 @@ class ManHinhThietLap : AppCompatActivity() {
         onBackPressed()
         return true
     }
+
+    override fun onBackPressed() {
+        SimpleNotify.onBackConfirm(this) {
+            finish()
+            super.onBackPressed()
+        }
+    }
 }

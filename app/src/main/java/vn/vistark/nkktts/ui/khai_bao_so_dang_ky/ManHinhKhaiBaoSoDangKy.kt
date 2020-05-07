@@ -220,12 +220,15 @@ class ManHinhKhaiBaoSoDangKy : AppCompatActivity(), DatePickerDialog.OnDateSetLi
     }
 
     override fun onBackPressed() {
-        val manHinhKhaiBaoThongTinHoSoIntent = Intent(this, ManHinhKhaiBaoThongTinHoSo::class.java)
-        startActivity(
-            manHinhKhaiBaoThongTinHoSoIntent
-        )
-        ToolbarBackButton(this).overrideAnimationOnEnterAndExitActivityReveret()
-        finish()
+        SimpleNotify.onBackConfirm(this) {
+            val manHinhKhaiBaoThongTinHoSoIntent =
+                Intent(this, ManHinhKhaiBaoThongTinHoSo::class.java)
+            startActivity(
+                manHinhKhaiBaoThongTinHoSoIntent
+            )
+            ToolbarBackButton(this).overrideAnimationOnEnterAndExitActivityReveret()
+            finish()
+        }
         super.onBackPressed()
     }
 

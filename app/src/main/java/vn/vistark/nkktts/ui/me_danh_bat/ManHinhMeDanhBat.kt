@@ -91,4 +91,11 @@ class ManHinhMeDanhBat : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return ToolbarBackButton(this).onOptionsItemSelected(item)
     }
+
+    override fun onBackPressed() {
+        SimpleNotify.onBackConfirm(this) {
+            finish()
+            super.onBackPressed()
+        }
+    }
 }

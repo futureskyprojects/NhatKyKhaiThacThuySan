@@ -171,6 +171,13 @@ class ManHinhDanhSachNghe : AppCompatActivity() {
         return true
     }
 
+    override fun onBackPressed() {
+        SimpleNotify.onBackConfirm(this) {
+            finish()
+            super.onBackPressed()
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == infoJobRequestCode && resultCode == Activity.RESULT_OK) {
             finish()
