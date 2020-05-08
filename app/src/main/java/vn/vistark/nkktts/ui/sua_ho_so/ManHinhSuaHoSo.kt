@@ -149,6 +149,7 @@ class ManHinhSuaHoSo : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                                 getString(R.string.hoan_tat).toUpperCase()
                             )
                             Constants.updateUserInfo()
+                            finish()
                         } else {
                             SimpleNotify.error(
                                 this@ManHinhSuaHoSo,
@@ -214,12 +215,5 @@ class ManHinhSuaHoSo : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
-    }
-
-    override fun onBackPressed() {
-        SimpleNotify.onBackConfirm(this) {
-            finish()
-            super.onBackPressed()
-        }
     }
 }
