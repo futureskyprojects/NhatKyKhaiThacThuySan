@@ -19,6 +19,6 @@ class MeViewHolder(v: View) : RecyclerView.ViewHolder(v) {
     fun bind(hauls: Hauls) {
         imdbTvTenMe.text = "#${hauls.orderNumber}"
         imdbTvKhoangThoiGian.text =
-            "${hauls.timeDropNets} " + imdbTvTenMe.context.getString(R.string.den) + " ${hauls.timeCollectingNets}"
+            "${hauls.timeDropNets}\r\n${hauls.timeCollectingNets}"
     }
 }

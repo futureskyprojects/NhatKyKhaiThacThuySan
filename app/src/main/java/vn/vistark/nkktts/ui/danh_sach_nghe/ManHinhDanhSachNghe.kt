@@ -44,6 +44,7 @@ class ManHinhDanhSachNghe : AppCompatActivity() {
 
         initPreComponents()
         initJobsDataFromAPI()
+        supportActionBar?.title = getString(R.string.danh_sach_nghe)
     }
 
     fun processing() {

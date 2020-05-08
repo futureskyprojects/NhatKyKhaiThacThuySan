@@ -40,6 +40,7 @@ class ManHinhKhaiBaoSoDangKy : AppCompatActivity(), DatePickerDialog.OnDateSetLi
         ToolbarBackButton(this).show()
         initEvents()
         initPreviousData()
+        supportActionBar?.title = getString(R.string.so_dang_ky)
     }
 
     private fun initPreviousData() {

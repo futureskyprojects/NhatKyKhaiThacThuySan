@@ -38,10 +38,8 @@ class SyncService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        println(">>>>>>>>>>>>>>>>>>>>>>>>>>> HELLO AVZASD")
         mHandler = Handler()
         notiManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        onHandleIntent("Hello")
         // A. Tạo notification channel cho android phiên bản từ O đổ lên
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel =
@@ -87,16 +85,16 @@ class SyncService : Service() {
     private fun syncingNotification(tripSyncLeft: Int) {
         destroyCurrentNotification()
         // B. Tạo pendingIntent cho notify
-        val intentHome = Intent(this, ManHinhKhoiDong::class.java)
-        intentHome.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-        val pendingIntent = PendingIntent.getActivity(this, 0, intentHome, 0)
+//        val intentHome = Intent(this, ManHinhKhoiDong::class.java)
+//        intentHome.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+//        val pendingIntent = PendingIntent.getActivity(this, 0, intentHome, 0)
 
         // c. Hiển thị noti và chạy services ngầm
         notification = NotificationCompat.Builder(this, mNotificationChannelId)
             .setContentTitle(getString(R.string.app_name))
             .setContentText(getString(R.string.con_d_chuyen, tripSyncLeft))
             .setSmallIcon(R.mipmap.ic_launcher_round)
-            .setContentIntent(pendingIntent)
+//            .setContentIntent(pendingIntent)
             .setAutoCancel(true)
             .setProgress(100, 30, true)
             .build()
@@ -130,9 +128,31 @@ class SyncService : Service() {
         timer = Timer()
         timer.schedule(object : TimerTask() {
             override fun run() {
-                val tid = TripWaitForSync(this@SyncService).getAll()
+                var tid = TripWaitForSync(this@SyncService).getAll()
+                tid = tid.filter { !it.trip.trip.isSynced }.toTypedArray()
                 if (tid.isNotEmpty()) {
                     syncingNotification(tid.size)
+                    val currentTripInDb = TripWaitForSync(this@SyncService).getAll().last()
+                    var currentTrip = currentTripInDb.trip
+                    val nextTripId = SyncTripHistory().execute().get()
+                    if (nextTripId > 0) {
+                        val temp = SyncImages(currentTrip).execute().get()
+                        if (temp != null) {
+                            currentTrip = temp
+                            currentTrip.trip.tripNumber = nextTripId
+                            currentTrip.trip.isSynced = true
+                            val resCode = SyncTrip(currentTrip).execute().get()
+                            if (resCode == 200) {
+                                TripWaitForSync(this@SyncService).remove(currentTripInDb.id)
+                            } else if (resCode == 500) {
+                                currentTripInDb.trip = currentTrip
+                                TripWaitForSync(this@SyncService).update(currentTripInDb)
+                            }
+                            SyncTripHistory().execute().get()
+                        }
+                    }
+                } else {
+                    defaultNotification()
                 }
             }
         }, 1000, 5000)

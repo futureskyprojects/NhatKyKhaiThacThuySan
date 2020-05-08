@@ -33,11 +33,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/imdbTvTenMe"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:ellipsize="end"
@@ -45,7 +45,7 @@
                     android:maxLines="2"
                     android:minLines="2"
                     android:paddingLeft="20dp"
-                    android:text="Mẻ đánh bắt 1"
+                    android:text="#1"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
@@ -54,13 +54,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:ellipsize="end"
-                    android:gravity="center|start"
-                    android:maxLines="1"
-                    android:minLines="1"
+                    android:gravity="center"
                     android:paddingLeft="20dp"
                     android:text="23/06/2019"
-                    android:textColor="@color/sub_color"
                     android:textSize="@dimen/default_font_size" />
             </LinearLayout>
         </LinearLayout>

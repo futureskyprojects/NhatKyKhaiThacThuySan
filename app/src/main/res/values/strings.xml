@@ -135,4 +135,11 @@
     <string name="chuyen_di_nay_se_duoc_dong_bo_ngam">This trip will be sync in background</string>
     <string name="da_dong_bo_tat_ca">Full trip synced</string>
     <string name="con_d_chuyen">sync %1$d trip left</string>
+    <string name="gom_x_loai_va_y_kg">Inclued %1$d spices with %2$s kg</string>
+    <string name="da_dong_bo_len_server">Synced to server</string>
+    <string name="xoa_chuyen_trung">Remove duplicated trip</string>
+    <string name="chua_dong_bo">Not Synced</string>
+    <string name="da_xoa">Deleted</string>
+    <string name="doi_ngon_ngu">Change language</string>
+    <string name="moi_thay_doi_se_duoc_cap_nhat_khi_khoi_dong_lai_ung_dung">All change was update after restart this application</string>
 </resources>

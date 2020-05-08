@@ -26,6 +26,7 @@ class OfflineDataStorage {
         inline fun <reified T> get(key: String): T? {
             if (Constants.sharedPreferencesForOfflineData != null) {
                 val jsonString = Constants.sharedPreferencesForOfflineData?.getString(key, null)
+                println("$jsonString >>>>>>>>>>>>>>>>>>>>>>>>>>>>")
                 if (jsonString != null) {
                     return GsonBuilder().create().fromJson(jsonString, T::class.java)
                 }

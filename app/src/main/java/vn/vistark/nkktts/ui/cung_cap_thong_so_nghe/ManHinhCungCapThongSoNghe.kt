@@ -50,6 +50,7 @@ class ManHinhCungCapThongSoNghe : AppCompatActivity() {
                 mhcctsnEdtParam2.setText(Constants.selectedJob.jobInfoArray[1].toString())
             }
         }
+        supportActionBar?.title = getString(R.string.kich_thuoc_ngu_cu)
     }
 
     private fun initPreComponents() {
@@ -163,7 +164,15 @@ class ManHinhCungCapThongSoNghe : AppCompatActivity() {
                         Constants.updateSelectedJob()
                     }
                     actRes = Activity.RESULT_OK
-                    onBackPressed()
+                    if (!ManHinhDanhSachNghe.isEdit) {
+                        val manHinhDanhSachNgheIntent =
+                            Intent(this@ManHinhCungCapThongSoNghe, ManHinhDanhSachNghe::class.java)
+                        startActivity(manHinhDanhSachNgheIntent)
+                        ToolbarBackButton(this@ManHinhCungCapThongSoNghe).overrideAnimationOnEnterAndExitActivityReveret()
+                    } else {
+                        setResult(actRes, Intent())
+                    }
+                    finish()
                     return
                 }
                 // Khi không thành công
@@ -235,13 +244,6 @@ class ManHinhCungCapThongSoNghe : AppCompatActivity() {
 
     override fun onBackPressed() {
         SimpleNotify.onBackConfirm(this) {
-            if (!ManHinhDanhSachNghe.isEdit) {
-                val manHinhDanhSachNgheIntent = Intent(this, ManHinhDanhSachNghe::class.java)
-                startActivity(manHinhDanhSachNgheIntent)
-                ToolbarBackButton(this).overrideAnimationOnEnterAndExitActivityReveret()
-            } else {
-                setResult(actRes, Intent())
-            }
             finish()
             super.onBackPressed()
         }

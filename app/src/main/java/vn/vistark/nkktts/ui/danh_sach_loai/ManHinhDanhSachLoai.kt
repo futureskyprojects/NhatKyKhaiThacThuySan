@@ -78,6 +78,7 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
         initDanhSachLoai()
         initEvents()
         initIfNowIsReview()
+        supportActionBar?.title = getString(R.string.san_luong_me)
     }
 
     private fun initIfNowIsReview() {
@@ -85,12 +86,9 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
             mhdslBtnKetThucMe.setBackgroundResource(R.drawable.btn_info)
             mhdslBtnKetThucMe.text = getString(R.string.quay_ve)
             mhdslBtnKetThucMe.setOnClickListener {
-                val manHinhMeDanhBatIntent =
-                    Intent(this@ManHinhDanhSachLoai, ManHinhMeDanhBat::class.java)
-                startActivity(manHinhMeDanhBatIntent)
-                ToolbarBackButton(this@ManHinhDanhSachLoai).overrideAnimationOnEnterAndExitActivityReveret()
-                finish()
+                onBackPressed()
             }
+            ToolbarBackButton(this).show()
         }
     }
 
@@ -527,15 +525,24 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        SimpleNotify.onBackConfirm(this) {
+        if (Hauls.currentHault.timeCollectingNets.isNotEmpty()) {
+            val manHinhMeDanhBatIntent =
+                Intent(this@ManHinhDanhSachLoai, ManHinhMeDanhBat::class.java)
+            startActivity(manHinhMeDanhBatIntent)
+            ToolbarBackButton(this@ManHinhDanhSachLoai).overrideAnimationOnEnterAndExitActivityReveret()
             finish()
-            super.onBackPressed()
+        } else {
+            SimpleNotify.onBackConfirm(this) {
+                finish()
+                super.onBackPressed()
+            }
         }
     }
-//    override fun onSupportNavigateUp(): Boolean {
-//        onBackPressed()
-//        return true
-//    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 
 //    override fun onBackPressed() {
 //        val alertDialog = AlertDialog.Builder(this).apply {

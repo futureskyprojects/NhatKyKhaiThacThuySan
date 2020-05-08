@@ -1,19 +1,26 @@
 package vn.vistark.nkktts.ui.thiet_lap
 
+import android.annotation.TargetApi
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
+import android.os.LocaleList
+import androidx.appcompat.app.AppCompatActivity
 import cn.pedant.SweetAlert.SweetAlertDialog
 import kotlinx.android.synthetic.main.man_hinh_thiet_lap.*
 import vn.vistark.nkktts.R
 import vn.vistark.nkktts.core.constants.Constants
-import vn.vistark.nkktts.ui.doi_mat_khau.ManHinhDoiMatKhau
+import vn.vistark.nkktts.core.constants.OfflineDataStorage
 import vn.vistark.nkktts.ui.danh_sach_nghe.ManHinhDanhSachNghe
-import vn.vistark.nkktts.ui.dang_nhap.ManHinhDangNhap
+import vn.vistark.nkktts.ui.doi_mat_khau.ManHinhDoiMatKhau
 import vn.vistark.nkktts.ui.khoi_dong.ManHinhKhoiDong
 import vn.vistark.nkktts.ui.sua_ho_so.ManHinhSuaHoSo
+import vn.vistark.nkktts.utils.LanguageChange
 import vn.vistark.nkktts.utils.SimpleNotify
 import vn.vistark.nkktts.utils.ToolbarBackButton
+import java.util.*
+
 
 class ManHinhThietLap : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +32,8 @@ class ManHinhThietLap : AppCompatActivity() {
         initData()
 
         initEvents()
+
+        supportActionBar?.title = getString(R.string.thiet_lap)
     }
 
     private fun initData() {
@@ -76,6 +85,13 @@ class ManHinhThietLap : AppCompatActivity() {
                 show()
             }
         }
+
+        ivMhtlEnUS.setOnClickListener {
+            changeLanguage("en")
+        }
+        ivMhtlViVN.setOnClickListener {
+            changeLanguage("vi")
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -83,10 +99,17 @@ class ManHinhThietLap : AppCompatActivity() {
         return true
     }
 
-    override fun onBackPressed() {
-        SimpleNotify.onBackConfirm(this) {
-            finish()
-            super.onBackPressed()
+    fun changeLanguage(lanCode: String) {
+        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE).apply {
+            titleText = getString(R.string.moi_thay_doi_se_duoc_cap_nhat_khi_khoi_dong_lai_ung_dung).toUpperCase()
+            setConfirmButton(getString(R.string.dong_y)) {
+                it.dismissWithAnimation()
+                OfflineDataStorage.saveData("lang_code", lanCode)
+            }
+            setCancelButton(getString(R.string.huy)) {
+                it.dismissWithAnimation()
+            }
+            show()
         }
     }
 }

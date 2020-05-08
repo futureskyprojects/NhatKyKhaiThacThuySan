@@ -50,6 +50,7 @@ class ManHinhDangNhap : AppCompatActivity() {
         initPreComponents()
         initEvents()
         initPreValue()
+        supportActionBar?.title = getString(R.string.dang_nhap)
     }
 
     private fun initPreValue() {

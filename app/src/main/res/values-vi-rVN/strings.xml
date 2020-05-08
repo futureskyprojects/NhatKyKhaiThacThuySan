@@ -134,4 +134,11 @@
     <string name="chuyen_di_nay_se_duoc_dong_bo_ngam">Chuyến đi này sẽ được đồng bộ ngầm</string>
     <string name="da_dong_bo_tat_ca">Đã đồng bộ hết</string>
     <string name="con_d_chuyen">Còn %1$d chuyến cần đồng bộ</string>
+    <string name="doi_ngon_ngu">Đổi ngôn ngữ</string>
+    <string name="da_xoa">Đã xóa</string>
+    <string name="gom_x_loai_va_y_kg">Gồm %1$d loài với %2$s kg</string>
+    <string name="chua_dong_bo">Chưa đồng bộ</string>
+    <string name="xoa_chuyen_trung">Xóa chuyến bị trùng</string>
+    <string name="da_dong_bo_len_server">Đã đồng bộ lên máy chủ</string>
+    <string name="moi_thay_doi_se_duoc_cap_nhat_khi_khoi_dong_lai_ung_dung">Mọi thay đổi sẽ được cập nhật sau khi ứng dụng được khởi động lại</string>
 </resources>

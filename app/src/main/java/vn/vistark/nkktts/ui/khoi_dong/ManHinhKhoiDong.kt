@@ -17,15 +17,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.google.gson.GsonBuilder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import vn.vistark.nkktts.R
 import vn.vistark.nkktts.core.api.APIUtils
 import vn.vistark.nkktts.core.constants.Constants
-import vn.vistark.nkktts.core.db.TripWaitForSync
-import vn.vistark.nkktts.core.models.trip_history.TripHistory
 import vn.vistark.nkktts.core.services.SyncService
 import vn.vistark.nkktts.ui.danh_sach_loai.ManHinhDanhSachLoai
 import vn.vistark.nkktts.ui.danh_sach_nghe.ManHinhDanhSachNghe
@@ -33,6 +30,7 @@ import vn.vistark.nkktts.ui.khoi_tao_chuyen_di_bien.ManHinhKhoiTaoChuyenDiBien
 import vn.vistark.nkktts.ui.dang_nhap.ManHinhDangNhap
 import vn.vistark.nkktts.ui.me_danh_bat.ManHinhMeDanhBat
 import vn.vistark.nkktts.utils.DataInitialize
+import vn.vistark.nkktts.utils.LanguageChange
 import vn.vistark.nkktts.utils.SimpleNotify
 import java.util.*
 
@@ -64,6 +62,10 @@ class ManHinhKhoiDong : AppCompatActivity() {
         setContentView(R.layout.man_hinh_khoi_dong)
         DONT_NEED_TO_LOAD_OFFLINE_DATAS =
             intent.getBooleanExtra("DONT_NEED_TO_LOAD_OFFLINE_DATAS", false)
+
+        // Đổi ngôn ngữ
+        LanguageChange.onChange(baseContext)
+
         initPreComponents()
         initPre()
         if (!DONT_NEED_TO_LOAD_OFFLINE_DATAS) {

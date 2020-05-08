@@ -62,6 +62,7 @@ class ManHinhDoiMatKhau : AppCompatActivity() {
         }
 
         initEvents()
+        supportActionBar?.title = getString(R.string.doi_mat_khau)
     }
 
     private fun initEvents() {

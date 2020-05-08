@@ -31,6 +31,7 @@ class ManHinhKhaiBaoThongTinHoSo : AppCompatActivity() {
         ToolbarBackButton(this).show()
         initEvents()
         initPreviousSavedData()
+        supportActionBar?.title = getString(R.string.thong_tin_ho_so)
     }
 
     private fun initPreviousSavedData() {

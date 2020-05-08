@@ -24,7 +24,7 @@
         <service
             android:name=".core.services.SyncService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <activity
             android:name=".ui.doi_mat_khau.ManHinhDoiMatKhau"
@@ -32,7 +32,9 @@
         <activity
             android:name=".ui.sua_ho_so.ManHinhSuaHoSo"
             android:label="@string/sua_ho_so" />
-        <activity android:name=".ui.thong_tin_san_luong.ManHinhThongTinSanLuong" />
+        <activity
+            android:name=".ui.lich_su_chuyen_di.ManHinhLichSuChuyenDi"
+            android:label="@string/lich_su_chuyen_di" />
         <activity
             android:name=".ui.dang_nhap.ManHinhDangNhap"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

@@ -25,6 +25,7 @@ class ManHinhThongTinMeDanhBat : AppCompatActivity() {
         initDataShow()
 
         intEvents()
+        supportActionBar?.title = getString(R.string.thong_tin_me)
     }
 
     @SuppressLint("SetTextI18n")

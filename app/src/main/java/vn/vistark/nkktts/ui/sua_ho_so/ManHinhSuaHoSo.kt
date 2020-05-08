@@ -38,6 +38,7 @@ class ManHinhSuaHoSo : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         ToolbarBackButton(this).show()
         initEvents()
         initPreviousSavedData()
+        supportActionBar?.title = getString(R.string.sua_ho_so)
     }
 
     private fun initPreviousSavedData() {

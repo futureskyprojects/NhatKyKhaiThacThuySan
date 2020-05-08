@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:elevation="4dp"
+        app:cardCornerRadius="@dimen/default_corners_radius">
+
+        <LinearLayout
+            android:id="@+id/lnLscdRoot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#2C00FF00"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical"
+            android:padding="@dimen/default_padding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvLscdNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:minLines="2"
+                    android:paddingLeft="20dp"
+                    android:text="#1"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvLscdTopString"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:paddingLeft="20dp"
+                    android:text="23/06/2019 - 23/06/2019\n(12 spices with 3400000000000 tons)"
+                    android:textSize="@dimen/default_font_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/sub_color" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/tvLscdStartPortName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Nha Trang"
+                    android:textSize="@dimen/default_font_size" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@id/tvLscdEndPortName"
+                    android:layout_toLeftOf="@id/tvLscdEndPortName"
+                    android:layout_toEndOf="@id/tvLscdStartPortName"
+                    android:layout_toRightOf="@id/tvLscdStartPortName"
+                    android:src="@drawable/left_double_arr" />
+
+                <TextView
+                    android:id="@+id/tvLscdEndPortName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:text="Thanh Hóa"
+                    android:textSize="@dimen/default_font_size" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btnLsXoa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_error"
+                android:padding="@dimen/default_padding"
+                android:text="@string/xoa_chuyen_trung"
+                android:textColor="#FFF"
+                android:textSize="@dimen/default_font_size"
+                android:visibility="gone" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

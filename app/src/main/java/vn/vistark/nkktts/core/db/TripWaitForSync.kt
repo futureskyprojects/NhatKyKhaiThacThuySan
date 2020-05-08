@@ -5,13 +5,14 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import java.lang.Exception
 
 class TripWaitForSync(context: Context) :
     SQLiteOpenHelper(context, TripWaitForSync::class.java.simpleName, null, 1) {
 
-    class TripInDb(val id: Long, val trip: TheTripStorage)
+    class TripInDb(val id: Long, var trip: TheTripStorage)
 
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL(
@@ -58,6 +59,31 @@ class TripWaitForSync(context: Context) :
         return ttss
     }
 
+    fun getNotSync(): Array<TripInDb> {
+        val db = this.readableDatabase
+        var ttss = emptyArray<TripInDb>()
+        val cursor =
+            db.rawQuery("SELECT * FROM ${TripWaitForSync::class.java.simpleName}", emptyArray())
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                val s = cursor.getString(1)
+                try {
+                    val tid = TripInDb(
+                        cursor.getLong(0),
+                        GsonBuilder().create().fromJson(s, TheTripStorage::class.java)
+                    )
+                    if (!tid.trip.trip.isSynced) {
+                        ttss = ttss.plus(tid)
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
+        db.close()
+        return ttss
+    }
+
     fun remove(id: Long): Int {
         val db = this.writableDatabase
         val res = db.delete(
@@ -67,5 +93,12 @@ class TripWaitForSync(context: Context) :
         )
         db.close()
         return res
+    }
+
+    fun update(trip: TripInDb) {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put("trip_json", GsonBuilder().create().toJson(trip.trip))
+        db.update(TripWaitForSync::class.java.simpleName, values, "id=${trip.id}", null)
     }
 }

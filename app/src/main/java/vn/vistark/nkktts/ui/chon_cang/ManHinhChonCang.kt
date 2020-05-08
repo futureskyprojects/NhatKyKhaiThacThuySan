@@ -46,6 +46,8 @@ class ManHinhChonCang : AppCompatActivity() {
 
         ToolbarBackButton(this).show()
 
+        supportActionBar?.title = getString(R.string.chon_cang)
+
         initEvents()
     }
 

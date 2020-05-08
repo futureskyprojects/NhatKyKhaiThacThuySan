@@ -29,6 +29,7 @@ class ManHinhKhoiTaoChuyenDiBien : AppCompatActivity() {
         showPreviousSelectedSeaPort()
 
         initEvents()
+        supportActionBar?.title = getString(R.string.khoi_tao_chuyen_di_bien)
     }
 
     private fun showPreviousSelectedSeaPort() {

@@ -29,6 +29,8 @@ class ManHinhMeDanhBat : AppCompatActivity() {
         initDsMe()
 
         initEvents()
+
+        supportActionBar?.title = getString(R.string.me_danh_bat)
     }
 
     private fun initDsMe() {
@@ -42,6 +44,8 @@ class ManHinhMeDanhBat : AppCompatActivity() {
             finish()
         }
 
+        // Reset mã cảng đến nếu đã lỡ chọn khi trước
+        Constants.currentTrip.trip.destinationPort = -1
     }
 
     private fun initEvents() {

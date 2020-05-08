@@ -2,6 +2,7 @@ package vn.vistark.nkktts.utils
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import vn.vistark.nkktts.ui.lich_su_chuyen_di.ManHinhLichSuChuyenDi
 import vn.vistark.nkktts.ui.thiet_lap.ManHinhThietLap
 
 class FastStartActivity {
@@ -12,7 +13,8 @@ class FastStartActivity {
         }
 
         fun khoiDongNhanhManHinhLichSuChuyenDi(act: AppCompatActivity) {
-
+            val intent = Intent(act, ManHinhLichSuChuyenDi::class.java)
+            act.startActivity(intent)
         }
     }
 }
