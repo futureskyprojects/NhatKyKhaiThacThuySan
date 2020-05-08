@@ -10,6 +10,9 @@ import java.lang.Exception
 
 class TripWaitForSync(context: Context) :
     SQLiteOpenHelper(context, TripWaitForSync::class.java.simpleName, null, 1) {
+
+    class TripInDb(val id: Long, val trip: TheTripStorage)
+
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL(
             "CREATE TABLE ${TripWaitForSync::class.java.simpleName} (" +
@@ -32,18 +35,20 @@ class TripWaitForSync(context: Context) :
         db.close()
     }
 
-    fun getAll(): Array<TheTripStorage> {
+    fun getAll(): Array<TripInDb> {
         val db = this.readableDatabase
-        var ttss = emptyArray<TheTripStorage>()
+        var ttss = emptyArray<TripInDb>()
         val cursor =
             db.rawQuery("SELECT * FROM ${TripWaitForSync::class.java.simpleName}", emptyArray())
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 val s = cursor.getString(1)
                 try {
-                    ttss = ttss.plus(
+                    val tid = TripInDb(
+                        cursor.getLong(0),
                         GsonBuilder().create().fromJson(s, TheTripStorage::class.java)
                     )
+                    ttss = ttss.plus(tid)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -51,5 +56,16 @@ class TripWaitForSync(context: Context) :
         }
         db.close()
         return ttss
+    }
+
+    fun remove(id: Long): Int {
+        val db = this.writableDatabase
+        val res = db.delete(
+            TripWaitForSync::class.java.simpleName,
+            "id=?",
+            arrayOf(id.toString())
+        )
+        db.close()
+        return res
     }
 }

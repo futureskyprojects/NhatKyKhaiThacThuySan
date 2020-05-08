@@ -10,6 +10,7 @@ import android.os.IBinder
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import vn.vistark.nkktts.R
+import vn.vistark.nkktts.core.db.TripWaitForSync
 import vn.vistark.nkktts.ui.khoi_dong.ManHinhKhoiDong
 import java.lang.Exception
 import java.util.*
@@ -61,6 +62,7 @@ class SyncService : Service() {
         startForeground(mNotificationId, notification)
 
         // Thực hiện các tác vụ tại đây
+        sync()
     }
 
     private fun defaultNotification() {
@@ -92,7 +94,7 @@ class SyncService : Service() {
         // c. Hiển thị noti và chạy services ngầm
         notification = NotificationCompat.Builder(this, mNotificationChannelId)
             .setContentTitle(getString(R.string.app_name))
-            .setContentText(getString(R.string.con_d_chuyen))
+            .setContentText(getString(R.string.con_d_chuyen, tripSyncLeft))
             .setSmallIcon(R.mipmap.ic_launcher_round)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
@@ -121,5 +123,18 @@ class SyncService : Service() {
     override fun onDestroy() {
         timer.cancel()
         super.onDestroy()
+    }
+
+    //========= XỬ LÝ TÁC VỤ TẠI ĐÂY ==========//
+    fun sync() {
+        timer = Timer()
+        timer.schedule(object : TimerTask() {
+            override fun run() {
+                val tid = TripWaitForSync(this@SyncService).getAll()
+                if (tid.isNotEmpty()) {
+                    syncingNotification(tid.size)
+                }
+            }
+        }, 1000, 5000)
     }
 }

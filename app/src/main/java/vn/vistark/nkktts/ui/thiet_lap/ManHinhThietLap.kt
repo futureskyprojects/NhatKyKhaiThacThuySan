@@ -54,6 +54,7 @@ class ManHinhThietLap : AppCompatActivity() {
                 titleText = getString(R.string.dang_xuat).toUpperCase()
                 contentText = getString(R.string.ban_co_chac_chan)
                 setConfirmButton(getString(R.string.dong_y)) {
+                    it.dismiss()
                     if (Constants.logOut()) {
                         val intent = Intent(this@ManHinhThietLap, ManHinhKhoiDong::class.java)
                         intent.flags =

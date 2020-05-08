@@ -401,7 +401,7 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
     }
 
     private fun hideAllSpiceImages() {
-        for (i in 1..MAX_SPICE_IMAGES) {
+        for (i in 1..6) {
             val v = getSpicesImageView(i)
             v.setImageResource(R.drawable.add_photo)
             if (i > 1) {
