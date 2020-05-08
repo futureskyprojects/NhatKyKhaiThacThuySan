@@ -131,4 +131,7 @@
     <string name="danh_sach_nghe">Danh sách nghề</string>
     <string name="thong_tin_ho_so">Thông tin hồ sơ</string>
     <string name="tiep_tuc">Tiếp tục</string>
+    <string name="chuyen_di_nay_se_duoc_dong_bo_ngam">Chuyến đi này sẽ được đồng bộ ngầm</string>
+    <string name="da_dong_bo_tat_ca">Đã đồng bộ hết</string>
+    <string name="con_d_chuyen">Còn %1$d chuyến cần đồng bộ</string>
 </resources>

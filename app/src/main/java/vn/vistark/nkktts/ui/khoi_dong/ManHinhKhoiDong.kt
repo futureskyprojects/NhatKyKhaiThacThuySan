@@ -4,6 +4,7 @@ import GetSelectedJobResponse
 import ProfileResponse
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -23,6 +24,7 @@ import retrofit2.Response
 import vn.vistark.nkktts.R
 import vn.vistark.nkktts.core.api.APIUtils
 import vn.vistark.nkktts.core.constants.Constants
+import vn.vistark.nkktts.core.db.TripWaitForSync
 import vn.vistark.nkktts.core.models.trip_history.TripHistory
 import vn.vistark.nkktts.ui.danh_sach_loai.ManHinhDanhSachLoai
 import vn.vistark.nkktts.ui.danh_sach_nghe.ManHinhDanhSachNghe
@@ -283,6 +285,9 @@ class ManHinhKhoiDong : AppCompatActivity() {
     }
 
     fun appRouting() {
+        // Khởi động services
+        runServices()
+        // Tiến hành routing
         if (Constants.isSelectedJob()) {
             if (Constants.isSelectedDeparturePortAndStarted()) {
                 if (Constants.isCreatingNewHaul()) {
@@ -312,5 +317,38 @@ class ManHinhKhoiDong : AppCompatActivity() {
             startActivity(Intent(this, ManHinhDanhSachNghe::class.java))
             finish()
         }
+    }
+
+    private fun checkServiceRunning(): Boolean {
+        val manager =
+            getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        for (service in manager.getRunningServices(Int.MAX_VALUE)) {
+            if ("vn.vistark.nkktts.core.services.SyncService" == service.service.className) {
+                return true
+            }
+        }
+        return false
+    }
+
+    private fun runServices() {
+        if (!checkServiceRunning()) {
+            println("Services chưa chạy, tiến hành chạy services mới >>>>>>>>>>>>")
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(
+                    Intent(
+                        applicationContext,
+                        TripWaitForSync::class.java
+                    )
+                )
+            } else {
+                startService(Intent(applicationContext, TripWaitForSync::class.java))
+            }
+        } else {
+            println("Services đã chạy >>>>>>>>>>>>>>>>>>>")
+        }
+        startActivity(
+            Intent(this@ManHinhKhoiDong, ManHinhKhoiDong::class.java)
+        )
+        finish()
     }
 }

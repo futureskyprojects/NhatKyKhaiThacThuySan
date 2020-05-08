@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.DatePicker
+import android.widget.Toast
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.man_hinh_khai_bao_so_dang_ky.*
@@ -143,11 +144,11 @@ class ManHinhSuaHoSo : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                         response: Response<UpdateProfileResponse>
                     ) {
                         if (response.code() == 200) {
-                            SimpleNotify.success(
+                            Toast.makeText(
                                 this@ManHinhSuaHoSo,
                                 getString(R.string.cap_nha_thanh_cong),
-                                getString(R.string.hoan_tat).toUpperCase()
-                            )
+                                Toast.LENGTH_SHORT
+                            ).show()
                             Constants.updateUserInfo()
                             finish()
                         } else {

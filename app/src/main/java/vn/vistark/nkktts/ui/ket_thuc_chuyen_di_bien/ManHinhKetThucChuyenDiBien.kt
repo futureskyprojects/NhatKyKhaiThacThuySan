@@ -28,6 +28,7 @@ import vn.vistark.nkktts.R
 import vn.vistark.nkktts.core.api.APIUtils
 import vn.vistark.nkktts.core.constants.Constants
 import vn.vistark.nkktts.core.constants.OfflineDataStorage
+import vn.vistark.nkktts.core.db.TripWaitForSync
 import vn.vistark.nkktts.core.models.trip_history.HistoryTripSuccessResponse
 import vn.vistark.nkktts.core.models.trip_history.TripHistory
 import vn.vistark.nkktts.core.models.upload_image.UploadImageSuccessResponse
@@ -97,7 +98,8 @@ class ManHinhKetThucChuyenDiBien : AppCompatActivity() {
                                     if (profileResponse != null) {
                                         Constants.userId = "${profileResponse.id}"
                                         Constants.updateUserId()
-                                        syncHistoryTrip()
+//                                        syncHistoryTrip()
+                                        saveToDatabase()
                                         return
                                     }
                                 }
@@ -108,7 +110,8 @@ class ManHinhKetThucChuyenDiBien : AppCompatActivity() {
                         })
                     return@setOnClickListener
                 }
-                syncHistoryTrip()
+//                syncHistoryTrip()
+                saveToDatabase()
             } else {
                 SimpleNotify.error(this, getString(R.string.chua_chon_cang).toUpperCase(), "")
                 pDialog.dismiss()
@@ -227,6 +230,32 @@ class ManHinhKetThucChuyenDiBien : AppCompatActivity() {
 
 //    private fun syncImages_(currentTripId: Int) {
 //    }
+
+    private fun saveToDatabase() {
+        // Lưu dữ liệu chuyến đi này vào CSDL
+        Constants.currentTrip.trip.captainId = Constants.userId.toInt()
+        Constants.currentTrip.trip.destinationTime = DateTimeUtils.getStringCurrentYMD()
+        Constants.currentTrip.trip.submitTime = DateTimeUtils.getStringCurrentYMD()
+        TripWaitForSync(this).add(Constants.currentTrip)
+        // Xóa dữ liệu chuyến đi để tạo chuyến đi mới
+        Constants.currentTrip = TheTripStorage()
+        Constants.updateCurrentTrip()
+        // Đến màn hình tạo chuyến đi mới
+        val ktcdbIntent =
+            Intent(
+                this@ManHinhKetThucChuyenDiBien,
+                ManHinhKhoiTaoChuyenDiBien::class.java
+            )
+        startActivity(ktcdbIntent)
+        // Kết thúc màn hình hiện tại
+        finish()
+        // Thông báo đến người dùng
+        Toast.makeText(
+            this,
+            getString(R.string.chuyen_di_nay_se_duoc_dong_bo_ngam),
+            Toast.LENGTH_SHORT
+        ).show()
+    }
 
     private fun syncCurrentTrip(currentTripId: Int) {
         Constants.currentTrip.trip.captainId = Constants.userId.toInt()

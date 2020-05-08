@@ -21,8 +21,13 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:icon">
+        <service
+            android:name=".core.services.SyncService"
+            android:enabled="true"
+            android:exported="true"></service>
+
         <activity
-            android:name="vn.vistark.nkktts.ui.doi_mat_khau.ManHinhDoiMatKhau"
+            android:name=".ui.doi_mat_khau.ManHinhDoiMatKhau"
             android:label="@string/doi_mat_khau" />
         <activity
             android:name=".ui.sua_ho_so.ManHinhSuaHoSo"
