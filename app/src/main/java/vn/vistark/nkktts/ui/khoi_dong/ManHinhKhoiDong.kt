@@ -26,6 +26,7 @@ import vn.vistark.nkktts.core.api.APIUtils
 import vn.vistark.nkktts.core.constants.Constants
 import vn.vistark.nkktts.core.db.TripWaitForSync
 import vn.vistark.nkktts.core.models.trip_history.TripHistory
+import vn.vistark.nkktts.core.services.SyncService
 import vn.vistark.nkktts.ui.danh_sach_loai.ManHinhDanhSachLoai
 import vn.vistark.nkktts.ui.danh_sach_nghe.ManHinhDanhSachNghe
 import vn.vistark.nkktts.ui.khoi_tao_chuyen_di_bien.ManHinhKhoiTaoChuyenDiBien
@@ -323,7 +324,7 @@ class ManHinhKhoiDong : AppCompatActivity() {
         val manager =
             getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         for (service in manager.getRunningServices(Int.MAX_VALUE)) {
-            if ("vn.vistark.nkktts.core.services.SyncService" == service.service.className) {
+            if (SyncService::class.java.name == service.service.className) {
                 return true
             }
         }
@@ -336,19 +337,15 @@ class ManHinhKhoiDong : AppCompatActivity() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 startForegroundService(
                     Intent(
-                        applicationContext,
-                        TripWaitForSync::class.java
+                        this,
+                        SyncService::class.java
                     )
                 )
             } else {
-                startService(Intent(applicationContext, TripWaitForSync::class.java))
+                startService(Intent(this, SyncService::class.java))
             }
         } else {
             println("Services đã chạy >>>>>>>>>>>>>>>>>>>")
         }
-        startActivity(
-            Intent(this@ManHinhKhoiDong, ManHinhKhoiDong::class.java)
-        )
-        finish()
     }
 }

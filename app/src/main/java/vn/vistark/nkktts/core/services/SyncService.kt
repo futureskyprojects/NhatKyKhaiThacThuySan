@@ -37,8 +37,10 @@ class SyncService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        println(">>>>>>>>>>>>>>>>>>>>>>>>>>> HELLO AVZASD")
         mHandler = Handler()
         notiManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        onHandleIntent("Hello")
         // A. Tạo notification channel cho android phiên bản từ O đổ lên
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel =
