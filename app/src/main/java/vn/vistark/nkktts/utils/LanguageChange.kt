@@ -10,10 +10,12 @@ class LanguageChange {
     companion object {
         fun onChange(baseContext: Context) {
             val s = OfflineDataStorage.get<String>("lang_code")
-            var locale: Locale = Locale("en", "US")
+            var locale: Locale = Locale("vi", "VN")
             if (s != null) {
                 if (s == "vi") {
                     locale = Locale("vi", "VN")
+                } else {
+                    locale = Locale("en", "US")
                 }
             }
             Locale.setDefault(locale)

@@ -12,20 +12,20 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar */
 
 
-data class UpdateProfileData (
+data class UpdateProfileData(
 
-	@SerializedName("id") val id : Int,
-	@SerializedName("shipowner") val shipowner : String,
-	@SerializedName("captain") val captain : String,
-	@SerializedName("ship_number") val ship_number : String,
-	@SerializedName("length_ship") val length_ship : Int,
-	@SerializedName("power") val power : Int,
-	@SerializedName("fishing_license") val fishing_license : Int,
-	@SerializedName("duration") val duration : String,
-	@SerializedName("second_job") val second_job : String,
-	@SerializedName("phone") val phone : String,
-	@SerializedName("image") val image : String,
-	@SerializedName("status") val status : Int,
-	@SerializedName("created_at") val created_at : String,
-	@SerializedName("updated_at") val updated_at : String
+    @SerializedName("id") val id: Int,
+    @SerializedName("shipowner") val shipowner: String,
+    @SerializedName("captain") val captain: String,
+    @SerializedName("ship_number") val ship_number: String,
+    @SerializedName("length_ship") val length_ship: Int,
+    @SerializedName("power") val power: Int,
+    @SerializedName("fishing_license") val fishing_license: String,
+    @SerializedName("duration") val duration: String,
+    @SerializedName("second_job") val second_job: String,
+    @SerializedName("phone") val phone: String,
+    @SerializedName("image") val image: String,
+    @SerializedName("status") val status: Int,
+    @SerializedName("created_at") val created_at: String,
+    @SerializedName("updated_at") val updated_at: String
 )

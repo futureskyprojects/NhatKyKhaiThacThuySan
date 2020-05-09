@@ -13,6 +13,7 @@ import android.widget.DatePicker
 import android.widget.Toast
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.man_hinh_khai_bao_so_dang_ky.*
 import kotlinx.android.synthetic.main.man_hinh_sua_ho_so.*
 import kotlinx.android.synthetic.main.man_hinh_sua_ho_so.mhkbsdkEdtNghePhu
@@ -69,7 +70,7 @@ class ManHinhSuaHoSo : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
     fun processed() {
         if (pDialog.isShowing)
-            pDialog.hide()
+            pDialog.dismiss()
     }
 
     fun updateProfile() {
@@ -127,6 +128,7 @@ class ManHinhSuaHoSo : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             Constants.userInfo.duration = duration
             Constants.userInfo.secondJob = secondJob
 
+            println(GsonBuilder().create().toJson(Constants.userInfo) + " >>>>>>>>>>>>")
             APIUtils.mAPIServices?.profileUpdateAPI(Constants.userInfo)
                 ?.enqueue(object : Callback<UpdateProfileResponse> {
                     override fun onFailure(call: Call<UpdateProfileResponse>, t: Throwable) {
@@ -144,7 +146,7 @@ class ManHinhSuaHoSo : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                         call: Call<UpdateProfileResponse>,
                         response: Response<UpdateProfileResponse>
                     ) {
-                        if (response.code() == 200) {
+                        if (response.isSuccessful) {
                             Toast.makeText(
                                 this@ManHinhSuaHoSo,
                                 getString(R.string.cap_nha_thanh_cong),
