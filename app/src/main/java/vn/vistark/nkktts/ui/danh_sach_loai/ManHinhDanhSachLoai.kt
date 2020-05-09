@@ -5,24 +5,20 @@ import Hauls
 import Spices
 import SpicesResponse
 import android.Manifest
-import android.R.attr
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.Cursor
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
-import android.os.SystemClock
 import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -74,7 +70,7 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
         initPreComponents()
         initLocationServices()
 
-//        ToolbarBackButton(this).show()
+        ToolbarBackButton(this).show()
         initDanhSachLoai()
         initEvents()
         initIfNowIsReview()
@@ -231,6 +227,13 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
     }
 
     fun hideBottomSheetCapNhatSanLuong() {
+        try {
+            (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
+                this.currentFocus!!.windowToken,
+                0
+            )
+        } catch (var2: Exception) {
+        }
         mhdslLayoutNhapSanLuong.visibility = View.GONE
 //        mhdslBtnThemLoaiKhac.visibility = View.VISIBLE;
         mhdslBtnKetThucMe.visibility = View.VISIBLE;
@@ -252,7 +255,7 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
         // Nút kết thúc
         mhdslBtnKetThucMe.setOnClickListener {
             if (Hauls.currentHault.spices.isEmpty()) {
-                startActivity(Intent(this@ManHinhDanhSachLoai, ManHinhMeDanhBat::class.java))
+                onBackPressed()
                 return@setOnClickListener
             }
             if (pressedMillis == -1L) {
@@ -524,17 +527,34 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
         }
     }
 
+    fun back() {
+        startActivity(Intent(this@ManHinhDanhSachLoai, ManHinhMeDanhBat::class.java))
+        ToolbarBackButton(this@ManHinhDanhSachLoai).overrideAnimationOnEnterAndExitActivityReveret()
+        finish()
+    }
+
     override fun onBackPressed() {
+        // Nếu xem lại
         if (Hauls.currentHault.timeCollectingNets.isNotEmpty()) {
-            val manHinhMeDanhBatIntent =
-                Intent(this@ManHinhDanhSachLoai, ManHinhMeDanhBat::class.java)
-            startActivity(manHinhMeDanhBatIntent)
-            ToolbarBackButton(this@ManHinhDanhSachLoai).overrideAnimationOnEnterAndExitActivityReveret()
-            finish()
+            back()
         } else {
-            SimpleNotify.onBackConfirm(this) {
-                finish()
-                super.onBackPressed()
+            // Nếu mẻ chưa có sản lượng
+            if (Hauls.currentHault.spices.isEmpty()) {
+                back()
+            } else {
+                SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE).apply {
+                    titleText = getString(R.string.bo_qua_tat_ca_du_lieu_hien_tai)
+                    setConfirmButton(getString(R.string.dong_y)) {
+                        it.dismiss()
+                        Hauls.removeHault()
+                        Constants.updateCurrentTrip()
+                        back()
+                    }
+                    setCancelButton(getString(R.string.huy)) {
+                        it.dismiss()
+                    }
+                    show()
+                }
             }
         }
     }

@@ -70,6 +70,8 @@ class ManHinhKhoiDong : AppCompatActivity() {
         initPre()
         if (!DONT_NEED_TO_LOAD_OFFLINE_DATAS) {
             DataInitialize() // Fetch data from internet
+            // Khởi động services
+            runServices()
         }
         permissionRequest()
     }
@@ -115,7 +117,7 @@ class ManHinhKhoiDong : AppCompatActivity() {
                         } else {
                             Log.w(TAG, "Đã hoàn tất fetch dữ liệu từ Internet")
                             this.cancel()
-                            chuyenQuaManHinhDangNhap()
+                            checkLoginAndRouting()
                         }
                     } else {
                         Log.w(TAG, "Đang fetch dữ liệu mới từ mạng")
@@ -137,7 +139,7 @@ class ManHinhKhoiDong : AppCompatActivity() {
             )
     }
 
-    private fun chuyenQuaManHinhDangNhap() {
+    private fun checkLoginAndRouting() {
         if (Constants.sharedPreferences == null) {
             SimpleNotify.error(
                 this,
@@ -146,7 +148,7 @@ class ManHinhKhoiDong : AppCompatActivity() {
             )
             Timer().schedule(object : TimerTask() {
                 override fun run() {
-                    chuyenQuaManHinhDangNhap()
+                    checkLoginAndRouting()
                     finish()
                 }
             }, 500)
@@ -187,7 +189,7 @@ class ManHinhKhoiDong : AppCompatActivity() {
             )
         } else {
             if (DONT_NEED_TO_LOAD_OFFLINE_DATAS) {
-                chuyenQuaManHinhDangNhap()
+                checkLoginAndRouting()
             } else {
                 startTimer()
             }
@@ -210,7 +212,7 @@ class ManHinhKhoiDong : AppCompatActivity() {
                 }
                 if (grantResults.size >= appPermissions.size && isFullGranted) {
                     if (DONT_NEED_TO_LOAD_OFFLINE_DATAS) {
-                        chuyenQuaManHinhDangNhap()
+                        checkLoginAndRouting()
                     } else {
                         startTimer()
                     }
@@ -288,8 +290,6 @@ class ManHinhKhoiDong : AppCompatActivity() {
     }
 
     fun appRouting() {
-        // Khởi động services
-        runServices()
         // Tiến hành routing
         if (Constants.isSelectedJob()) {
             if (Constants.isSelectedDeparturePortAndStarted()) {

@@ -22,6 +22,7 @@ import retrofit2.Response
 import vn.vistark.nkktts.R
 import vn.vistark.nkktts.core.api.APIUtils
 import vn.vistark.nkktts.core.constants.Constants
+import vn.vistark.nkktts.core.services.SyncTripHistory
 import vn.vistark.nkktts.ui.doi_mat_khau.ManHinhDoiMatKhau
 import vn.vistark.nkktts.ui.danh_sach_nghe.ManHinhDanhSachNghe
 import vn.vistark.nkktts.ui.khai_bao_thong_tin_ho_so.ManHinhKhaiBaoThongTinHoSo
@@ -141,6 +142,8 @@ class ManHinhDangNhap : AppCompatActivity() {
                                     APIUtils.replaceAPIServices()
                                     // Tiến hành lấy thông tin hồ sơ
                                     getUserProfile()
+                                    // Lấy lịch sử chuyến đi
+                                    SyncTripHistory().execute()
                                     // Hoàn tất
                                     return
                                 }

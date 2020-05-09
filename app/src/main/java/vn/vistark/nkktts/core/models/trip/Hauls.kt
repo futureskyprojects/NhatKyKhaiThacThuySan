@@ -39,6 +39,13 @@ data class Hauls(
 
     companion object {
         var currentHault = Hauls()
+        fun removeHault() {
+            if (Constants.currentTrip.trip.hauls.isNotEmpty()) {
+                Constants.currentTrip.trip.hauls =
+                    Constants.currentTrip.trip.hauls.filter { it.orderNumber != currentHault.orderNumber }
+            }
+        }
+
         fun updateHault() {
             if (Constants.currentTrip.trip.hauls.isNotEmpty()) {
                 Log.w("HAULS", "Không trống")

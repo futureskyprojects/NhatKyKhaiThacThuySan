@@ -92,6 +92,10 @@ class ManHinhThietLap : AppCompatActivity() {
         ivMhtlViVN.setOnClickListener {
             changeLanguage("vi")
         }
+
+        mhtlNutDoiAnhDaiDien.setOnClickListener {
+
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -101,7 +105,8 @@ class ManHinhThietLap : AppCompatActivity() {
 
     fun changeLanguage(lanCode: String) {
         SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE).apply {
-            titleText = getString(R.string.moi_thay_doi_se_duoc_cap_nhat_khi_khoi_dong_lai_ung_dung).toUpperCase()
+            titleText =
+                getString(R.string.moi_thay_doi_se_duoc_cap_nhat_khi_khoi_dong_lai_ung_dung).toUpperCase()
             setConfirmButton(getString(R.string.dong_y)) {
                 it.dismissWithAnimation()
                 OfflineDataStorage.saveData("lang_code", lanCode)
