@@ -19,8 +19,8 @@ class RetrofitClient {
                 ).build()
                 chain.proceed(request)
             }
-            httpClient.connectTimeout(10, TimeUnit.SECONDS)
-            httpClient.readTimeout(10, TimeUnit.SECONDS)
+            httpClient.connectTimeout(60, TimeUnit.SECONDS)
+            httpClient.readTimeout(60, TimeUnit.SECONDS)
             retrofit = Retrofit.Builder()
                 .baseUrl("http://nhatkyktts.com")
                 .addConverterFactory(GsonConverterFactory.create())

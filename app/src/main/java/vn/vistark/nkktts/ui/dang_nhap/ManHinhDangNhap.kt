@@ -9,6 +9,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.os.FileUtils
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +29,7 @@ import vn.vistark.nkktts.ui.danh_sach_nghe.ManHinhDanhSachNghe
 import vn.vistark.nkktts.ui.khai_bao_thong_tin_ho_so.ManHinhKhaiBaoThongTinHoSo
 import vn.vistark.nkktts.ui.khoi_dong.ManHinhKhoiDong
 import vn.vistark.nkktts.ui.khoi_tao_chuyen_di_bien.ManHinhKhoiTaoChuyenDiBien
+import vn.vistark.nkktts.ui.thiet_lap.SyncAvatar
 import vn.vistark.nkktts.utils.SimpleNotify
 import java.lang.Exception
 import java.net.HttpURLConnection.HTTP_UNAUTHORIZED
@@ -151,8 +153,6 @@ class ManHinhDangNhap : AppCompatActivity() {
                                 try {
                                     val errRes = response.errorBody()?.string()
                                     if (errRes != null) {
-                                        val loginFailResponse =
-                                            Gson().fromJson(errRes, LoginFailResponse::class.java)
                                         SimpleNotify.error(
                                             this@ManHinhDangNhap,
                                             getString(R.string.sai_tai_khoan_hoac_mat_khau),
@@ -196,6 +196,9 @@ class ManHinhDangNhap : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     val profileResponse = response.body()?.profile
+                    println(
+                        "Đã lấy được profile: ${GsonBuilder().create().toJson(profileResponse)}"
+                    )
                     if (profileResponse != null) {
                         Constants.userId = profileResponse.id.toString()
                         Constants.userInfo.shipOwner = profileResponse.shipOwner
@@ -207,11 +210,24 @@ class ManHinhDangNhap : AppCompatActivity() {
                         Constants.userInfo.duration = profileResponse.duration
                         Constants.userInfo.secondJob = profileResponse.secondJob
                         Constants.userInfo.phone = profileResponse.phone
-                        Constants.userInfo.image = profileResponse.image
                         Constants.userInfo.status = profileResponse.status.toString()
                         Constants.userInfo.createAt = profileResponse.createdAt
                         Constants.userInfo.updateAt = profileResponse.updatedAt
 
+                        // Sync avatar từ server
+                        if (!profileResponse.image.isNullOrEmpty()) {
+                            if (profileResponse.image != Constants.userInfo.image) {
+                                Constants.userInfo.image = profileResponse.image
+                                println("Tiến hành đồng bộ avatar từ server")
+                                SyncAvatar.syncFromServer(
+                                    this@ManHinhDangNhap,
+                                    Constants.userInfo.image!!
+                                )
+                            }
+                        } else {
+                            println("Không có avatar nên tiến hành xóa đi")
+                            vn.vistark.nkktts.utils.FileUtils.removeAvatar(this@ManHinhDangNhap)
+                        }
                         Constants.updateUserInfo()
                         // Tiến hành vào trang chọn nghề
                         getSelectedJob()

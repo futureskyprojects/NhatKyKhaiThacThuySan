@@ -20,13 +20,58 @@ class FileUtils {
             return ImageDecoder.decodeBitmap(source)
         }
 
-        fun SaveImages(context: AppCompatActivity, imgName: String, bm: Bitmap): String {
+        fun SaveSpiceImages(context: AppCompatActivity, imgName: String, bm: Bitmap): String {
             val root = context.externalCacheDir!!.path + "/spices_image"
             val fz = File(root)
             if (!fz.exists()) {
                 fz.mkdirs()
             }
             val fname = "${imgName}_${System.currentTimeMillis()}.jpg"
+            val f = File(root, fname)
+            if (f.exists()) {
+                f.delete()
+            }
+            try {
+                val out = FileOutputStream(f)
+                bm.compress(Bitmap.CompressFormat.JPEG, 100, out)
+                out.flush()
+                out.close()
+                return f.path
+            } catch (e: Exception) {
+                e.printStackTrace()
+                return ""
+            }
+        }
+
+        fun removeAvatar(context: AppCompatActivity) {
+            try {
+                val avatarPath = context.externalCacheDir!!.path + "/avatar/avartar.jpg"
+                val f = File(avatarPath)
+                if (f.exists()) {
+                    f.delete()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
+        fun getAvatarBitmap(context: AppCompatActivity): Bitmap? {
+            try {
+                val avatarPath = context.externalCacheDir!!.path + "/avatar/avartar.jpg"
+                return BitmapFactory.decodeFile(avatarPath)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                return null
+            }
+        }
+
+        fun SaveAvatar(context: AppCompatActivity, bm: Bitmap): String {
+            val root = context.externalCacheDir!!.path + "/avatar"
+            val fz = File(root)
+            if (!fz.exists()) {
+                fz.mkdirs()
+            }
+            val fname = "avartar.jpg"
             val f = File(root, fname)
             if (f.exists()) {
                 f.delete()

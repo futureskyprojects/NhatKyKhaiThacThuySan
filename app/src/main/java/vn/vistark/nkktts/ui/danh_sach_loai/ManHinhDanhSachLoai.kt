@@ -512,7 +512,7 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
     private fun imageUriProcessing(uri: Uri, isDelete: Boolean = false) {
         // Copy sang thư mục cache
         val bm = FileUtils.getCapturedImage(this, uri)
-        val s = FileUtils.SaveImages(this, "spices", bm)
+        val s = FileUtils.SaveSpiceImages(this, "spices", bm)
         spiceImages = spiceImages.plus(s)
 //        println(GsonBuilder().create().toJson(spiceImages))
         // Xóa file nếu có yêu cầu
