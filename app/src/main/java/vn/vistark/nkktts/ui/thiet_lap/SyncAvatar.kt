@@ -66,10 +66,11 @@ class SyncAvatar(val context: AppCompatActivity, var uri: Uri, val onFinish: () 
                     if (path != null) {
                         println("Đăng tải thành công ảnh $path")
                         // Sync, update profile luôn
+                        Constants.userInfo.image = path
                         val updateRes =
                             APIUtils.mAPIServices?.profileUpdateAPI(Constants.userInfo)?.execute()
                         if (updateRes != null && updateRes.isSuccessful) {
-                            Constants.userInfo.image = path;
+                            println(">>>>> ${GsonBuilder().create().toJson(updateRes.body())}")
                             Constants.updateUserInfo()
                             println(
                                 "Cập nhật UserProfile: ${GsonBuilder().create()

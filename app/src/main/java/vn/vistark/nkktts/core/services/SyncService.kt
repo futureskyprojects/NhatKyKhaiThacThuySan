@@ -23,6 +23,9 @@ class SyncService : Service() {
     lateinit var notification: Notification
     lateinit var notiManager: NotificationManager
 
+    var notiType = ""
+    var previousNumber = -1;
+
     protected fun onHandleIntent(msg: String) {
         mHandler.post {
             Toast.makeText(
@@ -64,7 +67,12 @@ class SyncService : Service() {
     }
 
     private fun defaultNotification() {
-        destroyCurrentNotification()
+        if (notiType != "DEF") {
+            destroyCurrentNotification()
+            notiType = "DEF"
+        } else {
+            return
+        }
         // B. Tạo pendingIntent cho notify
         val intentHome = Intent(this, ManHinhKhoiDong::class.java)
         intentHome.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -83,7 +91,13 @@ class SyncService : Service() {
     }
 
     private fun syncingNotification(tripSyncLeft: Int) {
-        destroyCurrentNotification()
+        if (notiType != "SYNCING" || tripSyncLeft != previousNumber) {
+            destroyCurrentNotification()
+            notiType = "SYNCING"
+            previousNumber = tripSyncLeft
+        } else {
+            return
+        }
         // B. Tạo pendingIntent cho notify
 //        val intentHome = Intent(this, ManHinhKhoiDong::class.java)
 //        intentHome.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP

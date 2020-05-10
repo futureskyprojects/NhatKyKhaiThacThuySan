@@ -4,8 +4,6 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
-apply plugin: 'com.google.gms.google-services'
-
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -13,19 +11,19 @@ android {
         applicationId "vn.vistark.nkktts"
         minSdkVersion 15
         targetSdkVersion 29
-        versionCode 2005105
-        versionName "20.05.10.5"
+        versionCode 2005107
+        versionName "20.05.10.7"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            applicationVariants.all { variant ->
-                variant.outputs.all {
-                    outputFileName = "ELogBook_${defaultConfig.versionName}.apk"
-                }
-            }
+//            applicationVariants.all { variant ->
+//                variant.outputs.all {
+//                    outputFileName = "ELogBook_${defaultConfig.versionName}.apk"
+//                }
+//            }
         }
     }
 }
@@ -52,6 +50,5 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-
 
 }
