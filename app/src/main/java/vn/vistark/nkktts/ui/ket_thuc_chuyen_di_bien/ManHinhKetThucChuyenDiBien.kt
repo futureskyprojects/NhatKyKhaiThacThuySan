@@ -86,6 +86,7 @@ class ManHinhKetThucChuyenDiBien : AppCompatActivity() {
                                 call: Call<ProfileResponse>,
                                 response: Response<ProfileResponse>
                             ) {
+                                pDialog.dismiss()
                                 if (response.isSuccessful) {
                                     val profileResponse = response.body()?.profile
                                     if (profileResponse != null) {
@@ -96,7 +97,6 @@ class ManHinhKetThucChuyenDiBien : AppCompatActivity() {
                                         return
                                     }
                                 }
-                                pDialog.dismiss()
                                 errNotify()
 
                             }
@@ -106,8 +106,8 @@ class ManHinhKetThucChuyenDiBien : AppCompatActivity() {
 //                syncHistoryTrip()
                 saveToDatabase()
             } else {
-                SimpleNotify.error(this, getString(R.string.chua_chon_cang).toUpperCase(), "")
                 pDialog.dismiss()
+                SimpleNotify.error(this, getString(R.string.chua_chon_cang).toUpperCase(), "")
             }
         }
     }

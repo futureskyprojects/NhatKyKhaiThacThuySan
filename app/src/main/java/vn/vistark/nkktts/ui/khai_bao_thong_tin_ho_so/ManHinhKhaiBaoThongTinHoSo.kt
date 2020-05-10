@@ -61,7 +61,7 @@ class ManHinhKhaiBaoThongTinHoSo : AppCompatActivity() {
     fun processed() {
         mhkbtthsBtnTiepTheo.isEnabled = true
         if (pDialog.isShowing)
-            pDialog.hide()
+            pDialog.dismiss()
     }
 
     private fun initEvents() {

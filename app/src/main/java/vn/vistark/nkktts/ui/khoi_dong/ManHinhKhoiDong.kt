@@ -29,6 +29,7 @@ import vn.vistark.nkktts.ui.danh_sach_nghe.ManHinhDanhSachNghe
 import vn.vistark.nkktts.ui.khoi_tao_chuyen_di_bien.ManHinhKhoiTaoChuyenDiBien
 import vn.vistark.nkktts.ui.dang_nhap.ManHinhDangNhap
 import vn.vistark.nkktts.ui.me_danh_bat.ManHinhMeDanhBat
+import vn.vistark.nkktts.ui.thiet_lap.SyncAvatar
 import vn.vistark.nkktts.utils.DataInitialize
 import vn.vistark.nkktts.utils.LanguageChange
 import vn.vistark.nkktts.utils.SimpleNotify
@@ -246,10 +247,27 @@ class ManHinhKhoiDong : AppCompatActivity() {
                         Constants.userInfo.duration = profileResponse.duration
                         Constants.userInfo.secondJob = profileResponse.secondJob
                         Constants.userInfo.phone = profileResponse.phone
-                        Constants.userInfo.image = profileResponse.image
                         Constants.userInfo.status = profileResponse.status.toString()
                         Constants.userInfo.createAt = profileResponse.createdAt
                         Constants.userInfo.updateAt = profileResponse.updatedAt
+
+                        // Sync avatar từ server
+                        if (!profileResponse.image.isNullOrEmpty()) {
+                            if (profileResponse.image != Constants.userInfo.image || !vn.vistark.nkktts.utils.FileUtils.isAvatarExists(
+                                    this@ManHinhKhoiDong
+                                )
+                            ) {
+                                Constants.userInfo.image = profileResponse.image
+                                println("Tiến hành đồng bộ avatar từ server")
+                                SyncAvatar.syncFromServerAsync(
+                                    this@ManHinhKhoiDong,
+                                    Constants.userInfo.image!!
+                                ).execute()
+                            }
+                        } else {
+                            println("Không có avatar nên tiến hành xóa đi")
+                            vn.vistark.nkktts.utils.FileUtils.removeAvatar(this@ManHinhKhoiDong)
+                        }
                         Constants.updateUserInfo()
                         return
                     }
@@ -271,7 +289,8 @@ class ManHinhKhoiDong : AppCompatActivity() {
                 response: Response<GetSelectedJobResponse>
             ) {
                 if (response.isSuccessful) {
-                    val selectedJob = response.body()?.data?.first()
+                    val selectedJob =
+                        if (response.body()?.data != null && response.body()!!.data.isNotEmpty()) response.body()?.data?.first() else null
                     if (selectedJob != null) {
                         val jis = selectedJob.infoJob!!.replace("\\[|\\]".toRegex(), "").split(",")
                         Constants.selectedJob.id = selectedJob.id!!

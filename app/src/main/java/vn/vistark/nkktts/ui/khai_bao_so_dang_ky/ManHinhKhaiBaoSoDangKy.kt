@@ -68,7 +68,7 @@ class ManHinhKhaiBaoSoDangKy : AppCompatActivity(), DatePickerDialog.OnDateSetLi
     fun processed() {
         mhkbsdkBtnTiepTheo.isEnabled = true
         if (pDialog.isShowing)
-            pDialog.hide()
+            pDialog.dismiss()
     }
 
     private fun initEvents() {

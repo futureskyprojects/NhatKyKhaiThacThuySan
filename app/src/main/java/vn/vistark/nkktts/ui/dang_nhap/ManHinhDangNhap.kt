@@ -1,20 +1,17 @@
 package vn.vistark.nkktts.ui.dang_nhap
 
 import GetSelectedJobResponse
-import LoginFailResponse
 import LoginResponse
 import ProfileResponse
-import UpdateSelectedJobResponse
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.os.FileUtils
+import android.os.StrictMode
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.man_hinh_dang_nhap.*
 import retrofit2.Call
@@ -24,14 +21,12 @@ import vn.vistark.nkktts.R
 import vn.vistark.nkktts.core.api.APIUtils
 import vn.vistark.nkktts.core.constants.Constants
 import vn.vistark.nkktts.core.services.SyncTripHistory
-import vn.vistark.nkktts.ui.doi_mat_khau.ManHinhDoiMatKhau
 import vn.vistark.nkktts.ui.danh_sach_nghe.ManHinhDanhSachNghe
+import vn.vistark.nkktts.ui.doi_mat_khau.ManHinhDoiMatKhau
 import vn.vistark.nkktts.ui.khai_bao_thong_tin_ho_so.ManHinhKhaiBaoThongTinHoSo
 import vn.vistark.nkktts.ui.khoi_dong.ManHinhKhoiDong
-import vn.vistark.nkktts.ui.khoi_tao_chuyen_di_bien.ManHinhKhoiTaoChuyenDiBien
 import vn.vistark.nkktts.ui.thiet_lap.SyncAvatar
 import vn.vistark.nkktts.utils.SimpleNotify
-import java.lang.Exception
 import java.net.HttpURLConnection.HTTP_UNAUTHORIZED
 
 
@@ -216,13 +211,16 @@ class ManHinhDangNhap : AppCompatActivity() {
 
                         // Sync avatar từ server
                         if (!profileResponse.image.isNullOrEmpty()) {
-                            if (profileResponse.image != Constants.userInfo.image) {
+                            if (profileResponse.image != Constants.userInfo.image || !vn.vistark.nkktts.utils.FileUtils.isAvatarExists(
+                                    this@ManHinhDangNhap
+                                )
+                            ) {
                                 Constants.userInfo.image = profileResponse.image
                                 println("Tiến hành đồng bộ avatar từ server")
-                                SyncAvatar.syncFromServer(
+                                SyncAvatar.syncFromServerAsync(
                                     this@ManHinhDangNhap,
                                     Constants.userInfo.image!!
-                                )
+                                ).execute()
                             }
                         } else {
                             println("Không có avatar nên tiến hành xóa đi")
@@ -272,7 +270,8 @@ class ManHinhDangNhap : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     processed()
-                    val selectedJob = response.body()?.data?.first()
+                    val selectedJob =
+                        if (response.body()?.data != null && response.body()!!.data.isNotEmpty()) response.body()?.data?.first() else null
                     if (selectedJob != null) {
                         val jis = selectedJob.infoJob!!.replace("\\[|\\]".toRegex(), "").split(",")
                         Constants.selectedJob.id = selectedJob.id!!

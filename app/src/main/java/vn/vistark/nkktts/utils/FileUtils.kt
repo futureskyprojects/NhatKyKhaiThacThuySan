@@ -55,6 +55,11 @@ class FileUtils {
             }
         }
 
+        fun isAvatarExists(context: AppCompatActivity): Boolean {
+            val avatarPath = context.externalCacheDir!!.path + "/avatar/avartar.jpg"
+            return File(avatarPath).exists()
+        }
+
         fun getAvatarBitmap(context: AppCompatActivity): Bitmap? {
             try {
                 val avatarPath = context.externalCacheDir!!.path + "/avatar/avartar.jpg"
@@ -65,7 +70,7 @@ class FileUtils {
             }
         }
 
-        fun SaveAvatar(context: AppCompatActivity, bm: Bitmap): String {
+        fun saveAvatar(context: AppCompatActivity, bm: Bitmap): String {
             val root = context.externalCacheDir!!.path + "/avatar"
             val fz = File(root)
             if (!fz.exists()) {

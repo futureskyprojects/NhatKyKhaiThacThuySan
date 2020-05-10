@@ -1,25 +1,17 @@
 package vn.vistark.nkktts.ui.thiet_lap
 
-import UpdateProfileResponse
-import android.annotation.SuppressLint
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.AsyncTask
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.GsonBuilder
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import vn.vistark.nkktts.R
 import vn.vistark.nkktts.core.api.APIUtils
 import vn.vistark.nkktts.core.api.RetrofitClient
 import vn.vistark.nkktts.core.constants.Constants
 import vn.vistark.nkktts.utils.FileUtils
-import vn.vistark.nkktts.utils.SimpleNotify
 import java.io.File
 import java.lang.Exception
 import java.net.URI
@@ -28,14 +20,24 @@ class SyncAvatar(val context: AppCompatActivity, var uri: Uri, val onFinish: () 
     AsyncTask<Void, Void, Unit>() {
     companion object {
         fun syncFromServer(context: AppCompatActivity, path: String) {
+            context.runOnUiThread {
+                syncFromServerAsync(context, path).execute().get()
+            }
+        }
+    }
+
+    class syncFromServerAsync(val context: AppCompatActivity, val path: String) :
+        AsyncTask<Void, Void, Unit>() {
+        override fun doInBackground(vararg params: Void?) {
             val imgUrl =
                 URI.create(RetrofitClient.getClient()!!.baseUrl().toString())
                     .resolve(path).toURL()
             val bm = BitmapFactory.decodeStream(
                 imgUrl.openConnection().getInputStream()
             )
-            FileUtils.SaveAvatar(context, bm)
+            FileUtils.saveAvatar(context, bm)
         }
+
     }
 
     override fun doInBackground(vararg params: Void?) {

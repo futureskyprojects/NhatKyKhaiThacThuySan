@@ -34,9 +34,15 @@ class Constants {
 
         fun logOut(): Boolean {
             if (sharedPreferences != null) {
-                val editor = sharedPreferences!!.edit()
+                val editor = sharedPreferences?.edit()
                 if (editor != null) {
-                    return editor.clear().commit()
+                    userId = "-1"
+                    userToken = ""
+                    tokenType = ""
+                    userInfo.image = ""
+                    selectedJob = SelectedJob()
+                    currentTrip = TheTripStorage()
+                    return updateAll()
                 }
             }
             return false
@@ -155,7 +161,7 @@ class Constants {
             if (sharedPreferences != null) {
                 if (selectedJob.jobId >= 0 && selectedJob.jobInfo.isNotEmpty()) {
                     for (info in selectedJob.jobInfoArray) {
-                        if (info <= 0)
+                        if (info < 0)
                             return false
                     }
                     return true
