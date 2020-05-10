@@ -46,14 +46,12 @@ class ManHinhCungCapThongSoNghe : AppCompatActivity() {
 
         if (Constants.selectedJob.jobId == jobId) {
             if (Constants.selectedJob.jobInfoArray.size == 2) {
-                mhcctsnEdtParam1.setText(
-                    (Constants.selectedJob.jobInfoArray[0].toString().toFloatOrNull()
-                        ?: 0).toString()
-                )
-                mhcctsnEdtParam2.setText(
-                    (Constants.selectedJob.jobInfoArray[0].toString().toFloatOrNull()
-                        ?: 0).toString()
-                )
+                var s1 = Constants.selectedJob.jobInfoArray[0].toString()
+                if (s1.isEmpty()) s1 = "0"
+                var s2 = Constants.selectedJob.jobInfoArray[1].toString()
+                if (s2.isEmpty()) s2 = "0"
+                mhcctsnEdtParam1.setText(s1)
+                mhcctsnEdtParam2.setText(s2)
             }
         }
         supportActionBar?.title = getString(R.string.kich_thuoc_ngu_cu)

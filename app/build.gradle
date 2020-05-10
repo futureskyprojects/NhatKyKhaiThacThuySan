@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -11,8 +13,8 @@ android {
         applicationId "vn.vistark.nkktts"
         minSdkVersion 15
         targetSdkVersion 29
-        versionCode 2005104
-        versionName "20.05.10.4"
+        versionCode 2005105
+        versionName "20.05.10.5"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -50,5 +52,6 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 
 }

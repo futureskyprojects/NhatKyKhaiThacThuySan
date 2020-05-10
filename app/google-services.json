@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "140125590706",
+    "firebase_url": "https://elogboook-bughunter.firebaseio.com",
+    "project_id": "elogboook-bughunter",
+    "storage_bucket": "elogboook-bughunter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140125590706:android:02e05ee691c0608d07e5ab",
+        "android_client_info": {
+          "package_name": "vn.vistark.nkktts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "140125590706-t2o0f7pab40l6u78pb1dks92n0ekjm4h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZ64p926TvH8TXGeeUxPPuBE5Pa7bOHhQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "140125590706-t2o0f7pab40l6u78pb1dks92n0ekjm4h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
