@@ -7,6 +7,7 @@
     tools:context=".ui.thong_tin_me_danh_bat.ManHinhThongTinMeDanhBat">
 
     <ScrollView
+        android:id="@+id/scrView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -15,161 +16,178 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:layout_marginLeft="35dp"
-                android:layout_marginTop="@dimen/default_margin"
-                android:layout_marginEnd="@dimen/default_margin"
-                android:layout_marginRight="@dimen/default_margin"
-                android:layout_marginBottom="5dp"
-                android:gravity="center|start"
-                android:text="@string/thoi_gian_tha"
-                android:textColor="@color/sub_color"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/mhttmdbTvThoiGianTha"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/default_margin"
-                android:layout_marginRight="@dimen/default_margin"
-                android:background="@drawable/default_edt_bg"
-                android:drawableStart="@drawable/ic_calendar_tw"
-                android:drawableLeft="@drawable/ic_calendar_tw"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:gravity="center|start"
-                android:hint="@string/thoi_gian_tha"
-                android:padding="15dp"
-                android:textSize="@dimen/default_font_size" />
+                android:layout_marginTop="-15dp"
+                app:cardCornerRadius="15dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:layout_marginLeft="35dp"
-                android:layout_marginTop="@dimen/default_margin"
-                android:layout_marginEnd="@dimen/default_margin"
-                android:layout_marginRight="@dimen/default_margin"
-                android:layout_marginBottom="5dp"
-                android:gravity="center|start"
-                android:text="@string/vi_tri_tha"
-                android:textColor="@color/sub_color"
-                android:textSize="16sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/mhttmdbTvViTha"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/default_margin"
-                android:layout_marginRight="@dimen/default_margin"
+                    <vn.vistark.nkktts.utils.VistarkMapView
+                        android:id="@+id/mapView"
+                        android:layout_width="match_parent"
+                        android:layout_height="540dp" />
 
-                android:background="@drawable/default_edt_bg"
-                android:drawableStart="@drawable/ic_pin"
-                android:drawableLeft="@drawable/ic_pin"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:gravity="center|start"
-                android:hint="@string/vi_tri_tha"
-                android:padding="15dp"
-                android:textSize="@dimen/default_font_size" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <!--Thông tin thả-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:layout_marginLeft="35dp"
-                android:layout_marginTop="@dimen/default_margin"
-                android:layout_marginEnd="@dimen/default_margin"
-                android:layout_marginRight="@dimen/default_margin"
-                android:layout_marginBottom="5dp"
-                android:gravity="center|start"
-                android:text="@string/thoi_gian_thu"
-                android:textColor="@color/sub_color"
-                android:textSize="16sp" />
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="?attr/actionBarSize"
+                                android:background="@color/colorPrimary"
+                                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/mhttmdbTvThoiGianThu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/default_margin"
-                android:layout_marginRight="@dimen/default_margin"
-                android:background="@drawable/default_edt_bg"
-                android:drawableStart="@drawable/ic_calendar_tw"
-                android:drawableLeft="@drawable/ic_calendar_tw"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:gravity="center|start"
-                android:hint="@string/thoi_gian_thu"
-                android:padding="15dp"
-                android:textSize="@dimen/default_font_size" />
+                                <ImageView
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_centerVertical="true"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="15dp"
+                                    android:src="@drawable/placeholder_a" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:layout_marginLeft="35dp"
-                android:layout_marginTop="@dimen/default_margin"
-                android:layout_marginEnd="@dimen/default_margin"
-                android:layout_marginRight="@dimen/default_margin"
-                android:layout_marginBottom="5dp"
-                android:gravity="center|start"
-                android:text="@string/vi_tri_thu"
-                android:textColor="@color/sub_color"
-                android:textSize="16sp" />
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerInParent="true"
+                                    android:gravity="center"
+                                    android:text="@string/vi_tri_tha"
+                                    android:textAllCaps="true"
+                                    android:textColor="#FFF"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+                            </RelativeLayout>
 
-            <TextView
-                android:id="@+id/mhttmdbTvViTriThu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/default_margin"
-                android:layout_marginRight="@dimen/default_margin"
-                android:background="@drawable/default_edt_bg"
-                android:drawableStart="@drawable/ic_pin"
-                android:drawableLeft="@drawable/ic_pin"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:gravity="center|start"
-                android:hint="@string/vi_tri_thu"
-                android:padding="15dp"
-                android:textSize="@dimen/default_font_size" />
+                            <TextView
+                                android:id="@+id/mhttmdbTvViTha"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:drawableStart="@drawable/ic_pin"
+                                android:drawableLeft="@drawable/ic_pin"
+                                android:drawablePadding="10dp"
+                                android:ems="10"
+                                android:gravity="center|start"
+                                android:hint="@string/vi_tri_tha"
+                                android:padding="15dp"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:layout_marginLeft="35dp"
-                android:layout_marginTop="@dimen/default_margin"
-                android:layout_marginEnd="@dimen/default_margin"
-                android:layout_marginRight="@dimen/default_margin"
-                android:layout_marginBottom="5dp"
-                android:gravity="center|start"
-                android:text="@string/tong_san_luong_tan"
-                android:textColor="@color/sub_color"
-                android:textSize="16sp" />
+                            <TextView
+                                android:id="@+id/mhttmdbTvThoiGianTha"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:drawableStart="@drawable/ic_calendar_tw"
+                                android:drawableLeft="@drawable/ic_calendar_tw"
+                                android:drawablePadding="10dp"
+                                android:ems="10"
+                                android:gravity="center|start"
+                                android:hint="@string/thoi_gian_tha"
+                                android:padding="15dp"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                        <!--      Thông tin thu          -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/mhttmdbTvTongSanLuong"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/default_margin"
-                android:layout_marginRight="@dimen/default_margin"
-                android:background="@drawable/default_edt_bg"
-                android:drawableStart="@drawable/ic_weight"
-                android:drawableLeft="@drawable/ic_weight"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:gravity="center|start"
-                android:hint="@string/tong_san_luong_tan"
-                android:padding="15dp"
-                android:textSize="@dimen/default_font_size" />
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="?attr/actionBarSize"
+                                android:background="@color/colorPrimary"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_centerVertical="true"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="15dp"
+                                    android:src="@drawable/placeholder_b" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerInParent="true"
+                                    android:gravity="center"
+                                    android:text="@string/vi_tri_thu"
+                                    android:textAllCaps="true"
+                                    android:textColor="#FFF"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+                            </RelativeLayout>
+
+                            <TextView
+                                android:id="@+id/mhttmdbTvViTriThu"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:drawableStart="@drawable/ic_pin"
+                                android:drawableLeft="@drawable/ic_pin"
+                                android:drawablePadding="10dp"
+                                android:ems="10"
+                                android:gravity="center|start"
+                                android:hint="@string/vi_tri_thu"
+                                android:padding="15dp"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/mhttmdbTvThoiGianThu"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:drawableStart="@drawable/ic_calendar_tw"
+                                android:drawableLeft="@drawable/ic_calendar_tw"
+                                android:drawablePadding="10dp"
+                                android:ems="10"
+                                android:gravity="center|start"
+                                android:hint="@string/thoi_gian_thu"
+                                android:padding="15dp"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="?attr/actionBarSize"
+                            android:background="@color/red_btn_bg_color"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/mhttmdbTvTongSanLuong"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:drawableStart="@drawable/ic_weight"
+                                android:drawableLeft="@drawable/ic_weight"
+                                android:drawablePadding="10dp"
+                                android:ems="10"
+                                android:gravity="center|start"
+                                android:hint="@string/tong_san_luong_tan"
+                                android:padding="15dp"
+                                android:textColor="#FFFFFF"
+                                android:textSize="@dimen/default_font_size"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
             <Button
                 android:id="@+id/mhttmdbBtnLuu"

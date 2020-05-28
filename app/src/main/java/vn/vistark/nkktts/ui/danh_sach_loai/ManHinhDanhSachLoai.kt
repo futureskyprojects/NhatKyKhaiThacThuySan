@@ -18,6 +18,8 @@ import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
@@ -41,6 +43,12 @@ import kotlin.collections.ArrayList
 
 
 class ManHinhDanhSachLoai : AppCompatActivity() {
+
+    //Load animation
+    lateinit var slideDown: Animation
+
+    lateinit var slideUp: Animation
+
     val MIN_SPICE_IMAGES = 0
     val MAX_SPICE_IMAGES = 3
 
@@ -66,6 +74,7 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.man_hinh_danh_sach_loai)
+        initAnimations()
         hideAllSpiceImages()
         initPreComponents()
         initLocationServices()
@@ -75,6 +84,18 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
         initEvents()
         initIfNowIsReview()
         supportActionBar?.title = getString(R.string.san_luong_me)
+    }
+
+    private fun initAnimations() {
+        slideDown = AnimationUtils.loadAnimation(
+            this,
+            R.anim.slide_down
+        )
+
+        slideUp = AnimationUtils.loadAnimation(
+            this,
+            R.anim.slide_up
+        )
     }
 
     private fun initIfNowIsReview() {
@@ -127,6 +148,7 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
         var previousWeight = 0F
         mhdslBtnKetThucCapNhat.visibility = View.GONE
         mhdslLayoutNhapSanLuong.visibility = View.VISIBLE
+        lnMainInLayout.startAnimation(slideUp)
 //        mhdslBtnThemLoaiKhac.visibility = View.GONE;
         mhdslBtnKetThucMe.visibility = View.GONE
         // Xử lý khung nhìn
@@ -269,11 +291,22 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
             )
         } catch (var2: Exception) {
         }
-        mhdslLayoutNhapSanLuong.visibility = View.GONE
-//        mhdslBtnThemLoaiKhac.visibility = View.VISIBLE;
-        mhdslBtnKetThucMe.visibility = View.VISIBLE
-        if (Hauls.currentHault.timeCollectingNets.isNotEmpty())
-            mhdslBtnKetThucCapNhat.visibility = View.VISIBLE
+        lnMainInLayout.startAnimation(slideDown)
+        slideDown.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationRepeat(animation: Animation?) {
+            }
+
+            override fun onAnimationEnd(animation: Animation?) {
+                mhdslLayoutNhapSanLuong.visibility = View.GONE
+                //        mhdslBtnThemLoaiKhac.visibility = View.VISIBLE;
+                mhdslBtnKetThucMe.visibility = View.VISIBLE
+                if (Hauls.currentHault.timeCollectingNets.isNotEmpty())
+                    mhdslBtnKetThucCapNhat.visibility = View.VISIBLE
+            }
+
+            override fun onAnimationStart(animation: Animation?) {
+            }
+        })
     }
 
     private fun initEvents() {
@@ -304,7 +337,7 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
             if (SimpfyLocationUtils.mLastLocation != null) {
                 pressedMillis = -1
 
-                if (Hauls.currentHault.latCollecting != "" && Hauls.currentHault.lngCollecting != "") {
+                if (Hauls.currentHault.latCollecting.isNotEmpty() && Hauls.currentHault.lngCollecting.isNotEmpty() && Hauls.currentHault.timeCollectingNets.isNotEmpty()) {
                     SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE).apply {
                         titleText =
                             getString(R.string.xac_nhan_thay_the_vi_tri)
