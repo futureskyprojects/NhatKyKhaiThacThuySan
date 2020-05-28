@@ -164,7 +164,7 @@
             android:drawableLeft="@drawable/ic_weight"
             android:drawablePadding="10dp"
             android:ems="10"
-            android:hint="@string/san_luong_kg"
+            android:hint="0 (KG)"
             android:inputType="numberDecimal"
             android:padding="15dp"
             android:textSize="@dimen/default_font_size" />
