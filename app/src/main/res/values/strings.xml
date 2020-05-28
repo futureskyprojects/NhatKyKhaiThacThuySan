@@ -147,4 +147,5 @@
     <string name="xac_nhan_thay_the_thoi_gian_thu">Bạn có muốn thay thế thời gian thu trước đó bằng thời gian thu lúc này?</string>
     <string name="xac_nhan_thay_doi_san_luong">Thay đổi sản lượng của loài này?</string>
     <string name="cap_nhat_thong_tin_ket_thuc">Cập nhật lại thông tin kết thúc</string>
+    <string name="nhap_tu_khoa">Nhập tên cảng...</string>
 </resources>

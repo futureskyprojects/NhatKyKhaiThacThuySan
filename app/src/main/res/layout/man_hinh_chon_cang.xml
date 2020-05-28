@@ -1,13 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.chon_cang.ManHinhChonCang">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp">
+
+        <EditText
+            android:id="@+id/edtSearchAU"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/nhap_tu_khoa"
+            android:background="@drawable/default_edt_bg_opacty"
+            android:drawableStart="@drawable/ic_boat"
+            android:drawableLeft="@drawable/ic_boat"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="@string/nhap_tu_khoa"
+            android:inputType="text"
+            android:lines="1"
+            android:padding="15dp"
+            android:textSize="@dimen/default_font_size" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mhccRvDanhSachCangBien"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-</RelativeLayout>
+</LinearLayout>

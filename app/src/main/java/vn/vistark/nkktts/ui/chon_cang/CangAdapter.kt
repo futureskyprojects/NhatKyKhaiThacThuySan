@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import vn.vistark.nkktts.R
 
-class CangAdapter(val seaPorts: List<SeaPorts>) : RecyclerView.Adapter<CangViewHolder>() {
+class CangAdapter(val seaPorts: ArrayList<SeaPorts>) : RecyclerView.Adapter<CangViewHolder>() {
     var onPortClick: ((SeaPorts) -> Unit)? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CangViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.item_cang_bien, parent, false)
