@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import cn.pedant.SweetAlert.SweetAlertDialog
 import kotlinx.android.synthetic.main.man_hinh_thong_tin_me_danh_bat.*
 import vn.vistark.nkktts.R
 import vn.vistark.nkktts.core.constants.Constants
@@ -39,7 +40,23 @@ class ManHinhThongTinMeDanhBat : AppCompatActivity() {
             }
             mhttmdbTvThoiGianTha.text = Hauls.currentHault.timeDropNets
             mhttmdbTvViTha.text = "${Hauls.currentHault.latDrop},${Hauls.currentHault.lngDrop}"
-            mhttmdbTvThoiGianThu.text = DateTimeUtils.getStringCurrentYMDHMS()
+            if (Hauls.currentHault.timeCollectingNets.isNotEmpty()) {
+                mhttmdbTvThoiGianThu.text = Hauls.currentHault.timeCollectingNets
+                SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE).apply {
+                    titleText =
+                        "Bạn có muốn thay thế thời gian thu trước đó bằng thời gian thu lúc này?"
+                    contentText = getString(R.string.cap_nhat)
+                    setConfirmButton(getString(R.string.dong_y)) {
+                        it.dismissWithAnimation()
+                        mhttmdbTvThoiGianThu.text = DateTimeUtils.getStringCurrentYMDHMS()
+                    }
+                    setCancelButton(getString(R.string.van_giu)) {
+                        it.dismissWithAnimation()
+                    }
+                }
+            } else {
+                mhttmdbTvThoiGianThu.text = DateTimeUtils.getStringCurrentYMDHMS()
+            }
             mhttmdbTvViTriThu.text =
                 "${Hauls.currentHault.latCollecting},${Hauls.currentHault.lngCollecting}"
             mhttmdbTvTongSanLuong.text = (calSum / 1000).toString()
@@ -48,16 +65,10 @@ class ManHinhThongTinMeDanhBat : AppCompatActivity() {
 
     private fun intEvents() {
         mhttmdbBtnLuu.setOnClickListener {
-            var isUpdated = false
-            if (Hauls.currentHault.spices.isNotEmpty()) {
-                for (i in Hauls.currentHault.spices.indices) {
-                    Hauls.currentHault.timeCollectingNets =
-                        mhttmdbTvThoiGianThu.text.toString()
-                    Hauls.updateHault()
-                    isUpdated = true
-                }
-            }
-            if (isUpdated && Constants.updateCurrentTrip()) {
+            Hauls.currentHault.timeCollectingNets =
+                mhttmdbTvThoiGianThu.text.toString()
+            Hauls.updateHault()
+            if (Constants.updateCurrentTrip()) {
                 val manHinhMeDanhBatIntent = Intent(this, ManHinhMeDanhBat::class.java)
                 startActivity(manHinhMeDanhBatIntent)
                 finish()

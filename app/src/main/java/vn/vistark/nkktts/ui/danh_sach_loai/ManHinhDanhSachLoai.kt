@@ -73,7 +73,7 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
         ToolbarBackButton(this).show()
         initDanhSachLoai()
         initEvents()
-        initIfNowIsReview()
+//        initIfNowIsReview()
         supportActionBar?.title = getString(R.string.san_luong_me)
     }
 
@@ -265,19 +265,27 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
             }
             if (SimpfyLocationUtils.mLastLocation != null) {
                 pressedMillis = -1
-                var isUpdated = false
-                if (Hauls.currentHault.spices.isNotEmpty()) {
-                    for (i in Hauls.currentHault.spices.indices) {
-                        Hauls.currentHault.latCollecting =
-                            SimpfyLocationUtils.mLastLocation!!.latitude.toString()
-                        Hauls.currentHault.lngCollecting =
-                            SimpfyLocationUtils.mLastLocation!!.longitude.toString()
-                        Hauls.updateHault()
-                        isUpdated = true
+
+                if (Hauls.currentHault.latCollecting != "" && Hauls.currentHault.lngCollecting != "") {
+                    SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE).apply {
+                        titleText =
+                            getString(R.string.xac_nhan_thay_the_vi_tri)
+                        contentText = getString(R.string.cap_nhat).toUpperCase()
+                        setConfirmButton(getString(R.string.dong_y)) {
+                            it.dismiss()
+                            updateHaulsLocations()
+                        }
+                        setCancelButton(getString(R.string.van_giu)) {
+                            it.dismiss()
+                        }
                     }
+                } else {
+                    updateHaulsLocations()
                 }
 
-                if (isUpdated && Constants.updateCurrentTrip()) {
+                Hauls.updateHault()
+
+                if (Constants.updateCurrentTrip()) {
                     stopTimer()
                     val thongTinMeDanhBatIntent = Intent(this, ManHinhThongTinMeDanhBat::class.java)
                     startActivity(thongTinMeDanhBatIntent)
@@ -297,6 +305,13 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
                 )
             }
         }
+    }
+
+    private fun updateHaulsLocations() {
+        Hauls.currentHault.latCollecting =
+            SimpfyLocationUtils.mLastLocation!!.latitude.toString()
+        Hauls.currentHault.lngCollecting =
+            SimpfyLocationUtils.mLastLocation!!.longitude.toString()
     }
 
     private fun initPreComponents() {

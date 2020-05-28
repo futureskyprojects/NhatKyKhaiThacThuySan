@@ -142,4 +142,6 @@
     <string name="da_dong_bo_len_server">Đã đồng bộ lên máy chủ</string>
     <string name="moi_thay_doi_se_duoc_cap_nhat_khi_khoi_dong_lai_ung_dung">Mọi thay đổi sẽ được cập nhật sau khi ứng dụng được khởi động lại</string>
     <string name="bo_qua_tat_ca_du_lieu_hien_tai">Bỏ qua tất cả dữ liệu hiện tại?</string>
+    <string name="van_giu">Vẫn giữ</string>
+    <string name="xac_nhan_thay_the_vi_tri">Bạn có muốn lấy vị trí hiện tại để thay thế cho vị trí thu trức đó của mẻ này?</string>
 </resources>
