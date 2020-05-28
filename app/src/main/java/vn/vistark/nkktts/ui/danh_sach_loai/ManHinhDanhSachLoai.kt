@@ -73,18 +73,22 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
         ToolbarBackButton(this).show()
         initDanhSachLoai()
         initEvents()
-//        initIfNowIsReview()
+        initIfNowIsReview()
         supportActionBar?.title = getString(R.string.san_luong_me)
     }
 
     private fun initIfNowIsReview() {
         if (Hauls.currentHault.timeCollectingNets.isNotEmpty()) {
-            mhdslBtnKetThucMe.setBackgroundResource(R.drawable.btn_info)
-            mhdslBtnKetThucMe.text = getString(R.string.quay_ve)
-            mhdslBtnKetThucMe.setOnClickListener {
+            mhdslBtnKetThucCapNhat.visibility = View.VISIBLE
+            mhdslBtnKetThucCapNhat.setOnClickListener {
                 onBackPressed()
             }
-            ToolbarBackButton(this).show()
+//            mhdslBtnKetThucMe.setBackgroundResource(R.drawable.btn_info)
+            mhdslBtnKetThucMe.text = getString(R.string.cap_nhat_thong_tin_ket_thuc)
+//            mhdslBtnKetThucMe.setOnClickListener {
+//                onBackPressed()
+//            }
+//            ToolbarBackButton(this).show()
         }
     }
 
@@ -120,6 +124,8 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
     }
 
     private fun showBottomSheetCapNhatSanLuong(spices: Spices) {
+        var previousWeight = 0F
+        mhdslBtnKetThucCapNhat.visibility = View.GONE
         mhdslLayoutNhapSanLuong.visibility = View.VISIBLE
 //        mhdslBtnThemLoaiKhac.visibility = View.GONE;
         mhdslBtnKetThucMe.visibility = View.GONE
@@ -140,6 +146,7 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
                 )
                 return@setOnClickListener
             }
+
             if (pressedMillis == -1L) {
                 pressedMillis = System.currentTimeMillis()
                 SimpfyLocationUtils.requestNewLocationData(mFusedLocationClient)
@@ -147,59 +154,30 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
                 SimpfyLocationUtils.getLastLocation(mFusedLocationClient)
             }
             if (SimpfyLocationUtils.mLastLocation != null) {
-                pressedMillis = -1
-                val input = islmdEdtSanLuong.text.toString().toFloatOrNull()
-                if (input == null) {
-                    SimpleNotify.error(this, getString(R.string.san_luong_sai).toUpperCase(), "")
+
+                if (islmdEdtSanLuong.text.toString()
+                        .isEmpty() || islmdEdtSanLuong.text.toString()
+                        .toIntOrNull() ?: return@setOnClickListener == 0 || islmdEdtSanLuong.text.toString()
+                        .toFloatOrNull() ?: return@setOnClickListener != previousWeight
+                ) {
+                    SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE).apply {
+                        contentText = getString(R.string.cap_nhat)
+                        titleText = getString(R.string.xac_nhan_thay_doi_san_luong)
+                        setCancelable(false)
+
+                        setConfirmButton(getString(R.string.dong_y)) {
+                            it.dismiss()
+                            updateSanLuongLoai(spices)
+                        }
+                        setCancelButton(getString(R.string.dong)) {
+                            it.dismiss()
+
+                        }
+
+                        show()
+                    }
                 } else {
-                    var isExists = false
-                    if (Hauls.currentHault.spices.isNotEmpty()) {
-                        // Nếu trong danh sách các loài đã đánh bắt của mẻ đã có loài này rồi, thì tiến hành cập nhật nó
-                        for (i in Hauls.currentHault.spices.indices) {
-                            if (Hauls.currentHault.spices[i].id == spices.id) {
-                                Hauls.currentHault.spices[i].name =
-                                    spices.name ?: getString(R.string.tag_khong_ro)
-                                Hauls.currentHault.spices[i].weight = input
-                                Hauls.currentHault.spices[i].images =
-                                    GsonBuilder().create().toJson(spiceImages)
-                                isExists = true
-                                break
-                            }
-                        }
-                    }
-
-                    if (!isExists) {
-                        // Còn nếu nó chưa hề tồn tại, ta tiến hành tạo một đối tượng loài bắt được mới
-                        val catchedSpices = CatchedSpices()
-                        catchedSpices.id = spices.id
-                        catchedSpices.name = spices.name ?: getString(R.string.tag_khong_ro)
-                        catchedSpices.weight = input
-                        catchedSpices.images = GsonBuilder().create().toJson(spiceImages)
-
-                        // Tiến hành thêm loài này vào danh sách các loài đã bắt được của mẻ
-                        Hauls.currentHault.spices = Hauls.currentHault.spices.plus(catchedSpices)
-                    }
-                    // Tuy nhiên nếu có loài mà chưa có mẻ trước đó, chúng ta tiến hành tạo mới dữ liệu mẻ,
-                    // và lấy ID là số tiếp theo trong chuỗi
-                    if (Hauls.currentHault.orderNumber < 0) {
-                        var orderNumber = 1
-                        if (Constants.currentTrip.trip.hauls.isNotEmpty()) {
-                            orderNumber = Constants.currentTrip.trip.hauls.last().orderNumber + 1
-                        }
-                        Hauls.currentHault.orderNumber = orderNumber
-                        Hauls.currentHault.timeDropNets = DateTimeUtils.getStringCurrentYMDHMS()
-                        Hauls.currentHault.latDrop =
-                            SimpfyLocationUtils.mLastLocation!!.latitude.toString()
-                        Hauls.currentHault.lngDrop =
-                            SimpfyLocationUtils.mLastLocation!!.longitude.toString()
-                        Hauls.updateHault()
-                    }
-                    // Lưu vào bộ nhớ
-                    Constants.updateCurrentTrip()
-                    // Ẩn đi
-                    hideBottomSheetCapNhatSanLuong()
-                    // Thông báo thay đổi
-                    adapter.notifyDataSetChanged()
+                    updateSanLuongLoai(spices)
                 }
             } else {
                 SimpleNotify.warning(
@@ -216,12 +194,70 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
             for (spice in Hauls.currentHault.spices) {
                 if (spice.id == spices.id) {
                     islmdTenLoai.text = spice.name
+                    previousWeight = spice.weight
                     islmdEdtSanLuong.setText(spice.weight.toString())
                     spiceImages =
                         GsonBuilder().create().fromJson(spice.images, Array<String>::class.java)
                     return
                 }
             }
+        }
+    }
+
+    private fun updateSanLuongLoai(spices: Spices) {
+        pressedMillis = -1
+        val input = islmdEdtSanLuong.text.toString().toFloatOrNull()
+        if (input == null) {
+            SimpleNotify.error(this, getString(R.string.san_luong_sai).toUpperCase(), "")
+        } else {
+            var isExists = false
+            if (Hauls.currentHault.spices.isNotEmpty()) {
+                // Nếu trong danh sách các loài đã đánh bắt của mẻ đã có loài này rồi, thì tiến hành cập nhật nó
+                for (i in Hauls.currentHault.spices.indices) {
+                    if (Hauls.currentHault.spices[i].id == spices.id) {
+                        Hauls.currentHault.spices[i].name =
+                            spices.name ?: getString(R.string.tag_khong_ro)
+                        Hauls.currentHault.spices[i].weight = input
+                        Hauls.currentHault.spices[i].images =
+                            GsonBuilder().create().toJson(spiceImages)
+                        isExists = true
+                        break
+                    }
+                }
+            }
+
+            if (!isExists) {
+                // Còn nếu nó chưa hề tồn tại, ta tiến hành tạo một đối tượng loài bắt được mới
+                val catchedSpices = CatchedSpices()
+                catchedSpices.id = spices.id
+                catchedSpices.name = spices.name ?: getString(R.string.tag_khong_ro)
+                catchedSpices.weight = input
+                catchedSpices.images = GsonBuilder().create().toJson(spiceImages)
+
+                // Tiến hành thêm loài này vào danh sách các loài đã bắt được của mẻ
+                Hauls.currentHault.spices = Hauls.currentHault.spices.plus(catchedSpices)
+            }
+            // Tuy nhiên nếu có loài mà chưa có mẻ trước đó, chúng ta tiến hành tạo mới dữ liệu mẻ,
+            // và lấy ID là số tiếp theo trong chuỗi
+            if (Hauls.currentHault.orderNumber < 0) {
+                var orderNumber = 1
+                if (Constants.currentTrip.trip.hauls.isNotEmpty()) {
+                    orderNumber = Constants.currentTrip.trip.hauls.last().orderNumber + 1
+                }
+                Hauls.currentHault.orderNumber = orderNumber
+                Hauls.currentHault.timeDropNets = DateTimeUtils.getStringCurrentYMDHMS()
+                Hauls.currentHault.latDrop =
+                    SimpfyLocationUtils.mLastLocation!!.latitude.toString()
+                Hauls.currentHault.lngDrop =
+                    SimpfyLocationUtils.mLastLocation!!.longitude.toString()
+                Hauls.updateHault()
+            }
+            // Lưu vào bộ nhớ
+            Constants.updateCurrentTrip()
+            // Ẩn đi
+            hideBottomSheetCapNhatSanLuong()
+            // Thông báo thay đổi
+            adapter.notifyDataSetChanged()
         }
     }
 
@@ -235,7 +271,9 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
         }
         mhdslLayoutNhapSanLuong.visibility = View.GONE
 //        mhdslBtnThemLoaiKhac.visibility = View.VISIBLE;
-        mhdslBtnKetThucMe.visibility = View.VISIBLE;
+        mhdslBtnKetThucMe.visibility = View.VISIBLE
+        if (Hauls.currentHault.timeCollectingNets.isNotEmpty())
+            mhdslBtnKetThucCapNhat.visibility = View.VISIBLE
     }
 
     private fun initEvents() {
@@ -284,20 +322,7 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
                     updateHaulsLocations()
                 }
 
-                Hauls.updateHault()
 
-                if (Constants.updateCurrentTrip()) {
-                    stopTimer()
-                    val thongTinMeDanhBatIntent = Intent(this, ManHinhThongTinMeDanhBat::class.java)
-                    startActivity(thongTinMeDanhBatIntent)
-                    finish()
-                } else {
-                    SimpleNotify.error(
-                        this,
-                        getString(R.string.ket_thuc_loi).toUpperCase(),
-                        getString(R.string.vui_long_thu_lai)
-                    )
-                }
             } else {
                 SimpleNotify.warning(
                     this,
@@ -313,6 +338,20 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
             SimpfyLocationUtils.mLastLocation!!.latitude.toString()
         Hauls.currentHault.lngCollecting =
             SimpfyLocationUtils.mLastLocation!!.longitude.toString()
+        Hauls.updateHault()
+
+        if (Constants.updateCurrentTrip()) {
+            stopTimer()
+            val thongTinMeDanhBatIntent = Intent(this, ManHinhThongTinMeDanhBat::class.java)
+            startActivity(thongTinMeDanhBatIntent)
+            finish()
+        } else {
+            SimpleNotify.error(
+                this,
+                getString(R.string.ket_thuc_loi).toUpperCase(),
+                getString(R.string.vui_long_thu_lai)
+            )
+        }
     }
 
     private fun initPreComponents() {
