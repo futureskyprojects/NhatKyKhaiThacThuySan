@@ -278,6 +278,7 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
                         setCancelButton(getString(R.string.van_giu)) {
                             it.dismiss()
                         }
+                        show()
                     }
                 } else {
                     updateHaulsLocations()
@@ -363,8 +364,8 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
         adapter = SpiceAdapter(spicesInJobs)
         adapter.onSpiceClick = {
             // Nếu không phải xem lại
-            if (Hauls.currentHault.timeCollectingNets.isEmpty())
-                showBottomSheetCapNhatSanLuong(it)
+//            if (Hauls.currentHault.timeCollectingNets.isEmpty())
+            showBottomSheetCapNhatSanLuong(it)
         }
         mhdslRvDsLoai.adapter = adapter
     }

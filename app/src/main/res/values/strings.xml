@@ -144,4 +144,5 @@
     <string name="bo_qua_tat_ca_du_lieu_hien_tai">Bỏ qua tất cả dữ liệu hiện tại?</string>
     <string name="van_giu">Vẫn giữ</string>
     <string name="xac_nhan_thay_the_vi_tri">Bạn có muốn lấy vị trí hiện tại để thay thế cho vị trí thu trức đó của mẻ này?</string>
+    <string name="xac_nhan_thay_the_thoi_gian_thu">Bạn có muốn thay thế thời gian thu trước đó bằng thời gian thu lúc này?</string>
 </resources>

@@ -44,7 +44,7 @@ class ManHinhThongTinMeDanhBat : AppCompatActivity() {
                 mhttmdbTvThoiGianThu.text = Hauls.currentHault.timeCollectingNets
                 SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE).apply {
                     titleText =
-                        "Bạn có muốn thay thế thời gian thu trước đó bằng thời gian thu lúc này?"
+                        getString(R.string.xac_nhan_thay_the_thoi_gian_thu)
                     contentText = getString(R.string.cap_nhat)
                     setConfirmButton(getString(R.string.dong_y)) {
                         it.dismissWithAnimation()
@@ -53,6 +53,7 @@ class ManHinhThongTinMeDanhBat : AppCompatActivity() {
                     setCancelButton(getString(R.string.van_giu)) {
                         it.dismissWithAnimation()
                     }
+                    show()
                 }
             } else {
                 mhttmdbTvThoiGianThu.text = DateTimeUtils.getStringCurrentYMDHMS()
