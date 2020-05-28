@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_man_hinh_doi_mat_khau.*
 import retrofit2.Call
@@ -52,7 +51,7 @@ class ManHinhDoiMatKhau : AppCompatActivity() {
             mhdmkLnForgotPass.visibility = View.GONE
             mhdmkBtnNutXacNhan.text = getString(R.string.hoan_tat)
             processingCheckBaseInfo(
-                Constants.userInfo.username!!,
+                Constants.userInfo.shipNumber!!,
                 Constants.userInfo.fishingLicense!!
             )
         } else {
@@ -66,8 +65,8 @@ class ManHinhDoiMatKhau : AppCompatActivity() {
 
     private fun initEvents() {
         mhdmkBtnNutXacNhan.setOnClickListener {
-            val username = mhdmkEdtMaTaiKhoan.text.toString()
-            val sdk = mhdmkEdtSoDangKyTau.text.toString()
+            val username = mhdmkEdtSoDangKyTau.text.toString()
+            val sdk = mhdmkEdtSoGiayPhepKhaiThac.text.toString()
             val pass1 = mhdmkEdtMatKhauMoi.text.toString()
             val pass2 = mhdmkEdtNhapLaiMatKhauMoi.text.toString()
 

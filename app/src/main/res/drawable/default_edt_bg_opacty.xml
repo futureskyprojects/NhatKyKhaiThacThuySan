@@ -2,20 +2,20 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android" android:enterFadeDuration="300" android:exitFadeDuration="300">
     <item android:state_focused="false" android:state_pressed="false">
         <shape>
-            <solid android:color="#4DFFFFFF" />
+            <solid android:color="#EEFFFFFF" />
             <corners android:radius="@dimen/default_corners_radius" />
         </shape>
     </item>
     <item android:state_focused="true" android:state_pressed="true">
         <shape>
-            <solid android:color="#4DFFFFFF" />
+            <solid android:color="#EEFFFFFF" />
             <corners android:radius="@dimen/default_corners_radius" />
         </shape>
     </item>
 
     <item android:state_focused="true" android:state_pressed="false">
         <shape>
-            <solid android:color="#4DFFFFFF" />
+            <solid android:color="#EEFFFFFF" />
             <corners android:radius="@dimen/default_corners_radius" />
         </shape>
     </item>

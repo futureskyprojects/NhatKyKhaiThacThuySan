@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "140125590706",
-    "firebase_url": "https://elogboook-bughunter.firebaseio.com",
-    "project_id": "elogboook-bughunter",
-    "storage_bucket": "elogboook-bughunter.appspot.com"
+    "project_number": "789966682958",
+    "firebase_url": "https://elogbook-bug-reporter.firebaseio.com",
+    "project_id": "elogbook-bug-reporter",
+    "storage_bucket": "elogbook-bug-reporter.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:140125590706:android:02e05ee691c0608d07e5ab",
+        "mobilesdk_app_id": "1:789966682958:android:60a75916f30ff7108fbc1f",
         "android_client_info": {
           "package_name": "vn.vistark.nkktts"
         }
       },
       "oauth_client": [
         {
-          "client_id": "140125590706-t2o0f7pab40l6u78pb1dks92n0ekjm4h.apps.googleusercontent.com",
+          "client_id": "789966682958-4j0br0c21it7ruhe2o9ph6mjpj7kim45.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vn.vistark.nkktts",
+            "certificate_hash": "16cc2f5047d68cc67f000ead732811123078eccd"
+          }
+        },
+        {
+          "client_id": "789966682958-j14icfk3f5afe75robfkbuj1mnjni6kf.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBZ64p926TvH8TXGeeUxPPuBE5Pa7bOHhQ"
+          "current_key": "AIzaSyAK-pvGIhYWAEh0Zgqxy80f61tnLitindY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "140125590706-t2o0f7pab40l6u78pb1dks92n0ekjm4h.apps.googleusercontent.com",
+              "client_id": "789966682958-j14icfk3f5afe75robfkbuj1mnjni6kf.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

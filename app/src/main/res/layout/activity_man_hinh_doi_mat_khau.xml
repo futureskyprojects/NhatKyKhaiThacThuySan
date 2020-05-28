@@ -28,35 +28,6 @@
                     android:layout_marginTop="@dimen/default_margin"
                     android:layout_marginRight="@dimen/default_margin"
                     android:layout_marginBottom="5dp"
-                    android:text="@string/ma_tai_khoan"
-                    android:textColor="@color/sub_color"
-                    android:textSize="16sp" />
-
-                <EditText
-                    android:id="@+id/mhdmkEdtMaTaiKhoan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/default_margin"
-                    android:layout_marginRight="@dimen/default_margin"
-                    android:background="@drawable/default_edt_bg"
-                    android:drawableStart="@drawable/ic_boat"
-                    android:drawableLeft="@drawable/ic_boat"
-                    android:drawablePadding="10dp"
-                    android:ems="10"
-                    android:hint="@string/ma_tai_khoan"
-                    android:inputType="textPersonName|textAutoComplete|textAutoCorrect"
-                    android:lines="1"
-                    android:padding="15dp"
-                    android:textSize="@dimen/default_font_size" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="35dp"
-                    android:layout_marginTop="@dimen/default_margin"
-                    android:layout_marginRight="@dimen/default_margin"
-                    android:layout_marginBottom="5dp"
                     android:text="@string/so_dang_ky_tau"
                     android:textColor="@color/sub_color"
                     android:textSize="16sp" />
@@ -69,11 +40,40 @@
                     android:layout_marginLeft="@dimen/default_margin"
                     android:layout_marginRight="@dimen/default_margin"
                     android:background="@drawable/default_edt_bg"
+                    android:drawableStart="@drawable/ic_boat"
+                    android:drawableLeft="@drawable/ic_boat"
+                    android:drawablePadding="10dp"
+                    android:ems="10"
+                    android:hint="@string/so_dang_ky_tau"
+                    android:inputType="textPersonName|textAutoComplete|textAutoCorrect"
+                    android:lines="1"
+                    android:padding="15dp"
+                    android:textSize="@dimen/default_font_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:layout_marginRight="@dimen/default_margin"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/so_giay_phep_khai_thac"
+                    android:textColor="@color/sub_color"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/mhdmkEdtSoGiayPhepKhaiThac"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/default_margin"
+                    android:layout_marginRight="@dimen/default_margin"
+                    android:background="@drawable/default_edt_bg"
                     android:drawableStart="@drawable/ic_license_plate"
                     android:drawableLeft="@drawable/ic_license_plate"
                     android:drawablePadding="10dp"
                     android:ems="10"
-                    android:hint="@string/so_dang_ky_tau"
+                    android:hint="@string/so_giay_phep_khai_thac"
                     android:inputType="textPersonName|textAutoComplete|textAutoCorrect"
                     android:lines="1"
                     android:padding="15dp"

@@ -4,15 +4,20 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'com.google.gms.google-services'
+
+// Apply the Crashlytics Gradle plugin
+apply plugin: 'com.google.firebase.crashlytics'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "vn.vistark.nkktts"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 29
-        versionCode 2005107
-        versionName "20.05.10.7"
+        versionCode 2005108
+        versionName "20.05.10.8"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -47,6 +52,11 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
 
     implementation 'com.github.f0ris.sweetalert:library:1.5.1'
+
+    implementation 'com.google.firebase:firebase-analytics:17.2.2'
+
+    // Add the Firebase Crashlytics SDK.
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
 
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'

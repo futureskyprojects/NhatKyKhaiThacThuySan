@@ -4,9 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_"
     android:fitsSystemWindows="true"
     tools:context=".ui.dang_nhap.ManHinhDangNhap">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/nkktts_bg" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -27,15 +32,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:layout_marginLeft="35dp"
+                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginLeft="@dimen/default_margin"
                 android:layout_marginTop="@dimen/default_margin"
                 android:layout_marginEnd="@dimen/default_margin"
                 android:layout_marginRight="@dimen/default_margin"
                 android:layout_marginBottom="5dp"
+                android:background="@drawable/btn_text_link"
                 android:text="@string/ma_tai_khoan"
-                android:textColor="#FFF"
-                android:textSize="16sp" />
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/mhdnEdtUsername"
@@ -57,15 +64,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:layout_marginLeft="35dp"
+                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginLeft="@dimen/default_margin"
                 android:layout_marginTop="@dimen/default_margin"
                 android:layout_marginEnd="@dimen/default_margin"
                 android:layout_marginRight="@dimen/default_margin"
                 android:layout_marginBottom="5dp"
+                android:background="@drawable/btn_text_link"
                 android:text="@string/mat_khau"
-                android:textColor="#FFF"
-                android:textSize="16sp" />
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/mhdnEdtPassword"
@@ -89,10 +98,9 @@
                 android:id="@+id/mhdnTvForgetPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
+                android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
+                 android:background="@drawable/btn_text_link"
                 android:clickable="true"
                 android:focusable="true"
                 android:paddingLeft="10dp"
@@ -100,8 +108,9 @@
                 android:paddingRight="10dp"
                 android:paddingBottom="3dp"
                 android:text="@string/quen_mat_khau"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp" />
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/mhdnLoginBtn"

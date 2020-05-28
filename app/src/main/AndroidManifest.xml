@@ -37,7 +37,7 @@
             android:label="@string/lich_su_chuyen_di" />
         <activity
             android:name=".ui.dang_nhap.ManHinhDangNhap"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/WhiteScreen" />
         <activity
             android:name=".ui.thiet_lap.ManHinhThietLap"
             android:label="@string/thiet_lap" />
