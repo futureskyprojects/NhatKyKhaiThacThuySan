@@ -211,6 +211,7 @@ class ManHinhDanhSachLoai : AppCompatActivity() {
         }
 
         // Load dữ liệu cũ nếu có
+        islmdEdtSanLuong.setText("")
         spiceImages = emptyArray()
         if (Hauls.currentHault.spices.isNotEmpty()) {
             for (spice in Hauls.currentHault.spices) {

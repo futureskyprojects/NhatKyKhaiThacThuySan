@@ -131,4 +131,22 @@
     <string name="kich_thuoc_ngu_cu">Size of fishing gears</string>
     <string name="danh_sach_nghe">List of fishing gears</string>
     <string name="thong_tin_ho_so">Profile information</string>
+    <string name="tiep_tuc">Continue</string>
+    <string name="chuyen_di_nay_se_duoc_dong_bo_ngam">" This trip will be synchronized underground"</string>
+    <string name="da_dong_bo_tat_ca">Already synchronized</string>
+    <string name="con_d_chuyen">%1$d trips left need to sync</string>
+    <string name="doi_ngon_ngu">Change the language</string>
+    <string name="da_xoa">Deleted</string>
+    <string name="gom_x_loai_va_y_kg">Contains %1$d species with %2$s kg</string>
+    <string name="chua_dong_bo">Not synchronized</string>
+    <string name="xoa_chuyen_trung">Delete duplicate trips</string>
+    <string name="da_dong_bo_len_server">Already synced to server</string>
+    <string name="moi_thay_doi_se_duoc_cap_nhat_khi_khoi_dong_lai_ung_dung">All changes will be updated after the application is restarted</string>
+    <string name="bo_qua_tat_ca_du_lieu_hien_tai">Ignore all current data?</string>
+    <string name="van_giu">Still keep</string>
+    <string name="xac_nhan_thay_the_vi_tri">Would you like to take the current location to replace that collection position for this batch?</string>
+    <string name="xac_nhan_thay_the_thoi_gian_thu">Would you like to replace the previous recording time with the recording time now?</string>
+    <string name="xac_nhan_thay_doi_san_luong">Change the production of this species?</string>
+    <string name="cap_nhat_thong_tin_ket_thuc">Update the ending information</string>
+    <string name="nhap_tu_khoa">Enter sea port name ...</string>
 </resources>

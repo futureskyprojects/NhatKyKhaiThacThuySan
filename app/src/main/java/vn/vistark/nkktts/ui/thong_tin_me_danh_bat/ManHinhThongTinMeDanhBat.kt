@@ -64,7 +64,8 @@ class ManHinhThongTinMeDanhBat : AppCompatActivity() {
                     contentText = getString(R.string.cap_nhat)
                     setConfirmButton(getString(R.string.dong_y)) {
                         it.dismissWithAnimation()
-                        mhttmdbTvThoiGianThu.text = DateTimeUtils.getStringCurrentYMDHMS()
+                        this@ManHinhThongTinMeDanhBat.mhttmdbTvThoiGianThu.text =
+                            DateTimeUtils.getStringCurrentYMDHMS()
                     }
                     setCancelButton(getString(R.string.van_giu)) {
                         it.dismissWithAnimation()
