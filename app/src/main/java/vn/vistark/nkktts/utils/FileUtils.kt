@@ -15,9 +15,15 @@ import java.io.FileOutputStream
 class FileUtils {
     companion object {
         fun getCapturedImage(context: Context, selectedPhotoUri: Uri): Bitmap {
-            val source =
-                ImageDecoder.createSource(context.contentResolver, selectedPhotoUri)
-            return ImageDecoder.decodeBitmap(source)
+            return if (Build.VERSION.SDK_INT >= 29) {
+                // To handle deprication use
+                val source =
+                    ImageDecoder.createSource(context.contentResolver, selectedPhotoUri)
+                ImageDecoder.decodeBitmap(source)
+            } else {
+                // Use older version
+                MediaStore.Images.Media.getBitmap(context.contentResolver, selectedPhotoUri)
+            }
         }
 
         fun SaveSpiceImages(context: AppCompatActivity, imgName: String, bm: Bitmap): String {
