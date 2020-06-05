@@ -16,8 +16,8 @@ android {
         applicationId "vn.vistark.nkktts"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 2005291
-        versionName "20.05.29.1"
+        versionCode 2006051
+        versionName "20.06.05.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
